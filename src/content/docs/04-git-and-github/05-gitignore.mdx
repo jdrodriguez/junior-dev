@@ -1,0 +1,127 @@
+---
+title: The .gitignore File
+description: Keep secrets, junk, and giant folders out of your repository.
+sidebar:
+  order: 5
+---
+
+import DadTip from '../../../components/DadTip.astro';
+import Analogy from '../../../components/Analogy.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Not everything in your project folder should be tracked by Git. Some files are huge and easily recreated (like `node_modules/`). Some files contain passwords and API keys that would be catastrophic to share publicly. The `.gitignore` file is a simple text file that tells Git: "Pretend these files do not exist."
+
+Every single project you create should have a `.gitignore` file, and it should be one of the very first things you set up -- ideally before your first commit.
+
+<Analogy title="The Bouncer's Guest List">
+Think of `.gitignore` like the bouncer at the door of your Git repository. You give the bouncer a list of names (file patterns) and say "do not let these in." When you run `git add .`, Git checks the list and skips anything that matches. The files still exist on your computer -- they just do not get tracked or uploaded.
+</Analogy>
+
+## What Should You Ignore?
+
+Here is the standard `.gitignore` for the kind of projects we build in this book (Next.js, Node.js, Supabase):
+
+```gitignore
+# Dependencies - huge folder, easily reinstalled with npm install
+node_modules/
+
+# Environment variables - CONTAINS YOUR SECRETS
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build output - generated files, not source code
+.next/
+dist/
+out/
+build/
+
+# System files - OS junk that nobody needs
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/settings.json
+*.swp
+*.swo
+
+# Debug logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Turbo cache
+.turbo
+
+# Vercel
+.vercel
+```
+
+## The .env Rule
+
+:::danger[NEVER Commit .env Files]
+Your `.env` files contain API keys, database passwords, and other secrets. If you push them to GitHub -- even to a private repository -- consider those secrets **compromised**. Bots scan GitHub constantly looking for accidentally committed credentials.
+
+If you accidentally commit a secret:
+1. **Immediately** rotate (change) the key or password
+2. Remove the file from Git tracking: `git rm --cached .env`
+3. Make sure `.env` is in your `.gitignore`
+4. Commit and push the fix
+
+The old secret is still in your Git history, which is why you must rotate it. Deleting the file from the current commit does not erase it from past commits.
+:::
+
+This is not hypothetical. Real companies have had major security breaches because someone committed an AWS key to a public repo. It takes automated bots less than a minute to find and exploit leaked credentials.
+
+<DadTip>
+Before your very first commit on any project, check two things: (1) Is there a `.gitignore` file? (2) Does it include `.env`? Make this a reflex. I actually set up the `.gitignore` before I write a single line of code. It is that important.
+</DadTip>
+
+## Why Ignore `node_modules/`?
+
+Your `node_modules/` folder can contain hundreds of thousands of files and be hundreds of megabytes. It is entirely recreated when someone runs `npm install`, so there is zero reason to track it in Git. Committing it would make your repository massive, slow to clone, and impossible to review.
+
+## Creating a .gitignore
+
+The simplest way: create the file yourself in your project root.
+
+```bash
+# In your project root
+touch .gitignore
+```
+
+Then paste the template from above. Or even better -- let AI do it:
+
+<PromptExample
+  prompt="Create a .gitignore file for a Next.js project with Supabase and Tailwind CSS"
+  context="When starting a new project before your first commit"
+  result="Claude will generate a comprehensive .gitignore covering node_modules, .env files, build output, OS files, and framework-specific directories"
+/>
+
+:::tip
+GitHub offers a collection of `.gitignore` templates at [github.com/github/gitignore](https://github.com/github/gitignore). The `Node.gitignore` template is a solid starting point for our projects.
+:::
+
+## What If You Already Committed Something You Shouldn't Have?
+
+If you already committed a file and then add it to `.gitignore`, Git will keep tracking it. The `.gitignore` only prevents *new* files from being tracked. To stop tracking a file that is already committed:
+
+```bash
+# Stop tracking the file but keep it on your computer
+git rm --cached .env
+
+# Now commit the removal
+git commit -m "Remove: Stop tracking .env file"
+```
+
+The `--cached` flag is important -- it removes the file from Git without deleting it from your computer.
+
+<ProgressChecklist id="gitignore" items={[
+  "I understand why .gitignore exists",
+  "I know to never commit .env files",
+  "I can create a .gitignore for a Node.js project",
+  "I know how to stop tracking a file that was already committed"
+]} />

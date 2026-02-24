@@ -1,0 +1,53 @@
+---
+title: "Databases & Supabase"
+description: Supabase is your backend-in-a-box. A database, authentication, and storage -- all in one place.
+sidebar:
+  order: 0
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+
+Every app you have built so far loses its data the moment you refresh the page. That is about to change. In this chapter, you are going to learn how to store data permanently in a real database -- and Supabase is going to make it surprisingly easy.
+
+Supabase is your backend-in-a-box. It gives you a PostgreSQL database, user authentication, file storage, and real-time subscriptions. Instead of spending weeks setting up servers and databases from scratch, you get all of it with a few clicks and a free account.
+
+<Analogy title="Supabase Is a Furnished Apartment">
+Building a backend from scratch is like building a house. You need to pour the foundation, frame the walls, run the plumbing, wire the electricity -- all before you can even move in. Supabase is like renting a furnished apartment. The structure is there, the utilities work, and you can start living in it on day one. You still need to arrange the furniture (your data tables) the way you want, but the hard stuff is handled.
+</Analogy>
+
+## What You Will Learn
+
+<CardGrid>
+  <Card title="Database Fundamentals" icon="information">
+    What tables, rows, and columns are -- and the SQL basics you need to talk to a database.
+  </Card>
+  <Card title="Supabase Setup" icon="rocket">
+    Create a project, get your API keys, and connect it to your Next.js app.
+  </Card>
+  <Card title="Migrations" icon="list-format">
+    The professional way to track changes to your database structure over time.
+  </Card>
+  <Card title="Using Supabase in Code" icon="seti:typescript">
+    Fetch, create, update, and delete data from your app using the Supabase client.
+  </Card>
+  <Card title="Row Level Security" icon="warning">
+    Protect your data so users can only see and change what belongs to them.
+  </Card>
+</CardGrid>
+
+<DadTip>
+Databases are one of the most important skills in all of software development. Almost every app you will ever build -- whether it is a to-do list, a social media platform, or a billion-dollar business -- has a database at its core. The concepts you learn in this chapter will follow you for your entire career. Take your time with this one.
+</DadTip>
+
+## Resources to Bookmark
+
+<CardGrid>
+  <LinkCard title="Supabase Docs" href="https://supabase.com/docs" description="The official documentation. Excellent tutorials and guides." />
+  <LinkCard title="Supabase YouTube" href="https://www.youtube.com/@Supabase" description="Short, clear videos on every Supabase feature." />
+  <LinkCard title="PostgreSQL Tutorial" href="https://www.postgresqltutorial.com/" description="A solid reference when you want to go deeper on SQL." />
+  <LinkCard title="SQL Murder Mystery" href="https://mystery.knightlab.com/" description="Learn SQL by solving a murder mystery. Seriously fun." />
+</CardGrid>
+
+Let's get into it.

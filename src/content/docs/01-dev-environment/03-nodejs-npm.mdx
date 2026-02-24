@@ -1,0 +1,108 @@
+---
+title: "Node.js and npm"
+description: "Install the JavaScript runtime and package manager that power modern web development."
+sidebar:
+  order: 3
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+JavaScript was originally built to run only inside web browsers. That was great for making websites interactive, but it meant you couldn't use JavaScript to build servers, command-line tools, or anything outside the browser.
+
+**Node.js** changed that. It's a runtime that lets JavaScript run anywhere -- on your computer, on a server, anywhere. When you install Node.js, you're essentially teaching your computer to speak JavaScript.
+
+And bundled with Node.js comes **npm** (Node Package Manager), which is how you install other people's code into your projects.
+
+<Analogy title="The App Store for Code">
+You know how your phone has an app store where you can download apps that other people built? npm is exactly that, but for code. Need to send emails? There's a package for that. Need to resize images? Package for that. Need a full web framework? Package for that too. Instead of building everything from scratch, you install packages -- pre-built solutions that thousands of other developers have already tested and refined. There are over two million packages on npm. Whatever you need, someone has probably already built it.
+</Analogy>
+
+<VideoEmbed id="TlB_eWDSMt4" title="Node.js Tutorial for Beginners" creator="Programming with Mosh" duration="1 hr" description="A thorough beginner's guide to Node.js. You don't need to watch the entire thing right now -- even the first 15-20 minutes will give you a solid understanding of what Node.js is and why it matters." />
+
+## Installing Node.js (and npm)
+
+npm comes automatically with Node.js, so you only need one installation.
+
+<Steps>
+
+1. **Go to [nodejs.org](https://nodejs.org)** and you'll see two download buttons. Choose the **LTS** (Long Term Support) version. LTS means it's the stable, battle-tested version that most developers and companies use. The "Current" version has newer features but might have bugs that haven't been found yet.
+
+2. **Run the installer** with all the default options. On Windows, if it asks about installing additional tools (like Chocolatey), you can check that box -- it can be helpful later.
+
+3. **Verify the installation.** Open your terminal (remember, `` Cmd+` `` in VS Code) and run these two commands:
+
+</Steps>
+
+<Tabs>
+  <TabItem label="Mac / Linux">
+    ```bash
+    node --version
+    npm --version
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    ```powershell
+    node --version
+    npm --version
+    ```
+  </TabItem>
+</Tabs>
+
+Both commands should print a version number (something like `v22.x.x` for Node and `10.x.x` for npm). If they do, you're all set. If you get "command not found," try closing and reopening your terminal -- sometimes it needs a fresh start to recognize newly installed programs.
+
+## Understanding package.json
+
+Every JavaScript project has a file called `package.json` at its root. This is one of the most important files in any project, and you'll see it constantly.
+
+<Analogy title="The Recipe Card">
+Think of `package.json` as a recipe card for your project. It lists all the ingredients (dependencies) your project needs, the instructions for cooking (scripts), and information about the dish itself (name, version, description). If you give someone your recipe card, they can recreate your dish exactly -- by running `npm install`, which reads the recipe and downloads all the ingredients automatically.
+</Analogy>
+
+Here's what the key parts of a `package.json` file do:
+
+- **name and version:** What your project is called and what version it's on.
+- **scripts:** Custom commands you can run. For example, `npm run dev` might start your development server, and `npm run build` might create a production version of your app.
+- **dependencies:** Packages your app needs to run (like React, Next.js, etc.).
+- **devDependencies:** Packages you only need during development (like TypeScript, testing tools, linters). These don't get shipped to your users.
+
+## The npm Commands You'll Actually Use
+
+You don't need to memorize npm's entire command list. Here are the five commands that cover 95% of what you'll do:
+
+| Command | What It Does |
+|---------|-------------|
+| `npm install` | Reads `package.json` and downloads all the project's dependencies. Run this when you first clone a project. |
+| `npm install package-name` | Adds a new package to your project and saves it in `package.json`. |
+| `npm install -D package-name` | Same as above, but saves it as a *dev* dependency (only needed during development). |
+| `npm run dev` | Runs the "dev" script from `package.json`. This almost always starts a local development server. |
+| `npx command` | Runs a package without permanently installing it. Useful for one-time setup tools. |
+
+:::tip
+When you clone a project from GitHub or start following a tutorial, the very first thing you should do is run `npm install` in the project folder. This downloads everything the project needs to work. Without this step, nothing will run.
+:::
+
+## The node_modules Folder
+
+When you run `npm install`, it creates a folder called `node_modules` that contains all the downloaded packages. This folder can be enormous -- sometimes hundreds of megabytes. That's normal.
+
+Two important things to know about `node_modules`:
+
+1. **Never edit anything inside it.** These are other people's code. If you change something, it'll get overwritten next time you run `npm install`.
+2. **Never commit it to Git.** We'll cover Git soon, but the short version is: `node_modules` is generated from `package.json`, so you don't need to track it. Every project should have a `.gitignore` file that excludes it.
+
+<DadTip>
+Here's a common beginner mistake: you clone a project, try to run it, and get a bunch of errors. Nine times out of ten, you forgot to run `npm install` first. If something isn't working and you haven't installed the dependencies yet, that's always the first thing to try.
+</DadTip>
+
+## Let Claude Code Help You
+
+<PromptExample prompt="I cloned a project from GitHub and when I run npm run dev, I get an error that says 'module not found.' What should I do?" context="When a project won't start after cloning" result="Claude Code will check if you've run npm install, look at the error message to identify which module is missing, and walk you through fixing it." />
+
+<PromptExample prompt="Explain what each section of my package.json file does. I'm looking at it for the first time." context="When you open a new project and want to understand its structure" result="Claude Code will read your package.json and explain every section -- the scripts, dependencies, and configuration -- in plain language." />
+
+<ProgressChecklist id="nodejs-npm-checklist" items={["Downloaded and installed Node.js LTS from nodejs.org", "Verified installation with node --version and npm --version", "Understand what npm is (a package manager -- an app store for code)", "Understand what package.json is (a recipe card for your project)", "Know the key npm commands: install, install package-name, run dev, npx", "Understand that node_modules should never be edited or committed to Git"]} />

@@ -1,0 +1,169 @@
+---
+title: GitHub Setup
+description: Create your GitHub account, set up SSH keys, and push your first repository.
+sidebar:
+  order: 3
+---
+
+import { Steps, Tabs, TabItem } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import DadTip from '../../../components/DadTip.astro';
+import Analogy from '../../../components/Analogy.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+GitHub is where your code lives online. Think of it as the cloud storage for your projects, but way more powerful -- it tracks every change, lets people collaborate, and shows the world what you have built. Your GitHub profile will become your developer portfolio, so let's set it up right.
+
+<VideoEmbed id="RGOj5yH7evk" title="Git and GitHub Crash Course" creator="freeCodeCamp" duration="1 hr" />
+
+## Step 1: Create Your Account
+
+<Steps>
+
+1. Go to [github.com](https://github.com) and click **Sign Up**.
+
+2. Pick a username you will not be embarrassed by in five years. This will be part of your public profile URL (`github.com/your-username`). Keep it professional-ish. Your real name or a clean handle works great.
+
+3. Use a real email address you check. GitHub will send you verification and notification emails.
+
+4. Complete the setup wizard and verify your email.
+
+</Steps>
+
+## Step 2: Configure Git on Your Computer
+
+Before you push any code, tell Git who you are. This information gets attached to every commit you make.
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+Use the same email you signed up with on GitHub so your commits get linked to your profile.
+
+## Step 3: Set Up SSH Authentication
+
+<Analogy title="SSH Keys Are Like a VIP Pass">
+Right now, every time you want to push code to GitHub, you would need to type your username and password. SSH keys fix that. Think of them like a VIP wristband at a concert -- once you set it up, the bouncer (GitHub) recognizes you automatically and lets you through without checking your ID every time.
+</Analogy>
+
+SSH uses a pair of keys: a **private key** (stays on your computer, never share it) and a **public key** (you give to GitHub). When you push code, your computer proves it has the private key that matches the public key GitHub has on file.
+
+<Tabs>
+  <TabItem label="Mac / Linux">
+    ```bash
+    # Generate your SSH key
+    ssh-keygen -t ed25519 -C "your.email@example.com"
+    ```
+
+    Press **Enter** to accept the default file location. Then set a passphrase (or press Enter to skip -- a passphrase adds extra security).
+
+    ```bash
+    # Start the SSH agent
+    eval "$(ssh-agent -s)"
+
+    # Add your key to the agent
+    ssh-add ~/.ssh/id_ed25519
+
+    # Copy the public key to your clipboard
+    pbcopy < ~/.ssh/id_ed25519.pub
+    ```
+
+    If `pbcopy` does not work (Linux), use:
+    ```bash
+    cat ~/.ssh/id_ed25519.pub
+    ```
+    Then manually select and copy the output.
+  </TabItem>
+  <TabItem label="Windows">
+    Open **Git Bash** (installed with Git for Windows) and run:
+
+    ```bash
+    # Generate your SSH key
+    ssh-keygen -t ed25519 -C "your.email@example.com"
+    ```
+
+    Press **Enter** to accept the default file location. Set a passphrase or press Enter to skip.
+
+    ```bash
+    # Start the SSH agent
+    eval "$(ssh-agent -s)"
+
+    # Add your key to the agent
+    ssh-add ~/.ssh/id_ed25519
+
+    # Copy the public key to your clipboard
+    clip < ~/.ssh/id_ed25519.pub
+    ```
+
+    If `clip` does not work, use:
+    ```bash
+    cat ~/.ssh/id_ed25519.pub
+    ```
+    Then manually select and copy the output.
+  </TabItem>
+</Tabs>
+
+Now add the key to GitHub:
+
+<Steps>
+
+1. Go to [github.com/settings/keys](https://github.com/settings/keys).
+
+2. Click **New SSH key**.
+
+3. Give it a title like "My Laptop" so you remember which computer it is for.
+
+4. Paste your public key into the **Key** field.
+
+5. Click **Add SSH key**.
+
+6. Test the connection:
+   ```bash
+   ssh -T git@github.com
+   ```
+   You should see: "Hi your-username! You've successfully authenticated."
+
+</Steps>
+
+## Step 4: Create Your First Repository
+
+<Steps>
+
+1. On GitHub, click the **+** in the top-right corner and select **New repository**.
+
+2. Name it something simple like `my-first-project`.
+
+3. Add a description: "My first GitHub repository."
+
+4. Choose **Public** (so the world can see your work -- this is good for your portfolio).
+
+5. Check **Add a README file**.
+
+6. Click **Create repository**.
+
+7. Clone it to your computer:
+   ```bash
+   git clone git@github.com:your-username/my-first-project.git
+   cd my-first-project
+   ```
+
+8. Open it in your editor and start building.
+
+</Steps>
+
+<DadTip>
+I know the SSH setup feels like a lot of steps for something that should be simple. Trust me, you only do this once per computer. After that, pushing and pulling code is completely seamless. If you get stuck, ask Claude Code to help -- it is great at walking through setup issues. Every developer has struggled with SSH keys at some point. You are not alone.
+</DadTip>
+
+:::tip
+Bookmark your GitHub profile page (`github.com/your-username`). As you build more projects throughout this book, your profile will fill up with green contribution squares. Future employers and collaborators will look at this.
+:::
+
+<ProgressChecklist id="github-setup" items={[
+  "I created a GitHub account",
+  "I configured git with my name and email",
+  "I generated an SSH key pair",
+  "I added my public key to GitHub",
+  "I tested the SSH connection successfully",
+  "I created and cloned my first repository"
+]} />

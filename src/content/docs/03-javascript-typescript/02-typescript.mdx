@@ -1,0 +1,107 @@
+---
+title: "TypeScript: Adding Superpowers"
+description: TypeScript adds type safety to JavaScript -- like spell-check for your code. Here is why it matters and how to think about it.
+sidebar:
+  order: 2
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+JavaScript is flexible. *Too* flexible sometimes. It will let you add a number to a string, pass the wrong kind of data to a function, or access a property that does not exist -- and it will not warn you until your app crashes in front of a user.
+
+TypeScript fixes this. It is JavaScript with one crucial addition: **types**.
+
+## The Spell-Check Analogy
+
+<Analogy title="TypeScript Is Spell-Check for Code">
+You know how your phone underlines misspelled words in red before you send a text? You can still send the text with typos, but the red underline *warns* you first so you can fix it.
+
+TypeScript does the same thing for your code. It reads what you wrote, checks it against the rules you defined, and underlines problems *before* you run anything. Instead of finding out your app is broken when a user clicks a button, you find out while you are still writing.
+
+Plain JavaScript is like texting with autocorrect turned off. TypeScript is like having a smart editor that catches your mistakes in real time.
+</Analogy>
+
+## What Are Types?
+
+A type tells the computer what kind of value something is and what you can do with it. You already know the basic types from JavaScript -- strings, numbers, booleans. TypeScript just makes you (or lets you) be explicit about them.
+
+Why does this matter? Because it catches entire categories of bugs:
+
+- You accidentally pass a number where a string was expected? TypeScript catches it.
+- You try to access `.name` on something that might be `null`? TypeScript warns you.
+- You misspell a property name on an object? TypeScript tells you immediately.
+
+These are not hypothetical problems. They are the kinds of bugs that eat hours of debugging time in plain JavaScript. TypeScript eliminates them before you even run your code.
+
+## Interfaces: Blueprints for Objects
+
+<Analogy title="Interfaces Are Blueprints">
+Remember how we talked about objects being like contact cards? An **interface** is the blank template for that card. It says: "Every contact card must have a name (string), an email (string), and optionally a phone number (string)."
+
+Once you define that template, TypeScript enforces it. If you try to create a contact card without an email, TypeScript says "hold on -- the blueprint says email is required." If you try to add a field that is not in the blueprint, TypeScript flags it.
+
+Interfaces are blueprints. They define the *shape* of your data so your entire application agrees on what a User, Task, or Product looks like.
+</Analogy>
+
+When you are working with APIs, interfaces are especially powerful. You define an interface for your API response, and then TypeScript guarantees that every part of your app that handles that response is working with the right shape of data.
+
+## Type Inference: TypeScript Is Smart
+
+Here is the good news: you do not have to type out types for *everything*. TypeScript is remarkably smart about figuring things out on its own. When you write `const name = "Jordan"`, TypeScript already knows that `name` is a string. You did not have to tell it.
+
+This is called **type inference**, and it means you only need to add explicit types in certain places:
+
+- **Function parameters** -- TypeScript cannot guess what you intend to pass in, so you tell it.
+- **Function return values** -- Especially for complex functions, being explicit helps.
+- **Interfaces** -- When you define the shape of your data structures.
+
+For everything else, let TypeScript figure it out. It is usually right.
+
+<DadTip>
+When you are starting out, do not obsess over getting types perfect. Seriously. Start by letting TypeScript infer whatever it can. Add explicit types when TypeScript complains or when you are defining function parameters. Claude Code is excellent at helping you write correct types -- just ask it. The goal is to let TypeScript help you, not to fight it.
+</DadTip>
+
+## Why Our Entire Stack Uses TypeScript
+
+Our stack -- React, Next.js, Hono, Supabase -- all supports TypeScript. That means you get type safety from the frontend to the backend to the database. If you change the shape of your data in one place, TypeScript warns you about every other place that needs to be updated. It is like having a safety net across your entire application.
+
+This is especially powerful when vibe coding. When Claude Code generates code, TypeScript immediately tells you if anything does not fit. It is a second set of eyes that never gets tired.
+
+## Watch These
+
+<VideoEmbed id="zQnBQ4tB3ZA" title="TypeScript in 100 Seconds" creator="Fireship" duration="2 min" />
+
+<VideoEmbed id="d56mG7DezGs" title="TypeScript Tutorial for Beginners" creator="Programming with Mosh" duration="60 min" />
+
+:::tip[When to Watch the Long One]
+The Fireship video gives you the concept in two minutes. The Mosh tutorial is a full hour and walks you through writing actual TypeScript. Watch the short one now. Bookmark the long one for when you are ready to practice hands-on.
+:::
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Add TypeScript interfaces for my User and Task models. A User has an id, name, email, and optional avatar URL. A Task has an id, title, completed status, and belongs to a user."
+  context="You are setting up the data types for a new project."
+  result="Claude Code generates clean TypeScript interfaces that you can use across your frontend and backend."
+/>
+
+<PromptExample
+  prompt="I am getting a TypeScript error that says 'Property does not exist on type.' What does this mean and how do I fix it?"
+  context="You hit a type error and want Claude Code to explain and resolve it."
+  result="Claude Code explains that you are trying to access a property not defined in the type, and shows you how to update the interface or fix the access."
+/>
+
+<ProgressChecklist
+  id="ch3-typescript"
+  items={[
+    "I can explain what TypeScript adds to JavaScript (types / spell-check)",
+    "I understand that interfaces are blueprints for object shapes",
+    "I know that TypeScript can infer most types automatically",
+    "I am comfortable asking Claude Code to help me write and fix types",
+    "I watched at least the TypeScript in 100 Seconds video"
+  ]}
+/>

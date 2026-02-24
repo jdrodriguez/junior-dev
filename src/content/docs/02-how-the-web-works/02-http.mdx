@@ -1,0 +1,96 @@
+---
+title: "HTTP: The Language of the Web"
+description: HTTP is how browsers and servers communicate. Learn the methods, status codes, and why they matter.
+sidebar:
+  order: 2
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+import ConceptCard from '../../../components/ConceptCard.astro';
+import ConceptCardGrid from '../../../components/ConceptCardGrid.astro';
+
+Remember the waiter from our restaurant analogy? HTTP (HyperText Transfer Protocol) is that waiter. It is the agreed-upon language that browsers and servers use to communicate. Every request your browser sends and every response the server returns follows HTTP rules.
+
+You do not need to memorize the entire HTTP specification. You need to understand two things: **methods** and **status codes**.
+
+## HTTP Methods: What Do You Want to Do?
+
+Every HTTP request includes a *method* -- a verb that tells the server what kind of action you are requesting.
+
+<Analogy title="HTTP Methods Are Library Actions">
+Think of your server as a library, and HTTP methods are the different things you can do there:
+
+- **GET** -- "I want to *borrow* a book." You are asking for information. Nothing changes on the shelf.
+- **POST** -- "I want to *donate* a new book." You are giving the library something it did not have before.
+- **PUT** -- "I want to *replace* this old edition with a new one." You are updating something that already exists by swapping it entirely.
+- **DELETE** -- "I want to *remove* this book from the catalog." You are asking for something to be taken away.
+
+Most of what you do on the web boils down to these four actions. Loading a page? That is a GET. Submitting a sign-up form? That is a POST. Editing your profile? That is a PUT. Removing a to-do item? That is a DELETE.
+</Analogy>
+
+<DiagramBlock src="/images/diagrams/http-request-response.svg" alt="Diagram showing an HTTP request with method, URL, and headers going to a server, and a response with status code and body coming back" caption="Every HTTP exchange has a request (with a method) and a response (with a status code)." />
+
+## Status Codes: What Happened?
+
+After the server processes your request, it sends back a status code -- a number that tells you how things went. Think of them as report cards.
+
+<Analogy title="Status Codes Are Report Cards">
+Every time you ask the server for something, it hands you back a grade:
+
+- **200 -- "A+ Great job."** Everything worked perfectly. Here is what you asked for.
+- **201 -- "A, Created."** You asked me to make something new, and I did. Success.
+- **400 -- "D, Bad Request."** I could not understand what you were asking. Check your work.
+- **401 -- "Unauthorized."** You did not show your hall pass. Log in first.
+- **403 -- "Forbidden."** I know who you are, but you do not have permission for this.
+- **404 -- "Not Found."** I looked everywhere. That thing does not exist.
+- **500 -- "School burned down."** Something went very wrong on my end. Not your fault.
+</Analogy>
+
+Here is a quick rule of thumb:
+
+- **2xx** codes mean **success**. The server did what you asked.
+- **4xx** codes mean **you made a mistake**. Bad URL, missing login, wrong data.
+- **5xx** codes mean **the server made a mistake**. Something broke on their end.
+
+<DadTip>
+When you are debugging and see a 404, it almost always means the URL is wrong -- a typo in the path or a route that does not exist yet. A 500 means something crashed on the server side and you need to check the server logs. These numbers become second nature very quickly.
+</DadTip>
+
+## Why This Matters for You
+
+When you build an API with Hono later in this book, you will be deciding which methods your endpoints accept and which status codes they return. When your React frontend calls those endpoints, it will check the status code to know what to display: the data, an error message, or a "please log in" screen.
+
+You do not need to build HTTP from scratch. Frameworks handle the wiring. But understanding the vocabulary means you can read error messages, debug problems, and tell Claude Code exactly what you need.
+
+## Watch This
+
+<VideoEmbed id="-mN3VyJuCjM" title="What is a REST API?" creator="ByteByteGo" duration="5 min" />
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Create a Hono API route that handles GET requests to /api/tasks and returns a list of tasks with a 200 status code."
+  context="You are building your first API endpoint and want to use the right HTTP method and status code."
+  result="Claude Code creates a route that responds to GET requests and returns JSON with the correct status."
+/>
+
+<PromptExample
+  prompt="My frontend is getting a 401 error when calling the API. What could be causing this?"
+  context="You are debugging and want Claude Code to help you trace the issue."
+  result="Claude Code checks your authentication setup and identifies where the request is missing credentials."
+/>
+
+<ProgressChecklist
+  id="ch2-http"
+  items={[
+    "I can name the four main HTTP methods and what each one does",
+    "I understand what 200, 404, and 500 status codes mean",
+    "I know the difference between 4xx and 5xx errors",
+    "I watched the REST API video"
+  ]}
+/>

@@ -1,0 +1,92 @@
+---
+title: "Next.js: The Full Picture"
+description: "Next.js takes React and turns it into a complete web application framework with routing, server rendering, and more."
+sidebar:
+  order: 3
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+React is great at building components, but it doesn't have opinions about how to organize your pages, handle navigation, or talk to a server. That's where **Next.js** comes in. It takes React and wraps it in a full framework that handles routing, server-side rendering, API endpoints, and a lot more.
+
+If React is the engine, Next.js is the whole car.
+
+<Analogy title="React vs. Next.js">
+React is like having a really great stove. You can cook amazing things on it. But a stove alone isn't a restaurant. You still need a dining room, a menu, a front door, and a way for customers to find you. Next.js is the whole restaurant -- it gives you the stove (React) plus everything else you need to actually serve people: pages they can navigate to, a server that sends the right content, and a structure that keeps everything organized.
+</Analogy>
+
+## File-Based Routing
+
+One of the most intuitive things about Next.js is how routing works. In a lot of frameworks, you have to write code to define your routes (URLs). In Next.js, **the file structure IS the routing**. If you create a file, you've created a page.
+
+Here's how the `app/` folder maps to URLs:
+
+```
+app/
+  page.tsx           -->  yoursite.com/
+  about/
+    page.tsx         -->  yoursite.com/about
+  blog/
+    page.tsx         -->  yoursite.com/blog
+    [slug]/
+      page.tsx       -->  yoursite.com/blog/any-post-name
+  dashboard/
+    page.tsx         -->  yoursite.com/dashboard
+    settings/
+      page.tsx       -->  yoursite.com/dashboard/settings
+```
+
+See the pattern? Every folder becomes a URL segment, and every `page.tsx` file inside that folder becomes the page for that URL. The `[slug]` part with square brackets is a **dynamic route** -- it matches any value, so `yoursite.com/blog/my-first-post` and `yoursite.com/blog/react-is-cool` both go to the same page component, which receives the slug as a parameter.
+
+No route configuration files. No routing library to install. Just folders and files. This is one of those things that feels almost too simple, but it's genuinely how it works.
+
+## Server Components vs. Client Components
+
+This is a concept that's unique to modern Next.js, and it's worth understanding even if you don't write the code yourself.
+
+By default, every component in Next.js is a **Server Component**. That means it runs on the server, not in the user's browser. The server does the work, generates the HTML, and sends the finished result to the browser. This is great for performance -- the browser gets a ready-to-display page instead of a blank screen that has to load JavaScript first.
+
+But some things *need* to happen in the browser -- like responding to button clicks, tracking what a user types into an input, or showing/hiding a dropdown. For those, you use a **Client Component** by adding `"use client"` at the top of the file.
+
+<CardGrid>
+  <Card title="Server Components (default)" icon="server">
+    Run on the server. Great for fetching data, reading from a database, and rendering content. Faster for the user because less JavaScript is sent to the browser.
+  </Card>
+  <Card title="Client Components" icon="laptop">
+    Run in the browser. Needed for interactivity: clicks, typing, hover effects, animations, and anything that uses useState or useEffect.
+  </Card>
+</CardGrid>
+
+The rule is simple: **start with Server Components (the default) and only add "use client" when you need interactivity.** Most of your pages will be Server Components that contain a few Client Components for the interactive parts.
+
+<DadTip>
+This is a rule I follow every single day at work: always default to Server Components. Only add "use client" when you actually need hooks like useState or useEffect, or when you need event handlers like onClick. If you can render it on the server, do it on the server. It's faster for your users and simpler to reason about. When you're prompting Claude Code, you can even say "make this a server component" and it'll know what you mean.
+</DadTip>
+
+## Creating a Next.js Project
+
+When you're ready to start a project, this is the prompt to give Claude Code:
+
+<PromptExample prompt="Create a new Next.js app with TypeScript and Tailwind CSS. Use the App Router. Set it up in a folder called my-app." context="When starting a brand new project from scratch" result="Claude Code runs the create-next-app command with the right flags, setting up a project with TypeScript for type safety, Tailwind for styling, and the modern App Router for file-based routing." />
+
+That one prompt sets up an entire project with the right configuration. You'll get a working app you can run with `npm run dev` and view in your browser at `http://localhost:3000`.
+
+<VideoEmbed id="Sklc_fQBmcs" title="Next.js in 100 Seconds" creator="Fireship" duration="12 min" description="A fast-paced overview of what Next.js is, how it works, and why it's so popular. Great for getting the big picture quickly." />
+
+## What You Need to Remember
+
+You don't need to memorize the Next.js API. Here's what actually matters:
+
+1. **File-based routing** -- folders and files determine your URLs. No configuration needed.
+2. **Server Components are the default** -- they run on the server and are great for performance.
+3. **Client Components are for interactivity** -- add `"use client"` only when you need it.
+4. **Next.js gives you the full package** -- routing, server rendering, API routes, and more, all in one framework.
+
+When you're building with Claude Code, these concepts help you ask the right questions and make the right decisions. "Should this be a server component or client component?" is a question you'll ask yourself often, and now you know the answer.
+
+<ProgressChecklist id="ch5-nextjs-checklist" items={["Understand how file-based routing works (folders = URL segments)", "Know the difference between Server and Client Components", "Know the rule: default to Server Components, add 'use client' only for interactivity", "Understand that Next.js wraps React with routing, server rendering, and more"]} />

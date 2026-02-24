@@ -1,0 +1,107 @@
+---
+title: Commit Messages
+description: How to write commit messages that your future self will thank you for.
+sidebar:
+  order: 4
+---
+
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import Analogy from '../../../components/Analogy.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Commit messages are the story of your project. Every time you run `git commit -m "..."`, you are writing a line in that story. Six months from now, when something is broken and you are scrolling through `git log` trying to figure out what changed and when, you will either thank past-you or curse past-you based on how good these messages are.
+
+<DadTip>
+Your commit messages are a diary for future-you. I cannot tell you how many times I have searched through old commits to find out when a bug was introduced or why I made a particular decision. A message like "Add email validation to prevent duplicate signups" saves you hours. A message like "fixed stuff" helps no one -- not even you.
+</DadTip>
+
+## Good vs. Bad: Side by Side
+
+### Good Commit Messages
+
+These tell you *what* changed and give you a hint about *why*:
+
+```bash
+git commit -m "Add user registration form with email validation"
+git commit -m "Fix: Login button not responding on mobile devices"
+git commit -m "Refactor: Extract PaymentCard into separate component"
+git commit -m "Update: Increase session timeout from 30min to 2hrs"
+git commit -m "Remove: Delete unused analytics tracking code"
+```
+
+Notice the patterns:
+- **Add** -- you built something new
+- **Fix** -- you found a bug and squashed it
+- **Refactor** -- you reorganized code without changing behavior
+- **Update** -- you improved something that already existed
+- **Remove** -- you cleaned up something unnecessary
+
+### Bad Commit Messages
+
+These tell you absolutely nothing:
+
+```bash
+git commit -m "fixed stuff"          # What stuff? Fixed how?
+git commit -m "wip"                  # Work in progress... on what?
+git commit -m "asdf"                 # You were too lazy to type a message
+git commit -m "changes"              # ...thanks?
+git commit -m "final version"        # It is never the final version
+git commit -m "idk"                  # If you do not know, nobody will
+```
+
+<Analogy title="Labeling Moving Boxes">
+Imagine you are moving to a new house and you label every box "stuff." When you get to the new place and need to find your phone charger, you have to open every single box. Now imagine if you had labeled them "Kitchen - utensils and small appliances" and "Bedroom - cables and chargers." That is the difference between good and bad commit messages. You are packing boxes that future-you has to unpack.
+</Analogy>
+
+## The Simple Formula
+
+If you are not sure what to write, use this formula:
+
+```
+[Action]: [What you changed] [Why or context, if needed]
+```
+
+Examples:
+```bash
+git commit -m "Add: Contact form with email and phone fields"
+git commit -m "Fix: Prevent crash when user submits empty form"
+git commit -m "Update: Switch from PNG to WebP for faster load times"
+```
+
+You do not need to write an essay. One clear sentence is perfect. If you need to explain more, you can add a longer description in the body of the commit (after the first line), but for most day-to-day work, a good one-liner is enough.
+
+## Let AI Write Your Messages
+
+When you are working with Claude Code, you can ask it to write commit messages for you. This is actually a great way to learn what good messages look like.
+
+<PromptExample
+  prompt="Look at my staged changes and write a clear commit message for them"
+  context="After you have staged your files with git add but before committing"
+  result="Claude will read your staged diff, understand what changed, and suggest a descriptive commit message that follows best practices"
+/>
+
+:::tip
+Even when AI writes the message, read it before you accept it. Make sure it accurately describes what you did. This is a good habit that helps you stay aware of what each commit contains.
+:::
+
+## When to Commit
+
+A common beginner question: "How often should I commit?"
+
+The answer: **commit when you complete a logical unit of work.** Not after every line of code, and not after three days of coding. Here are some good commit points:
+
+- You finished building a component
+- You fixed a specific bug
+- You added a new feature that works
+- You refactored something into a cleaner structure
+- You updated configuration or dependencies
+
+A good rule of thumb: if you can describe what you did in one clear sentence, that is a good commit. If you need a paragraph, you probably waited too long and should have committed sooner.
+
+<ProgressChecklist id="commit-messages" items={[
+  "I can write a commit message that explains what changed",
+  "I know the difference between good and bad commit messages",
+  "I understand when to create a new commit",
+  "I have used AI to help me write at least one commit message"
+]} />

@@ -1,0 +1,138 @@
+---
+title: "Project Ideas to Build"
+description: "Real projects to build at every skill level, with prompts to get you started using Claude Code."
+sidebar:
+  order: 3
+---
+
+import ConceptCard from '../../../components/ConceptCard.astro';
+import ConceptCardGrid from '../../../components/ConceptCardGrid.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+The best way to learn is by building real things. Not hypothetical things. Not things from a tutorial where someone holds your hand through every step. Real things that you choose, that you care about, and that force you to solve problems nobody gave you the answer to.
+
+Here are projects organized by difficulty. Each one comes with a Claude Code prompt to get you started. Pick one that sounds interesting and go build it.
+
+<ConceptCardGrid>
+  <ConceptCard title="Beginner" icon="star">
+    Projects that use the basics: HTML, CSS, React components, and maybe local storage. Perfect for your first solo builds.
+  </ConceptCard>
+  <ConceptCard title="Intermediate" icon="rocket">
+    Projects that add a real backend: authentication, database CRUD operations, and third-party APIs. This is where things get serious.
+  </ConceptCard>
+  <ConceptCard title="Advanced" icon="warning">
+    Full-stack projects with multiple features, real-time data, and production-level architecture. Build these when you are ready for a challenge.
+  </ConceptCard>
+</ConceptCardGrid>
+
+## Beginner Projects
+
+### Personal Portfolio Website
+
+Build a site that shows off who you are and what you have built. Use Next.js and Tailwind CSS. Include an about page, a projects page, and a contact section. This is the first thing any developer should build -- and it gives you a real URL to share with people.
+
+<PromptExample
+  prompt="Create a personal portfolio website using Next.js and Tailwind CSS. I want a homepage with my name and a short bio, a projects page where I can list things I have built with screenshots and descriptions, and a contact section with links to my GitHub and email."
+  context="Your first real project. You are building something to represent yourself online."
+  result="Claude Code scaffolds a complete portfolio site with responsive design, a project grid, and navigation between pages."
+/>
+
+### To-Do List App
+
+The classic starter project, but with a twist: start with local storage, then upgrade to Supabase so your tasks persist across devices. This teaches you state management, CRUD operations, and the difference between local and server-side storage.
+
+<PromptExample
+  prompt="Build a to-do list app with Next.js. Start with local storage to save tasks. Include the ability to add tasks, mark them complete, and delete them. Use Tailwind for styling."
+  context="A focused project to practice state management and data persistence."
+  result="Claude Code builds a clean to-do app with add, complete, and delete functionality, saving to localStorage."
+/>
+
+### Weather App
+
+Use a free weather API to show current weather and a forecast for any city. This teaches you how to fetch data from external APIs and display it in a nice UI.
+
+<PromptExample
+  prompt="Build a weather app using Next.js that lets the user search for a city and see the current temperature, conditions, and a 5-day forecast. Use the OpenWeatherMap free API. Style it with Tailwind."
+  context="Practice working with external APIs and displaying dynamic data."
+  result="Claude Code builds a weather app with a search input, current conditions display, and a forecast grid."
+/>
+
+## Intermediate Projects
+
+### Blog Platform
+
+Build a blog where users can sign up, write posts in Markdown, and publish them. This covers authentication, CRUD operations, Markdown rendering, and user-specific data. It is a serious project that teaches you a ton.
+
+<PromptExample
+  prompt="Build a blog platform with Next.js and Supabase. Users should be able to sign up and log in, create and edit blog posts using Markdown, and view a feed of all published posts. Each user should only be able to edit their own posts."
+  context="A full-stack project with auth, database, and content management."
+  result="Claude Code builds the full auth flow, post creation with a Markdown editor, a public feed, and row-level security to protect posts."
+/>
+
+### Expense Tracker
+
+Build an app to track spending with categories, charts, and date filtering. This is a practical tool you could actually use every day, which makes it a great learning project.
+
+<PromptExample
+  prompt="Build an expense tracker with Next.js and Supabase. I want to add expenses with an amount, category, date, and description. Show a dashboard with total spending, a breakdown by category using a chart, and the ability to filter by date range."
+  context="Practice working with numbers, dates, charts, and database queries."
+  result="Claude Code builds an expense form, a dashboard with a category breakdown chart, and date filtering."
+/>
+
+### Recipe Collection App
+
+Build a place to save your favorite recipes with search, categories, and a favorites feature. This is great practice for building a content-heavy app with good UX.
+
+<PromptExample
+  prompt="Build a recipe collection app with Next.js and Supabase. I want to add recipes with a title, ingredients list, instructions, category, and photo. Include search, filtering by category, and the ability to mark recipes as favorites."
+  context="A content management app with search, filtering, and media."
+  result="Claude Code builds a recipe CRUD interface, search and filter functionality, and a favorites system."
+/>
+
+## Advanced Projects
+
+### Real-Time Chat Application
+
+Build a messaging app where users can chat in real time using Supabase Realtime. This teaches you real-time data subscriptions, websockets, and how to handle data that changes live.
+
+<PromptExample
+  prompt="Build a real-time chat application with Next.js and Supabase Realtime. Users should be able to sign up, create chat rooms, and send messages that appear instantly for all users in the room. Include a list of active rooms and show who is online."
+  context="A real-time project that pushes your full-stack skills."
+  result="Claude Code builds the auth system, chat room management, real-time message subscriptions, and an online presence indicator."
+/>
+
+### Restaurant Management System
+
+Build a system for managing restaurant menus, orders, and inventory. This is a multi-feature app that mimics real business software.
+
+<PromptExample
+  prompt="Build a restaurant management system with Next.js and Supabase. Include a menu editor where staff can add and update dishes with prices and categories, an order system that tracks customer orders, and an inventory section that shows stock levels and alerts when items are low."
+  context="A complex, multi-feature business application."
+  result="Claude Code scaffolds the menu, order, and inventory modules with their own pages, database tables, and relationships."
+/>
+
+### SaaS Starter
+
+Build the foundation of a software-as-a-service app with authentication, billing, and multi-tenant architecture. This is the kind of project that teaches you how real products are built.
+
+<PromptExample
+  prompt="Build a SaaS starter template with Next.js and Supabase. Include user authentication, team/organization support so one account can have multiple members, a settings page, and a placeholder for Stripe billing integration. Make it so each team can only see their own data."
+  context="The architecture behind real software products."
+  result="Claude Code builds auth, team management, role-based access, row-level security per team, and a billing placeholder."
+/>
+
+<DadTip>
+Do not try to build the perfect project on your first attempt. Build the ugly version first. Get it working. Then improve it. Then improve it again. Every version teaches you something the last one did not. The developers with the best portfolios are not the ones who built perfect things -- they are the ones who built lots of things and kept getting better.
+</DadTip>
+
+<ProgressChecklist
+  id="ch10-project-ideas"
+  items={[
+    "I have picked at least one project I want to build",
+    "I understand that struggling through my own project is the best way to learn",
+    "I know how to use Claude Code prompts to get started on any project",
+    "I will build the ugly version first and improve from there"
+  ]}
+/>

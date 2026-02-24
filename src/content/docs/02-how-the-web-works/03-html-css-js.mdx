@@ -1,0 +1,97 @@
+---
+title: "HTML, CSS, and JavaScript: The Three Pillars"
+description: Every web page is built with three technologies. Here is what each one does and why you should understand them even when using modern tools.
+sidebar:
+  order: 3
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+
+Every web page you have ever visited -- from Google to YouTube to that weird fan wiki -- is built with the same three technologies. They have different jobs, and understanding what each one does gives you a mental model for everything else in web development.
+
+## The Human Body Analogy
+
+<Analogy title="A Web Page Is Like a Human Body">
+Think of a web page as a person:
+
+- **HTML is the skeleton.** It defines the structure -- what things exist on the page. A heading here, a paragraph there, a button over there, an image at the top. Without HTML, there is nothing.
+- **CSS is the skin, clothes, and style.** It defines how things look -- colors, fonts, spacing, layout. Two pages can have the exact same HTML but look completely different because of CSS. Same skeleton, different outfits.
+- **JavaScript is the muscles and brain.** It defines behavior -- what happens when you click a button, how a form validates your input, how new data loads without refreshing the page. It makes things *move* and *respond*.
+</Analogy>
+
+<DiagramBlock src="/images/diagrams/html-css-js-pillars.svg" alt="Three pillars labeled HTML (Structure), CSS (Style), and JavaScript (Behavior) supporting a web page" caption="Every web page stands on these three pillars." />
+
+## HTML: The Structure
+
+HTML (HyperText Markup Language) tells the browser *what* is on the page. It uses tags -- special labels wrapped in angle brackets -- to define elements:
+
+- A heading
+- A paragraph of text
+- A button you can click
+- An image
+- A form with input fields
+
+Think of HTML as writing an outline. You are not worrying about colors or animations yet. You are just declaring: "This page has a title, three paragraphs, and a submit button."
+
+## CSS: The Style
+
+CSS (Cascading Style Sheets) tells the browser *how things look*. Once HTML lays out the skeleton, CSS dresses it up:
+
+- What color is the text?
+- How much space is between elements?
+- Should this layout be a grid or a single column?
+- What font should the headings use?
+- How wide should this container be on a phone versus a desktop?
+
+CSS is what makes the difference between a page that looks like a 1995 GeoCities site and a page that looks like a modern app.
+
+## JavaScript: The Behavior
+
+JavaScript tells the browser *what to do* when things happen. It is the programming language of the web:
+
+- When a user clicks "Add to Cart," JavaScript updates the cart counter.
+- When you type in a search box, JavaScript filters results in real time.
+- When a page loads, JavaScript fetches data from a server and displays it.
+
+JavaScript is the only programming language that runs natively in every web browser. That is why it became the language of the web -- and why we use it (in the form of TypeScript) for our entire stack.
+
+## The Modern Reality
+
+:::tip[You Will Rarely Write Raw HTML or CSS]
+In our stack, **React** lets you write HTML-like syntax called JSX directly inside your JavaScript. And **Tailwind CSS** lets you apply styles using short utility classes right in your markup -- no separate CSS files needed.
+
+So in practice, you will be writing something that *looks* like a blend of all three. But under the hood, it is still HTML for structure, CSS for style, and JavaScript for behavior. Understanding the fundamentals helps you make sense of what React and Tailwind are actually doing for you.
+:::
+
+<DadTip>
+You do not need to become an HTML or CSS expert before moving on. The goal right now is to know that every web page has structure, style, and behavior -- and to recognize which layer you are working with when Claude Code generates code for you. If you see angle brackets and tag names, that is the HTML layer. If you see colors, spacing, or layout classes, that is CSS. If you see logic, functions, or event handling, that is JavaScript.
+</DadTip>
+
+## Watch These
+
+<VideoEmbed id="ok-plXXHlWw" title="HTML in 100 Seconds" creator="Fireship" duration="2 min" />
+
+<VideoEmbed id="OEV8gMkCHXQ" title="CSS in 100 Seconds" creator="Fireship" duration="2 min" />
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Explain what the HTML, CSS, and JavaScript parts of this React component are doing."
+  context="You are reading a component Claude Code generated and want to understand the layers."
+  result="Claude Code breaks down which parts are structure (JSX/HTML), which are style (Tailwind classes), and which are behavior (event handlers, state)."
+/>
+
+<ProgressChecklist
+  id="ch2-html-css-js"
+  items={[
+    "I can explain what HTML, CSS, and JavaScript each do",
+    "I understand the skeleton / skin / muscles analogy",
+    "I know that React and Tailwind abstract these but still use them underneath",
+    "I watched at least one of the 100 Seconds videos"
+  ]}
+/>

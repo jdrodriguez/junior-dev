@@ -1,0 +1,116 @@
+---
+title: "VS Code: Your Code Editor"
+description: "Install and configure Visual Studio Code, the editor used by most professional developers."
+sidebar:
+  order: 1
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+A code editor is the single most important tool in your development setup. It's where you'll spend the vast majority of your time -- reading code, writing code, navigating between files, and hunting down bugs. Choosing a good one matters.
+
+<Analogy title="Your Workbench">
+If your development environment is a carpenter's workshop, VS Code is the workbench. It's the big, central surface where all the actual work happens. You could technically write code in Notepad or TextEdit, the same way a carpenter could technically sand a board on the floor. But a proper workbench has clamps to hold things in place, drawers for your tools, and a flat surface that's the right height. VS Code is that workbench -- built specifically for the job, with everything in reach.
+</Analogy>
+
+Visual Studio Code (usually just called "VS Code") is the code editor used by the vast majority of professional web developers. It's free, it's fast, and it's wildly extensible -- meaning you can add features to it like apps on a phone. It's made by Microsoft, and it's not the same thing as "Visual Studio" (which is a much heavier, different product).
+
+<VideoEmbed id="KMxo3T_MTvY" title="VS Code in 100 Seconds" creator="Fireship" duration="2 min" description="A lightning-fast overview of what VS Code is and why developers love it." />
+
+## Installing VS Code
+
+<Steps>
+
+1. **Go to [code.visualstudio.com](https://code.visualstudio.com)** and click the big download button. It should automatically detect your operating system (Mac, Windows, or Linux).
+
+2. **Run the installer.** On Windows, make sure to check the boxes for "Add to PATH" and "Register as default editor for supported file types." On Mac, drag the app into your Applications folder.
+
+3. **Open VS Code.** You should see a Welcome tab. Take a moment to look around -- notice the sidebar on the left, the editor area in the center, and the bottom bar showing information about your workspace.
+
+</Steps>
+
+That's it. You now have a professional-grade code editor on your machine.
+
+## Essential Extensions
+
+Extensions are add-ons that give VS Code new abilities. Think of them like apps for your editor. To install them, click the Extensions icon in the left sidebar (it looks like four small squares) and search by name.
+
+Here are the ones you should install right away, and more importantly, *why* each one matters:
+
+**ESLint** -- This is your spell-checker for code. Just like a word processor underlines misspelled words, ESLint underlines JavaScript and TypeScript mistakes *as you type*. It catches things like using a variable you never defined, or forgetting a return statement. Without it, you'd only discover these errors when you try to run your code and it crashes.
+
+**Prettier** -- This automatically formats your code to look clean and consistent every time you save. Indentation, spacing, quote styles -- Prettier handles all of it. This means you never have to argue about code style (even with yourself), and your code always looks professional.
+
+**GitLens** -- When you're working on a project over time (or with other people), you'll sometimes look at a line of code and wonder, "Who wrote this? When? Why?" GitLens answers all of those questions. It shows the history of every line right inside the editor.
+
+**Error Lens** -- By default, VS Code puts error indicators in the gutter (the narrow column on the left), which is easy to miss. Error Lens displays the actual error message *inline*, right next to the line that's broken. It makes problems impossible to ignore.
+
+**Auto Rename Tag** -- When you're writing HTML or JSX (which you'll do a lot in React), tags come in pairs: an opening tag and a closing tag. This extension automatically renames the closing tag when you change the opening one, saving you from a very common and annoying bug.
+
+**Tailwind CSS IntelliSense** -- Tailwind is the CSS framework we'll use to style our apps. This extension gives you autocomplete suggestions for Tailwind classes as you type, so you don't have to memorize hundreds of class names.
+
+**Thunder Client** -- When you build APIs (the backend of your app), you need a way to test them. Thunder Client lets you send HTTP requests directly from VS Code, so you can test your API endpoints without leaving your editor.
+
+<DadTip>
+Don't install dozens of extensions right away. These seven are plenty to start with. Too many extensions can slow down VS Code and create confusing behavior. You can always add more later when you have a specific need.
+</DadTip>
+
+## Key Settings to Configure
+
+Open VS Code settings with the keyboard shortcut below, then search for each setting:
+
+- **Format On Save:** Turn this on. It tells VS Code to automatically run Prettier every time you save a file. This is one of those "set it and forget it" things that will keep your code clean without any effort.
+- **Default Formatter:** Set this to Prettier. This tells VS Code which formatter to use when you hit save.
+- **Tab Size:** Set this to 2. The JavaScript and TypeScript community uses 2-space indentation as the standard. You'll want your code to match what you see in tutorials and documentation.
+
+## Keyboard Shortcuts Worth Learning
+
+You don't need to memorize all of these today. But bookmark this table and come back to it. Learning even a few of these will noticeably speed up your workflow.
+
+<Tabs>
+  <TabItem label="Mac">
+    | Action | Shortcut |
+    |--------|----------|
+    | Open Command Palette | `Cmd + Shift + P` |
+    | Quick Open File | `Cmd + P` |
+    | Toggle Terminal | `` Cmd + ` `` |
+    | Find in All Files | `Cmd + Shift + F` |
+    | Go to Definition | `F12` |
+    | Select Next Occurrence | `Cmd + D` |
+    | Comment / Uncomment Line | `Cmd + /` |
+    | Move Line Up / Down | `Option + Up/Down` |
+    | Duplicate Line | `Shift + Option + Down` |
+  </TabItem>
+  <TabItem label="Windows / Linux">
+    | Action | Shortcut |
+    |--------|----------|
+    | Open Command Palette | `Ctrl + Shift + P` |
+    | Quick Open File | `Ctrl + P` |
+    | Toggle Terminal | `` Ctrl + ` `` |
+    | Find in All Files | `Ctrl + Shift + F` |
+    | Go to Definition | `F12` |
+    | Select Next Occurrence | `Ctrl + D` |
+    | Comment / Uncomment Line | `Ctrl + /` |
+    | Move Line Up / Down | `Alt + Up/Down` |
+    | Duplicate Line | `Shift + Alt + Down` |
+  </TabItem>
+</Tabs>
+
+The most important one to remember right now is **Command Palette** (`Cmd+Shift+P` on Mac, `Ctrl+Shift+P` on Windows). It's like a search bar for everything VS Code can do. If you ever forget how to do something, open the Command Palette and start typing.
+
+<VideoEmbed id="u21W_tfPVrY" title="25 VS Code Productivity Tips and Speed Hacks" creator="Fireship" duration="12 min" description="Once you have VS Code installed, this video shows you tricks that will make you feel like a power user. Don't worry about memorizing everything -- just get a feel for what's possible." />
+
+## Let Claude Code Help You
+
+Once Claude Code is installed (we'll get there later in this chapter), you can use it to customize VS Code even further.
+
+<PromptExample prompt="My VS Code feels slow. What extensions should I disable or remove to speed it up?" context="When VS Code starts lagging or taking a long time to open" result="Claude Code will check your installed extensions and suggest which ones are heavy or redundant, and walk you through disabling them." />
+
+<PromptExample prompt="Set up my VS Code settings.json for a Next.js and Tailwind project with Prettier formatting on save." context="When starting a new project and wanting optimal editor configuration" result="Claude Code will generate a settings.json file with the right formatter, tab size, Tailwind IntelliSense settings, and file associations." />
+
+<ProgressChecklist id="vscode-checklist" items={["Downloaded and installed VS Code", "Installed the 7 essential extensions (ESLint, Prettier, GitLens, Error Lens, Auto Rename Tag, Tailwind CSS IntelliSense, Thunder Client)", "Turned on Format On Save and set the default formatter to Prettier", "Set tab size to 2", "Practiced opening the Command Palette (Cmd+Shift+P or Ctrl+Shift+P)", "Watched at least one of the VS Code videos"]} />

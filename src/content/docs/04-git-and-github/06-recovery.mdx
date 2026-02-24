@@ -1,0 +1,143 @@
+---
+title: When Things Go Wrong
+description: Git recovery commands for every common mistake.
+sidebar:
+  order: 6
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import Analogy from '../../../components/Analogy.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+You are going to mess up with Git. I mess up with Git. Every developer on the planet has messed up with Git. The good news is that Git is designed to let you recover from almost anything. The data is almost never truly gone -- you just need to know the right command to get it back.
+
+This section is your emergency handbook. Bookmark it.
+
+<VideoEmbed id="ecK3EnyGD8o" title="13 Advanced Git Techniques" creator="Fireship" duration="8 min" />
+
+<Analogy title="The Undo Button on Steroids">
+You know how Ctrl+Z (or Cmd+Z) lets you undo in a document? Git is like that, but way more powerful. Instead of just undoing the last thing you typed, you can undo specific commits from three weeks ago, jump between different versions of your entire project, and even rescue work you thought was deleted. The trick is knowing which "undo" command to use.
+</Analogy>
+
+## Recovery Command Reference
+
+Here are the most common Git mistakes and exactly how to fix them:
+
+| Situation | Command | What It Does |
+|---|---|---|
+| Undo last commit, keep changes | `git reset --soft HEAD~1` | Removes the commit but leaves your files staged and ready |
+| Undo last commit, unstage changes | `git reset HEAD~1` | Removes the commit and unstages files, but keeps your edits |
+| Discard all uncommitted changes | `git checkout -- .` | Resets every modified file back to the last commit. **Destructive -- your edits are gone** |
+| Discard changes to one file | `git checkout -- filename.tsx` | Resets just that one file |
+| See commit history | `git log --oneline` | Shows a compact list of all commits |
+| Stash changes temporarily | `git stash` | Hides your uncommitted work so you can switch branches |
+| Bring stashed changes back | `git stash pop` | Restores the most recently stashed work |
+| Remove a file from staging | `git reset HEAD filename.tsx` | Unstages a file without losing your changes |
+| See what you changed | `git diff` | Shows line-by-line differences in unstaged files |
+
+:::caution
+Commands marked as **destructive** permanently erase uncommitted work. If you have not committed your changes, `git checkout -- .` will delete them with no way to recover. Always commit or stash before using destructive commands.
+:::
+
+## Common Scenarios
+
+### "I accidentally committed to main instead of a branch"
+
+This happens all the time. Here is how to fix it:
+
+<Steps>
+
+1. Create a new branch from where you are (this saves your commits):
+   ```bash
+   git branch feature/my-accidental-work
+   ```
+
+2. Reset main back to where it should be:
+   ```bash
+   git reset --soft HEAD~1
+   ```
+   Change `1` to however many commits you need to undo.
+
+3. Switch to your new branch:
+   ```bash
+   git checkout feature/my-accidental-work
+   ```
+
+4. Now your commits are safely on the feature branch, and main is back to normal.
+
+</Steps>
+
+### "I need to switch branches but I have uncommitted work"
+
+Git will not let you switch branches if you have changes that would conflict. Use stash:
+
+```bash
+# Save your work temporarily
+git stash
+
+# Switch to the other branch
+git checkout other-branch
+
+# Do whatever you need to do, then switch back
+git checkout your-original-branch
+
+# Bring your work back
+git stash pop
+```
+
+### "I committed the wrong file"
+
+If you just committed and realize you included a file you should not have:
+
+```bash
+# Undo the commit but keep all changes staged
+git reset --soft HEAD~1
+
+# Unstage the file you do not want
+git reset HEAD that-wrong-file.txt
+
+# Re-commit without it
+git commit -m "Your original commit message"
+```
+
+### "I want to see what my code looked like three commits ago"
+
+```bash
+# See the history
+git log --oneline
+
+# Temporarily look at an old commit (read-only)
+git checkout abc1234
+
+# Go back to where you were
+git checkout main
+```
+
+## Let AI Be Your Git Paramedic
+
+When you are panicking about a Git mistake, just describe what happened to Claude Code. Seriously. It is one of the best use cases for AI assistance.
+
+<PromptExample
+  prompt="I accidentally committed to main when I should have been on a feature branch. I have 2 commits that need to move. How do I undo this?"
+  context="When you realize you committed to the wrong branch"
+  result="Claude will walk you through creating a new branch, resetting main, and moving your commits -- step by step, with the exact commands for your situation"
+/>
+
+<DadTip>
+Here is a secret that took me years to learn: the scariest thing about Git is not that you will lose your work. It is that Git's error messages are confusing and make you *think* you lost your work. You almost never actually lose anything. If you committed it at some point, Git has it stored somewhere. When in doubt, do not panic, do not start running random commands you found on StackOverflow -- just ask Claude Code to help you recover. Describe what happened plainly, and let it figure out the right commands.
+</DadTip>
+
+:::tip
+The `git reflog` command is your ultimate safety net. It shows every single thing Git has done, even commits you "deleted" with reset. If you truly cannot find something, `git reflog` will help you track it down. Think of it as Git's flight recorder.
+:::
+
+<ProgressChecklist id="git-recovery" items={[
+  "I know how to undo my last commit with git reset --soft HEAD~1",
+  "I can use git stash to save work temporarily",
+  "I know the difference between destructive and non-destructive commands",
+  "I have recovered from at least one Git mistake without panicking",
+  "I know I can ask AI for help when Git gets confusing"
+]} />

@@ -1,0 +1,95 @@
+---
+title: "The Art of Debugging"
+description: "A systematic, 6-step approach to finding and fixing bugs in your code."
+sidebar:
+  order: 1
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Every developer, from the absolute beginner to the senior engineer at Google, spends a huge chunk of their time debugging. It is not a sign that you are bad at coding. It is the *actual job*. Writing code that works on the first try is rare. Writing code, finding out it does not work, figuring out why, and fixing it? That is programming.
+
+<DadTip>
+Bugs are not failures. They are puzzles. Every bug is a mystery waiting to be solved, and solving them is one of the most satisfying feelings in programming. Change the way you think about bugs and you will enjoy coding a lot more.
+</DadTip>
+
+<Analogy title="Debugging Is Detective Work">
+Imagine you are a detective arriving at a crime scene. You do not just guess who did it and make an arrest. You look at the evidence. You interview witnesses. You narrow down suspects one by one until you find the culprit.
+
+Debugging works the same way. The error message is your first piece of evidence. The code is the crime scene. Console logs are your interviews with witnesses. And you eliminate possibilities systematically until the bug has nowhere left to hide.
+
+The worst thing you can do is panic and start changing random things. That is like a detective randomly arresting people and hoping one of them is guilty. Be methodical.
+</Analogy>
+
+## The 6-Step Debugging Process
+
+<Steps>
+
+1. **Read the error message carefully.**
+
+   This sounds obvious, but most beginners skip this step. Error messages are written to tell you exactly what went wrong and where. Read the whole thing. Look for the file name, the line number, and the description of the problem. Nine times out of ten, the answer is right there in the error message.
+
+2. **Reproduce the bug consistently.**
+
+   If you cannot make the bug happen on demand, you cannot fix it. Click the same button, submit the same form, visit the same page. Figure out exactly what causes the issue. If it only happens sometimes, try to identify the pattern. What is different when it breaks versus when it works?
+
+3. **Isolate the problem.**
+
+   The bug is hiding somewhere in your code. Your job is to narrow down where. Comment out sections of code until the error goes away. Then uncomment them one at a time until the error comes back. The last thing you uncommented contains the bug. This feels slow, but it is the fastest way to find the problem.
+
+4. **Check your assumptions.**
+
+   Are you sure that variable has the value you think it does? Are you sure that function is being called? Add `console.log()` statements to verify what is actually happening. More bugs come from wrong assumptions than wrong syntax. Print everything. Trust the output, not your memory.
+
+5. **Search the error message online.**
+
+   Copy the error message, paste it into Google or a search engine, and look at the results. Someone has almost certainly hit the exact same error before. Stack Overflow, GitHub issues, and forum posts are full of solutions. You are not the first person to encounter this problem.
+
+6. **Ask Claude Code.**
+
+   Paste the error message and the relevant code into Claude Code. Give it context: what you were trying to do, what happened instead, and what you have already tried. Claude Code is excellent at diagnosing issues because it can see patterns across millions of codebases.
+
+</Steps>
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="I'm getting this error when I try to load my page: 'TypeError: Cannot read properties of undefined (reading map)'. Here is the component code: [paste code]. Can you help me figure out what is wrong?"
+  context="You hit an error and want Claude Code to help you diagnose and fix it."
+  result="Claude Code identifies that your data is undefined when the component first renders, and suggests adding a loading check or default value."
+/>
+
+<PromptExample
+  prompt="My form submits but the data never shows up in the database. No errors in the console. Can you help me trace where it might be getting lost?"
+  context="A silent bug with no error message -- the hardest kind to debug."
+  result="Claude Code walks through the data flow from the form submit handler to the API route to the database query, helping you find where the chain breaks."
+/>
+
+## Common Bug Categories
+
+Here are the bugs you will encounter most often:
+
+- **Typos.** A misspelled variable name, a missing comma, a lowercase letter where there should be uppercase. Your editor's red squiggles are your first line of defense.
+- **Undefined values.** You tried to use something that does not exist yet. This usually means the data has not loaded, the variable was never assigned, or you are accessing the wrong property.
+- **Async timing.** You tried to use data before it finished loading. The database call takes time, but your code tried to use the result immediately.
+- **Wrong types.** You passed a string where a number was expected, or an object where an array was expected. TypeScript catches a lot of these, which is why we use it.
+- **Missing imports.** You used a function or component but forgot to import it at the top of the file. The error message for this one is usually very clear.
+
+<DadTip>
+When I am stuck on a bug for more than 30 minutes, I take a walk. I am not kidding. Some of my best debugging breakthroughs have happened in the shower or while making coffee. Your brain keeps working on the problem in the background. If you are spinning your wheels, step away. You will come back with fresh eyes.
+</DadTip>
+
+<ProgressChecklist
+  id="ch10-debugging"
+  items={[
+    "I know the 6 steps of systematic debugging",
+    "I understand that reading the error message is always step one",
+    "I know how to use console.log() to check my assumptions",
+    "I understand that bugs are normal and not a sign of failure",
+    "I know how to ask Claude Code for help with a bug"
+  ]}
+/>

@@ -1,0 +1,129 @@
+---
+title: Getting Started with Hono
+description: Set up your first Hono API project and understand what an API framework actually does.
+sidebar:
+  order: 1
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Hono (the Japanese word for "flame") is a small, fast web framework for building APIs. It handles the boring parts -- parsing requests, routing URLs to the right code, sending responses -- so you can focus on the interesting parts, like what your API actually does.
+
+## What Is an API Framework?
+
+When a request comes into your server, a lot needs to happen: figure out what URL was requested, check what HTTP method was used (GET, POST, etc.), parse the body if there is one, run some logic, and send back a response with the right status code. You could write all of that from scratch, but that is like building your own car engine when you just want to drive to the store.
+
+An API framework gives you the engine. You just tell it where to go.
+
+## Create Your First Hono Project
+
+<Steps>
+
+1. **Generate the project.**
+
+   ```bash
+   npm create hono@latest my-api
+   ```
+
+   When prompted, choose the **Cloudflare Workers** or **Node.js** template. Either works fine for learning.
+
+2. **Navigate into the project and install dependencies.**
+
+   ```bash
+   cd my-api
+   npm install
+   ```
+
+3. **Start the development server.**
+
+   ```bash
+   npm run dev
+   ```
+
+   Your API is now running at `http://localhost:8787` (or `3000` depending on your template). Open that URL in your browser and you should see a response.
+
+4. **Open the project in your editor.**
+
+   Look at the main file (usually `src/index.ts`). You will see something like this:
+
+   ```typescript
+   import { Hono } from 'hono';
+
+   const app = new Hono();
+
+   app.get('/', (c) => {
+     return c.text('Hello Hono!');
+   });
+
+   export default app;
+   ```
+
+   That is your entire API. Three lines of actual code. Let's break it down.
+
+</Steps>
+
+## Understanding the Basics
+
+```typescript
+const app = new Hono();
+```
+
+This creates your application. Think of it as starting up the kitchen in our drive-through analogy.
+
+```typescript
+app.get('/', (c) => {
+  return c.text('Hello Hono!');
+});
+```
+
+This says: "When someone makes a GET request to the root URL (`/`), run this function and send back the text 'Hello Hono!'"
+
+The `c` parameter is the **context**. It contains everything about the request (what the client asked for) and provides methods to build the response (what you send back). You will use `c` constantly:
+
+- `c.text('...')` -- Send a plain text response
+- `c.json({ ... })` -- Send a JSON response (this is the one you will use most)
+- `c.req` -- Access details about the incoming request
+- `c.req.param('id')` -- Get a URL parameter
+- `c.req.json()` -- Parse the request body as JSON
+
+<DadTip>
+Here is something I wish someone had told me earlier: when you are building an API, your "users" are not people staring at a screen. Your users are other programs -- frontends, mobile apps, other APIs. They send structured requests and expect structured responses. That is why almost everything in API-land is JSON. Machines talking to machines, in a format both sides understand.
+</DadTip>
+
+## Testing Your API
+
+You do not need a frontend to test an API. Open a new terminal (keep your server running) and use `curl`:
+
+```bash
+curl http://localhost:8787/
+```
+
+You should see `Hello Hono!` printed in your terminal. You just made an HTTP request and got a response, using nothing but the command line.
+
+You can also use the browser for GET requests -- just type the URL into the address bar. For POST, PUT, and DELETE requests, you will need `curl` or a tool like [Hoppscotch](https://hoppscotch.io/) or [Postman](https://www.postman.com/).
+
+## Watch This
+
+<VideoEmbed id="-MTSQjw5DrM" title="RESTful APIs in 100 Seconds" creator="Fireship" duration="2 min" />
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Create a new Hono API project with TypeScript. Set up a basic health check route at /health that returns { status: 'ok' }."
+  context="You are starting a new API project and want a clean foundation."
+  result="Claude Code scaffolds a Hono project, configures TypeScript, and adds a /health endpoint that returns a JSON status response."
+/>
+
+<ProgressChecklist
+  id="ch7-getting-started"
+  items={[
+    "I created a Hono project and started the dev server",
+    "I can explain what an API framework does",
+    "I understand what the context object (c) is for",
+    "I tested my API using curl or a browser"
+  ]}
+/>

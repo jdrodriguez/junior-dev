@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <marker id="mergeArrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#10b981"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#1e293b">Git Branching</text>
+
+  <!-- Main branch line -->
+  <line x1="80" y1="250" x2="720" y2="250" stroke="#6366f1" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Main branch label -->
+  <rect x="20" y="235" width="52" height="28" rx="6" fill="#6366f1"/>
+  <text x="46" y="254" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff">main</text>
+
+  <!-- "Your main save file" label -->
+  <text x="400" y="298" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#64748b">Your main save file</text>
+
+  <!-- Main branch commits -->
+  <!-- Commit 1 -->
+  <circle cx="130" cy="250" r="16" fill="#ffffff" stroke="#6366f1" stroke-width="3"/>
+  <text x="130" y="255" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#6366f1">c1</text>
+  <text x="130" y="282" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748b">Initial</text>
+
+  <!-- Commit 2 -->
+  <circle cx="260" cy="250" r="16" fill="#ffffff" stroke="#6366f1" stroke-width="3"/>
+  <text x="260" y="255" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#6366f1">c2</text>
+  <text x="260" y="282" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748b">Add header</text>
+
+  <!-- Branch point: Commit 2 goes up to feature branch -->
+  <!-- Feature branch line going up and to the right -->
+  <path d="M 276,240 C 310,160 340,130 400,130" stroke="#d97706" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- Feature branch horizontal -->
+  <line x1="400" y1="130" x2="560" y2="130" stroke="#d97706" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Feature branch label -->
+  <rect x="370" y="72" width="140" height="28" rx="6" fill="#d97706"/>
+  <text x="440" y="91" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff">feature/login</text>
+  <line x1="440" y1="100" x2="440" y2="114" stroke="#d97706" stroke-width="2"/>
+
+  <!-- Feature branch saves label -->
+  <text x="480" y="63" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#b45309">A new save branch to experiment on</text>
+
+  <!-- Feature commit 1 -->
+  <circle cx="400" cy="130" r="14" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
+  <text x="400" y="135" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#d97706">f1</text>
+  <text x="400" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#92400e">Add login</text>
+  <text x="400" y="172" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#92400e">form</text>
+
+  <!-- Feature commit 2 -->
+  <circle cx="480" cy="130" r="14" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
+  <text x="480" y="135" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#d97706">f2</text>
+  <text x="480" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#92400e">Style login</text>
+
+  <!-- Feature commit 3 -->
+  <circle cx="560" cy="130" r="14" fill="#ffffff" stroke="#d97706" stroke-width="3"/>
+  <text x="560" y="135" text-anchor="middle" font-family="sans-serif" font-size="8" font-weight="700" fill="#d97706">f3</text>
+  <text x="560" y="160" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#92400e">Fix bug</text>
+
+  <!-- Merge line from feature back to main -->
+  <path d="M 574,140 C 600,180 610,220 620,240" stroke="#10b981" stroke-width="3" fill="none" stroke-linecap="round" marker-end="url(#mergeArrow)"/>
+
+  <!-- Merge commit on main -->
+  <circle cx="620" cy="250" r="18" fill="#dcfce7" stroke="#10b981" stroke-width="3"/>
+  <text x="620" y="255" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#10b981">M</text>
+
+  <!-- Merge label -->
+  <rect x="582" y="314" width="76" height="24" rx="6" fill="#10b981"/>
+  <text x="620" y="331" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff">Merge!</text>
+  <line x1="620" y1="268" x2="620" y2="314" stroke="#10b981" stroke-width="1.5" stroke-dasharray="4 3"/>
+
+  <!-- Commit 3 on main (after branch) -->
+  <circle cx="390" cy="250" r="16" fill="#ffffff" stroke="#6366f1" stroke-width="3"/>
+  <text x="390" y="255" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#6366f1">c3</text>
+  <text x="390" y="282" text-anchor="middle" font-family="sans-serif" font-size="10" fill="#64748b">Update nav</text>
+
+  <!-- Legend at bottom -->
+  <rect x="120" y="348" width="560" height="38" rx="10" fill="#f1f5f9"/>
+  <circle cx="170" cy="367" r="8" fill="#ffffff" stroke="#6366f1" stroke-width="2"/>
+  <text x="188" y="371" font-family="sans-serif" font-size="11" fill="#64748b">= a saved snapshot (commit)</text>
+  <circle cx="400" cy="367" r="8" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <text x="418" y="371" font-family="sans-serif" font-size="11" fill="#64748b">= merge commit</text>
+  <line x1="530" y1="367" x2="555" y2="367" stroke="#d97706" stroke-width="3"/>
+  <text x="563" y="371" font-family="sans-serif" font-size="11" fill="#64748b">= branch</text>
+</svg>

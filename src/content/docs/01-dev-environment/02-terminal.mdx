@@ -1,0 +1,123 @@
+---
+title: "The Terminal"
+description: "Learn to talk to your computer by typing instead of clicking."
+sidebar:
+  order: 2
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+The terminal is one of those things that looks intimidating the first time you see it -- a blank screen with a blinking cursor, waiting for you to type something. No buttons, no menus, no icons. Just you and the command line.
+
+But here's the truth: the terminal is one of the most powerful tools you'll ever learn. Every professional developer uses it daily. And once you get comfortable with a handful of commands, you'll wonder how you ever got by without it.
+
+<Analogy title="Talking to Your Computer">
+Normally, you interact with your computer by clicking things -- icons, menus, buttons. That's like communicating through a picture menu at a restaurant: point at what you want. The terminal is like learning the language instead. You can say exactly what you want, combine requests, automate repetitive tasks, and do things that the graphical interface simply doesn't offer. It's slower at first (like learning any language), but once you're conversational, it's dramatically faster and more powerful than pointing and clicking.
+</Analogy>
+
+## Where to Find the Terminal
+
+You already have a terminal built right into VS Code. Press `` Cmd+` `` on Mac or `` Ctrl+` `` on Windows/Linux (that's the backtick key, above Tab) to toggle it open. You'll see it appear at the bottom of your editor window.
+
+On Mac, you also have a standalone app called **Terminal** (find it in Applications > Utilities). On Windows, you have **PowerShell** and **Command Prompt**, but I'd recommend installing **Windows Terminal** from the Microsoft Store for a better experience.
+
+For this guide, we'll mostly use the VS Code integrated terminal. It's convenient because it automatically opens in your project's folder.
+
+<VideoEmbed id="uwAqEzhyjtw" title="Command Line Crash Course" creator="Traversy Media" duration="30 min" description="A beginner-friendly walkthrough of essential terminal commands. Covers everything you need to follow along with this guide." />
+
+## Essential Commands
+
+You don't need to memorize dozens of commands. Here are the ones you'll actually use every day. The rest you can look up when you need them.
+
+<Tabs>
+  <TabItem label="Mac / Linux">
+    | Command | What It Does | Example |
+    |---------|-------------|---------|
+    | `pwd` | Shows your current location (Print Working Directory) | `pwd` |
+    | `ls` | Lists files and folders in the current directory | `ls` |
+    | `ls -la` | Lists *everything*, including hidden files, with details | `ls -la` |
+    | `cd folder-name` | Moves into a folder | `cd my-project` |
+    | `cd ..` | Moves up one level | `cd ..` |
+    | `cd ~` | Goes to your home directory | `cd ~` |
+    | `mkdir name` | Creates a new folder | `mkdir my-app` |
+    | `touch name` | Creates a new empty file | `touch index.js` |
+    | `rm file` | Deletes a file (no recycle bin!) | `rm old-file.txt` |
+    | `rm -rf folder` | Deletes a folder and everything inside it | `rm -rf temp` |
+    | `cat file` | Displays the contents of a file | `cat package.json` |
+    | `clear` | Clears the terminal screen | `clear` |
+    | `code .` | Opens the current folder in VS Code | `code .` |
+  </TabItem>
+  <TabItem label="Windows (PowerShell)">
+    | Command | What It Does | Example |
+    |---------|-------------|---------|
+    | `pwd` | Shows your current location | `pwd` |
+    | `dir` or `ls` | Lists files and folders | `dir` |
+    | `cd folder-name` | Moves into a folder | `cd my-project` |
+    | `cd ..` | Moves up one level | `cd ..` |
+    | `cd ~` | Goes to your home directory | `cd ~` |
+    | `mkdir name` | Creates a new folder | `mkdir my-app` |
+    | `New-Item name` | Creates a new empty file | `New-Item index.js` |
+    | `Remove-Item file` | Deletes a file | `Remove-Item old-file.txt` |
+    | `Remove-Item -Recurse folder` | Deletes a folder and contents | `Remove-Item -Recurse temp` |
+    | `Get-Content file` or `cat file` | Displays file contents | `cat package.json` |
+    | `cls` or `clear` | Clears the terminal screen | `cls` |
+    | `code .` | Opens the current folder in VS Code | `code .` |
+  </TabItem>
+</Tabs>
+
+:::caution
+The `rm` command (and `Remove-Item` on Windows) permanently deletes files. There's no recycle bin, no undo. Always double-check what you're deleting before you press Enter. This is one area where the terminal's power can bite you.
+:::
+
+## Understanding Where You Are
+
+The single most important concept in the terminal is **your current directory**. Every command you run happens *relative to where you currently are* in the file system. If you're in the wrong folder, commands will fail or affect the wrong files.
+
+Think of it like being inside a building. If someone says "go to Room 3," you need to know which floor you're on first. `pwd` tells you which floor (directory) you're on. `ls` shows you what's in the room. `cd` lets you walk to another room.
+
+When you're lost, run `pwd` to get your bearings. It's the terminal equivalent of looking at the "You Are Here" dot on a mall map.
+
+<DadTip>
+Here's a practical workflow that will become second nature: when you open a new terminal and want to work on a project, type `cd ` (with a space), then drag the project folder from Finder (Mac) or File Explorer (Windows) directly into the terminal window. It will paste the full path for you. Hit Enter, and you're there. No need to type long folder paths by hand.
+</DadTip>
+
+## Practice Over Memorization
+
+You don't need to memorize these commands right now. You need to *use* them. Open your terminal and try this:
+
+<Steps>
+
+1. Run `pwd` to see where you are.
+
+2. Run `ls` to see what's in that directory.
+
+3. Run `mkdir practice-folder` to create a new folder.
+
+4. Run `cd practice-folder` to move into it.
+
+5. Run `pwd` again -- notice how your location changed.
+
+6. Run `cd ..` to go back up.
+
+7. Run `rm -rf practice-folder` (Mac/Linux) or `Remove-Item -Recurse practice-folder` (Windows) to clean up.
+
+</Steps>
+
+That's it. You just navigated the file system, created a folder, moved in and out of it, and cleaned it up. Every terminal interaction is just combinations of these basic moves.
+
+<VideoEmbed id="SPwyp2NG-bE" title="you need to learn BASH Scripting RIGHT NOW" creator="NetworkChuck" duration="20 min" description="An energetic, beginner-friendly introduction to the terminal and Bash scripting. You don't need to learn scripting now, but this video will make the terminal feel less scary and more exciting." />
+
+## Let Claude Code Help You
+
+The terminal is also where Claude Code lives. Once it's installed, you can ask it to run commands for you or explain what a command does.
+
+<PromptExample prompt="What does the command 'ls -la | grep .json' do? Explain it to me like I'm a beginner." context="When you encounter a terminal command you don't understand" result="Claude Code will break down each part of the command -- what ls -la does, what the pipe (|) does, and what grep is filtering for -- in plain English." />
+
+<PromptExample prompt="I'm in my home directory. Help me navigate to my project folder called 'my-app' inside Documents, then list all the files." context="When you're not sure how to get to a specific folder" result="Claude Code will give you the exact cd command to run and follow it with ls to show you the contents." />
+
+<ProgressChecklist id="terminal-checklist" items={["Opened the terminal in VS Code (Cmd+` or Ctrl+`)", "Ran pwd to see your current directory", "Used ls to list files in a directory", "Created a folder with mkdir and navigated into it with cd", "Navigated back up with cd ..", "Understand that every command runs relative to your current directory", "Watched at least one of the terminal videos"]} />

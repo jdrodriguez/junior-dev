@@ -1,0 +1,141 @@
+---
+title: Basic Routes
+description: Define the endpoints that handle creating, reading, updating, and deleting data.
+sidebar:
+  order: 2
+---
+
+import Analogy from '../../../components/Analogy.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Routes are the core of any API. Each route is a combination of an HTTP method (GET, POST, PUT, DELETE) and a URL path. When a request comes in, Hono checks: "Does the method and path match any route I know about?" If yes, it runs that route's handler function. If no, it returns a 404.
+
+## What Are Routes?
+
+<Analogy title="Routes Are Like Addresses">
+Think about a postal service. Every letter has an address that tells the mail carrier exactly where to deliver it. API routes work the same way. A request to `GET /api/tasks` is like a letter addressed to "the tasks department, read-only window." A request to `POST /api/tasks` goes to the same department but through the "new submissions" window. The address (URL path) tells the API where to go. The method (GET, POST, etc.) tells it what to do when it gets there.
+</Analogy>
+
+<DiagramBlock src="/images/diagrams/api-flow.svg" alt="Diagram showing how a client request flows through the API: URL and method are matched to a route, the handler runs, and a response is returned" caption="A request comes in, gets matched to a route, the handler runs, and a response goes back." />
+
+## The Four HTTP Methods You Need
+
+These map directly to the CRUD operations you learned with databases:
+
+| Method   | Purpose        | Database Equivalent |
+|----------|---------------|-------------------|
+| `GET`    | Read data      | SELECT            |
+| `POST`   | Create data    | INSERT            |
+| `PUT`    | Update data    | UPDATE            |
+| `DELETE` | Delete data    | DELETE (soft)     |
+
+## Building CRUD Routes
+
+Here is a complete set of routes for managing tasks:
+
+### GET -- Fetch All Tasks
+
+```typescript
+app.get('/api/tasks', async (c) => {
+  const tasks = await getAllTasks();
+  return c.json(tasks);
+});
+```
+
+This returns an array of all tasks as JSON.
+
+### GET -- Fetch a Single Task
+
+```typescript
+app.get('/api/tasks/:id', async (c) => {
+  const id = c.req.param('id');
+  const task = await getTaskById(id);
+
+  if (!task) {
+    return c.json({ error: 'Task not found' }, 404);
+  }
+
+  return c.json(task);
+});
+```
+
+The `:id` in the path is a **URL parameter**. When someone requests `/api/tasks/abc-123`, the value `abc-123` is available through `c.req.param('id')`. If the task does not exist, we return a 404 status code.
+
+### POST -- Create a Task
+
+```typescript
+app.post('/api/tasks', async (c) => {
+  const body = await c.req.json();
+  const newTask = await createTask(body);
+  return c.json(newTask, 201);
+});
+```
+
+The `201` status code means "Created." It tells the client that the request succeeded and a new resource was created.
+
+### PUT -- Update a Task
+
+```typescript
+app.put('/api/tasks/:id', async (c) => {
+  const id = c.req.param('id');
+  const body = await c.req.json();
+  const updated = await updateTask(id, body);
+
+  if (!updated) {
+    return c.json({ error: 'Task not found' }, 404);
+  }
+
+  return c.json(updated);
+});
+```
+
+### DELETE -- Soft Delete a Task
+
+```typescript
+app.delete('/api/tasks/:id', async (c) => {
+  const id = c.req.param('id');
+  await softDeleteTask(id);
+  return c.json({ success: true });
+});
+```
+
+<DadTip>
+Notice the function is called `softDeleteTask`, not `deleteTask`. As we discussed in the database chapter, professional applications almost never hard-delete data. The function behind this route should be setting a `deleted_at` timestamp, not actually removing the row. Name things honestly so future-you (or anyone reading your code) knows exactly what is happening.
+</DadTip>
+
+Five routes total. That is a full CRUD API. Every resource in your application -- users, posts, comments, tasks -- follows this same pattern.
+
+## Status Codes That Matter
+
+You do not need to memorize all HTTP status codes. Here are the ones you will use 90% of the time:
+
+| Code | Meaning               | When to Use                    |
+|------|-----------------------|-------------------------------|
+| 200  | OK                    | Successful GET, PUT            |
+| 201  | Created               | Successful POST                |
+| 400  | Bad Request           | Client sent invalid data       |
+| 401  | Unauthorized          | Not logged in                  |
+| 403  | Forbidden             | Logged in but not allowed      |
+| 404  | Not Found             | Resource does not exist         |
+| 500  | Internal Server Error | Something broke on the server  |
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Create CRUD API routes for a tasks resource using Hono. Each task has a title, description, status, and due_date. Use soft deletes."
+  context="You are building a task management API and want all four operations."
+  result="Claude Code generates GET (list and single), POST, PUT, and DELETE routes with proper status codes, URL parameters, and soft delete logic."
+/>
+
+<ProgressChecklist
+  id="ch7-basic-routes"
+  items={[
+    "I can explain what a route is and how method + path matching works",
+    "I know the four HTTP methods and what each is used for",
+    "I understand URL parameters (like :id) and how to access them",
+    "I can list the most common HTTP status codes and when to use them"
+  ]}
+/>

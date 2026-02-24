@@ -1,0 +1,108 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <marker id="flowRight" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+    <marker id="flowLeft" markerWidth="10" markerHeight="7" refX="0" refY="3.5" orient="auto">
+      <polygon points="10 0, 0 3.5, 10 7" fill="#6366f1"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#1e293b">How Data Flows Through Your App</text>
+
+  <!-- ==================== FRONTEND BOX ==================== -->
+  <rect x="40" y="75" width="180" height="200" rx="14" fill="#ffffff" stroke="#3b82f6" stroke-width="2.5"/>
+  <!-- React icon (simplified atom) -->
+  <circle cx="130" cy="135" r="8" fill="#3b82f6"/>
+  <ellipse cx="130" cy="135" rx="30" ry="12" fill="none" stroke="#93c5fd" stroke-width="1.5" transform="rotate(0,130,135)"/>
+  <ellipse cx="130" cy="135" rx="30" ry="12" fill="none" stroke="#93c5fd" stroke-width="1.5" transform="rotate(60,130,135)"/>
+  <ellipse cx="130" cy="135" rx="30" ry="12" fill="none" stroke="#93c5fd" stroke-width="1.5" transform="rotate(-60,130,135)"/>
+
+  <text x="130" y="190" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#1e293b">Frontend</text>
+  <text x="130" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#3b82f6">(React)</text>
+
+  <rect x="62" y="228" width="136" height="28" rx="6" fill="#dbeafe"/>
+  <text x="130" y="247" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#1e40af">What the user sees</text>
+
+  <!-- ==================== API BOX ==================== -->
+  <rect x="310" y="75" width="180" height="200" rx="14" fill="#ffffff" stroke="#d97706" stroke-width="2.5"/>
+  <!-- Server icon -->
+  <rect x="375" y="110" width="50" height="50" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <rect x="383" y="118" width="34" height="10" rx="3" fill="#fde68a"/>
+  <circle cx="410" cy="123" r="2.5" fill="#d97706"/>
+  <rect x="383" y="133" width="34" height="10" rx="3" fill="#fde68a"/>
+  <circle cx="410" cy="138" r="2.5" fill="#d97706"/>
+
+  <text x="400" y="190" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#1e293b">API</text>
+  <text x="400" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#d97706">(Hono)</text>
+
+  <rect x="332" y="228" width="136" height="28" rx="6" fill="#fef3c7"/>
+  <text x="400" y="247" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#92400e">The middleman</text>
+
+  <!-- ==================== DATABASE BOX ==================== -->
+  <rect x="580" y="75" width="180" height="200" rx="14" fill="#ffffff" stroke="#10b981" stroke-width="2.5"/>
+  <!-- Database icon -->
+  <ellipse cx="670" cy="118" rx="25" ry="12" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <path d="M 645,118 L 645,148 A 25,12 0 0,0 695,148 L 695,118" fill="none" stroke="#10b981" stroke-width="2"/>
+  <ellipse cx="670" cy="148" rx="25" ry="12" fill="none" stroke="#10b981" stroke-width="2"/>
+  <ellipse cx="670" cy="133" rx="25" ry="12" fill="none" stroke="#10b981" stroke-width="1" stroke-dasharray="3 2"/>
+
+  <text x="670" y="190" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#1e293b">Database</text>
+  <text x="670" y="210" text-anchor="middle" font-family="sans-serif" font-size="13" fill="#10b981">(Supabase)</text>
+
+  <rect x="602" y="228" width="136" height="28" rx="6" fill="#dcfce7"/>
+  <text x="670" y="247" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#065f46">Where data lives</text>
+
+  <!-- ==================== ARROWS ==================== -->
+  <!-- Request: React -> Hono -->
+  <line x1="224" y1="140" x2="305" y2="140" stroke="#d97706" stroke-width="2.5" marker-end="url(#flowRight)"/>
+  <rect x="228" y="116" width="80" height="20" rx="5" fill="#fffbeb"/>
+  <text x="268" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#d97706">HTTP Request</text>
+
+  <!-- Query: Hono -> Supabase -->
+  <line x1="494" y1="140" x2="575" y2="140" stroke="#d97706" stroke-width="2.5" marker-end="url(#flowRight)"/>
+  <rect x="503" y="116" width="66" height="20" rx="5" fill="#fffbeb"/>
+  <text x="536" y="130" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#d97706">SQL Query</text>
+
+  <!-- Data: Supabase -> Hono -->
+  <line x1="575" y1="200" x2="494" y2="200" stroke="#6366f1" stroke-width="2.5" marker-end="url(#flowLeft)"/>
+  <rect x="510" y="204" width="52" height="20" rx="5" fill="#eef2ff"/>
+  <text x="536" y="218" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#6366f1">Data</text>
+
+  <!-- Response: Hono -> React -->
+  <line x1="305" y1="200" x2="224" y2="200" stroke="#6366f1" stroke-width="2.5" marker-end="url(#flowLeft)"/>
+  <rect x="224" y="204" width="86" height="20" rx="5" fill="#eef2ff"/>
+  <text x="267" y="218" text-anchor="middle" font-family="sans-serif" font-size="10" font-weight="600" fill="#6366f1">JSON Response</text>
+
+  <!-- ==================== STEP NUMBERS ==================== -->
+  <circle cx="268" cy="104" r="12" fill="#d97706"/>
+  <text x="268" y="109" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff">1</text>
+
+  <circle cx="536" cy="104" r="12" fill="#d97706"/>
+  <text x="536" y="109" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff">2</text>
+
+  <circle cx="536" cy="238" r="12" fill="#6366f1"/>
+  <text x="536" y="243" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff">3</text>
+
+  <circle cx="268" cy="238" r="12" fill="#6366f1"/>
+  <text x="268" y="243" text-anchor="middle" font-family="sans-serif" font-size="11" font-weight="700" fill="#ffffff">4</text>
+
+  <!-- ==================== BOTTOM EXPLANATION ==================== -->
+  <rect x="60" y="300" width="680" height="85" rx="12" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="100" y="324" font-family="sans-serif" font-size="13" fill="#1e293b">
+    <tspan font-weight="700" fill="#d97706">1.</tspan> User clicks a button in React, which sends an HTTP request to the API
+  </text>
+  <text x="100" y="344" font-family="sans-serif" font-size="13" fill="#1e293b">
+    <tspan font-weight="700" fill="#d97706">2.</tspan> Hono receives the request and queries the Supabase database
+  </text>
+  <text x="100" y="364" font-family="sans-serif" font-size="13" fill="#1e293b">
+    <tspan font-weight="700" fill="#6366f1">3.</tspan> Supabase returns the data to Hono
+  </text>
+  <text x="100" y="378" font-family="sans-serif" font-size="13" fill="#1e293b">
+    <tspan font-weight="700" fill="#6366f1">4.</tspan> Hono sends a JSON response back to React, which updates the page
+  </text>
+</svg>

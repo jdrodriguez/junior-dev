@@ -1,0 +1,137 @@
+---
+title: Essential Workflow
+description: The 9-step Git workflow you will use on every project.
+sidebar:
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import Analogy from '../../../components/Analogy.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+This is the workflow you will use on almost every project for the rest of your coding life. It does not matter if you are working alone or on a team of fifty people -- the steps are the same. Memorize this loop.
+
+<VideoEmbed id="8JJ101D3knE" title="Git Tutorial for Beginners" creator="Programming with Mosh" duration="1 hr" />
+
+<Analogy title="The Assembly Line">
+Think of this workflow like a factory assembly line. Each step happens in order, and skipping a step means the product comes out wrong. You would not try to ship a car before putting the engine in. Same idea -- you would not push code before committing it, and you would not merge before getting a review.
+</Analogy>
+
+## The 9 Steps
+
+<Steps>
+
+1. **Create a new branch for your feature**
+
+   Never work directly on `main`. Always create a branch first. Name it something descriptive so anyone can tell what you are working on.
+
+   ```bash
+   git checkout -b feature/add-login-page
+   ```
+
+   The `-b` flag means "create a new branch and switch to it." The name `feature/add-login-page` is a convention -- the `feature/` prefix tells people this branch adds something new.
+
+2. **Write your code**
+
+   This is the fun part. Open your editor, build your feature, and make changes to whatever files you need. Git is watching, but it is not recording anything yet.
+
+3. **Check what files you changed**
+
+   Before you commit, always look at what you changed. This is like reviewing your essay before turning it in.
+
+   ```bash
+   git status
+   ```
+
+   You will see a list of modified files in red (unstaged) and green (staged). Get in the habit of running this before every commit.
+
+4. **Stage the files you want to commit**
+
+   Staging is like putting files in an envelope before mailing them. You are saying "these are the changes I want to include in my next save point."
+
+   ```bash
+   # Stage everything you changed
+   git add .
+
+   # Or stage specific files (more precise)
+   git add src/login.tsx src/styles/login.css
+   ```
+
+   :::tip
+   Staging specific files instead of using `git add .` is a good habit. It forces you to think about exactly what you are committing and prevents accidentally including files you did not mean to.
+   :::
+
+5. **Commit with a descriptive message**
+
+   Now you are creating the actual save point. The message should explain *what* you did and *why*.
+
+   ```bash
+   git commit -m "Add login page with email/password form"
+   ```
+
+   We will cover how to write great commit messages in a later section. For now, just be descriptive.
+
+6. **Push your branch to GitHub**
+
+   Upload your local commits so they exist online. This is your backup and your way of sharing work.
+
+   ```bash
+   git push origin feature/add-login-page
+   ```
+
+   The first time you push a new branch, you might need to use:
+   ```bash
+   git push -u origin feature/add-login-page
+   ```
+   The `-u` flag sets up tracking so future pushes are simpler.
+
+7. **Create a Pull Request on GitHub**
+
+   Go to your repository on GitHub. You will see a banner saying "Compare & pull request." Click it, write a description of your changes, and submit the PR.
+
+8. **Review and merge the PR**
+
+   On a team, someone else reviews your code. Working solo or with an AI, you can review it yourself. Once it looks good, click "Merge pull request" on GitHub.
+
+9. **Switch back to main and pull the latest**
+
+   After merging, get your local copy up to date.
+
+   ```bash
+   git checkout main
+   git pull origin main
+   ```
+
+   Now your local `main` matches what is on GitHub, and you are ready to start the cycle over with a new branch.
+
+</Steps>
+
+## Let AI Help You
+
+When you are working with Claude Code, you can ask it to handle Git operations for you. This is a totally valid way to work, especially when you are learning.
+
+<PromptExample
+  prompt="Create a new git branch called feature/user-profile, make a commit with all my current changes, and push it to origin"
+  context="When you have been coding and need to save and share your work"
+  result="Claude will run the git commands in sequence: create the branch, stage files, commit with an appropriate message, and push to GitHub"
+/>
+
+<DadTip>
+Here is the thing about this workflow -- the first few times, it will feel like a lot of steps just to save your code. But I promise, after you do it a dozen times, it becomes muscle memory. You will not even think about it. And the first time Git saves you from losing hours of work, you will understand why every developer on the planet uses it.
+</DadTip>
+
+:::caution
+If you see "merge conflicts" when you pull or merge, do not panic. It just means two people changed the same lines of code, and Git needs you to decide which version to keep. We will cover this more in the recovery section.
+:::
+
+<ProgressChecklist id="git-essential-workflow" items={[
+  "I created a new branch with git checkout -b",
+  "I used git status to check my changes",
+  "I staged files with git add",
+  "I committed with a descriptive message",
+  "I pushed a branch to GitHub",
+  "I completed the full 9-step cycle at least once"
+]} />

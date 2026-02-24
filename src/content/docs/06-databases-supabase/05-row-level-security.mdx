@@ -1,0 +1,130 @@
+---
+title: Row Level Security
+description: Protect your database so users can only access the data that belongs to them.
+sidebar:
+  order: 5
+---
+
+import Analogy from '../../../components/Analogy.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ChapterSummary from '../../../components/ChapterSummary.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+This is the single most important security concept in Supabase. Without Row Level Security, anyone who has your anon key (which is exposed in the browser) could read, modify, or delete every row in your database. With RLS, you control exactly who can see and change each row.
+
+## What Is RLS?
+
+<Analogy title="RLS Is the Bouncer at a Club">
+Imagine a nightclub where every guest's belongings are stored in personal lockers. Without a bouncer, anyone who walks in the door can open any locker and take whatever they want. Row Level Security is the bouncer. It checks every person at the door and says: "You can open your locker. You cannot touch anyone else's." Even if someone sneaks through the front door (gets your API key), the bouncer still stops them from accessing data that is not theirs.
+</Analogy>
+
+RLS works at the database level. It is not something your app code can bypass or forget to check. Every single query that hits your database gets filtered through your RLS policies before any data is returned. That is what makes it so powerful.
+
+## Enabling RLS
+
+RLS is a two-step process: turn it on, then write policies that define the rules.
+
+### Step 1: Enable RLS on a Table
+
+```sql
+ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
+```
+
+Once you enable RLS, the default behavior is **deny everything**. No one can read, write, or delete any rows until you create policies that allow it. This is secure by default, which is exactly what you want.
+
+### Step 2: Create Policies
+
+A policy is a rule that says "this type of user can perform this action on rows that match this condition."
+
+**Users can read their own posts:**
+
+```sql
+CREATE POLICY "Users can view their own posts"
+  ON public.posts
+  FOR SELECT
+  USING (auth.uid() = author_id);
+```
+
+**Users can create posts (as themselves):**
+
+```sql
+CREATE POLICY "Users can create their own posts"
+  ON public.posts
+  FOR INSERT
+  WITH CHECK (auth.uid() = author_id);
+```
+
+**Users can update their own posts:**
+
+```sql
+CREATE POLICY "Users can update their own posts"
+  ON public.posts
+  FOR UPDATE
+  USING (auth.uid() = author_id)
+  WITH CHECK (auth.uid() = author_id);
+```
+
+Let's break down the key parts:
+
+- `auth.uid()` -- Supabase automatically knows who is making the request based on their login session. This returns their user ID.
+- `USING (...)` -- "Only return rows where this condition is true." This filters what you can read.
+- `WITH CHECK (...)` -- "Only allow the write if this condition is true." This validates what you can create or change.
+
+## A Common Pattern: Public Read, Private Write
+
+Many apps want everyone to be able to read data, but only the owner can edit it:
+
+```sql
+-- Anyone can read posts
+CREATE POLICY "Posts are publicly readable"
+  ON public.posts
+  FOR SELECT
+  USING (true);
+
+-- Only the author can update their own posts
+CREATE POLICY "Authors can update their posts"
+  ON public.posts
+  FOR UPDATE
+  USING (auth.uid() = author_id);
+```
+
+`USING (true)` means "this condition is always true" -- so everyone gets access for that operation.
+
+<DadTip>
+Here is the rule that will save you from a nightmare: enable RLS on every single table, every single time. No exceptions. Even if the table seems harmless. Even if you think "nobody would ever query this directly." If RLS is not on, your data is exposed. I have seen production apps get their entire database scraped because one developer forgot to enable RLS on a "temporary" table. Do not be that developer.
+</DadTip>
+
+## Testing Your Policies
+
+The Supabase dashboard has an "RLS Debugger" in the SQL Editor that lets you test your policies. You can simulate queries as different users to make sure the right people see the right data. Use it. Do not just assume your policies work -- verify them.
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Enable RLS on my posts table and create policies so users can only read, create, and update their own posts. Make posts publicly readable but only editable by the author."
+  context="You have a posts table with an author_id column and want to lock it down."
+  result="Claude Code generates the SQL to enable RLS and creates the appropriate policies for SELECT, INSERT, and UPDATE operations."
+/>
+
+<ChapterSummary
+  title="Chapter 6 Recap"
+  concepts={[
+    "Databases store your app's data in tables with rows and columns",
+    "SQL (SELECT, INSERT, UPDATE, DELETE) is how you talk to a database",
+    "Supabase gives you a PostgreSQL database, auth, and storage out of the box",
+    "Migrations are version-controlled blueprints for database changes",
+    "The Supabase client returns { data, error } -- always check both",
+    "Row Level Security protects your data at the database level -- enable it on every table"
+  ]}
+/>
+
+<ProgressChecklist
+  id="ch6-row-level-security"
+  items={[
+    "I can explain what RLS does and why it matters",
+    "I understand the difference between USING and WITH CHECK",
+    "I know what auth.uid() returns",
+    "I have committed to enabling RLS on every table I create"
+  ]}
+/>

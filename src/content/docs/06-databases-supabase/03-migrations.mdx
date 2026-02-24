@@ -1,0 +1,144 @@
+---
+title: Database Migrations
+description: The professional way to track and version changes to your database structure.
+sidebar:
+  order: 3
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+You could create tables by clicking around in the Supabase dashboard. It works. But professionals do not do it that way -- and for good reason.
+
+Imagine you build your whole database by clicking buttons in the dashboard. Everything works great on your laptop. Now you need to set up the exact same database for production. Can you remember every table, every column, every rule you created? Probably not. That is the problem migrations solve.
+
+## What Is a Migration?
+
+<Analogy title="Migrations Are Blueprints Filed at City Hall">
+When someone builds a house, they do not just start nailing boards together. They draw up blueprints, file them with the city, and follow them step by step. If they want to add a room later, they file a new blueprint -- they do not erase the original plans and redraw them. Database migrations work the same way. Each migration is a blueprint that describes one change to your database. They are filed in order, tracked in Git, and can be replayed on any machine to recreate the exact same database.
+</Analogy>
+
+A migration is a SQL file that describes a specific change to your database structure. "Create the users table." "Add a profile_picture column." "Create the posts table." Each change gets its own file with a timestamp, and they run in order.
+
+## Setting Up the Supabase CLI
+
+Before you can create migrations, you need the Supabase command-line tool:
+
+<Steps>
+
+1. **Install the Supabase CLI.**
+
+   ```bash
+   npm install -g supabase
+   ```
+
+2. **Log in to Supabase.**
+
+   ```bash
+   supabase login
+   ```
+
+3. **Initialize Supabase in your project.**
+
+   ```bash
+   supabase init
+   ```
+
+   This creates a `supabase/` folder in your project. That folder is where all your migration files will live.
+
+4. **Link to your remote project.**
+
+   ```bash
+   supabase link --project-ref your-project-ref
+   ```
+
+   You can find your project ref in the Supabase dashboard under **Settings > General**.
+
+</Steps>
+
+## The Migration Workflow
+
+Once you are set up, creating and running migrations follows a consistent pattern:
+
+<Steps>
+
+1. **Think about the change you need.**
+   "I need a table to store blog posts."
+
+2. **Create a migration file.**
+
+   ```bash
+   supabase migration new create_posts_table
+   ```
+
+   This creates a file like `supabase/migrations/20260224120000_create_posts_table.sql`. The number at the beginning is a timestamp that keeps migrations in order.
+
+3. **Write your SQL in the migration file.**
+
+   ```sql
+   -- supabase/migrations/20260224120000_create_posts_table.sql
+   CREATE TABLE public.posts (
+     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+     title TEXT NOT NULL,
+     body TEXT,
+     author_id UUID REFERENCES public.users(id),
+     created_at TIMESTAMPTZ DEFAULT now(),
+     updated_at TIMESTAMPTZ DEFAULT now()
+   );
+
+   ALTER TABLE public.posts ENABLE ROW LEVEL SECURITY;
+   ```
+
+4. **Test it locally.**
+
+   ```bash
+   supabase db push
+   ```
+
+5. **Commit the migration file to Git.**
+   This is critical. Migration files go in your repo so every developer and every environment can reproduce the same database.
+
+6. **Deploy to production.**
+
+   ```bash
+   supabase db push --linked
+   ```
+
+</Steps>
+
+## The Golden Rule
+
+<DadTip>
+Never, ever edit a migration file that has already been applied to production. If you need to change something, create a new migration. Migrations are an append-only history of your database. Editing old ones is like going back and rewriting the blueprints after the building is already standing -- it causes confusion and breaks things. If you made a mistake, the fix is always "write a new migration that corrects it."
+</DadTip>
+
+## Checking Migration Status
+
+You can always see which migrations have been applied:
+
+```bash
+supabase migration list
+```
+
+This shows you a list of all migration files and whether they have been run on your local and remote databases.
+
+## Why This Matters
+
+Migrations might feel like extra work right now. But they solve real problems:
+
+- **Reproducibility** -- Any developer can clone your repo and get the exact same database by running the migrations.
+- **History** -- You have a complete record of every change your database has ever been through.
+- **Safety** -- Changes are reviewed in pull requests before they hit production, just like code.
+- **Rollbacks** -- If something goes wrong, you know exactly what changed and when.
+
+<ProgressChecklist
+  id="ch6-migrations"
+  items={[
+    "I installed and linked the Supabase CLI",
+    "I understand what a migration file is and why it matters",
+    "I can describe the migration workflow in my own words",
+    "I know the golden rule: never edit a migration that has been applied to production"
+  ]}
+/>

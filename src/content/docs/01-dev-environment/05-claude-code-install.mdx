@@ -1,0 +1,90 @@
+---
+title: "Installing Claude Code"
+description: "Set up your AI pair programmer that will supercharge your development workflow."
+sidebar:
+  order: 5
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import { Steps } from '@astrojs/starlight/components';
+
+This is the tool that changes everything.
+
+Claude Code is an AI pair programmer made by Anthropic. It runs in your terminal and can read your entire codebase, write code, create and edit files, run commands, debug errors, and help you build features from plain English descriptions. It's not a chatbot that gives you generic code snippets -- it's an agent that understands the context of *your* specific project and acts on it.
+
+<Analogy title="A Senior Developer Sitting Next to You">
+Imagine you could hire a senior developer -- someone with years of experience across dozens of programming languages and frameworks -- to sit right next to you while you work. You could ask them anything: "Why isn't this working?", "How should I structure this?", "Write the database query for this feature." They'd look at your actual code, understand your project's architecture, and give you answers that fit your specific situation. That's what Claude Code is. Except it never gets tired, never gets annoyed by "dumb" questions, and it's available 24/7.
+</Analogy>
+
+## What Makes Claude Code Different
+
+There are lots of AI coding tools out there, so it's worth understanding why we're using this one:
+
+- **It lives in your terminal.** Not in a browser tab, not in a sidebar. It runs right where you run your other dev commands, which means it can directly create files, run your tests, start your dev server, and interact with your project.
+- **It reads your whole codebase.** Claude Code doesn't just see the one file you paste in. It can explore your entire project structure, understand how files relate to each other, and make changes that are consistent with your existing code.
+- **It takes action.** You can ask Claude Code to not just *suggest* code, but actually write files, install packages, run commands, and make changes. It's the difference between a consultant who writes a report and a contractor who does the work.
+
+## Installing Claude Code
+
+You need Node.js and npm installed first (which you should have from the previous section). Claude Code is installed as a global npm package.
+
+<Steps>
+
+1. **Open your terminal** and run:
+
+   ```bash
+   npm install -g @anthropic-ai/claude-code
+   ```
+
+   The `-g` flag means "global" -- it installs Claude Code as a system-wide command, not just for one project.
+
+2. **Navigate to any project folder** (or create one for testing):
+
+   ```bash
+   mkdir test-project
+   cd test-project
+   ```
+
+3. **Start Claude Code** by simply typing:
+
+   ```bash
+   claude
+   ```
+
+4. **Authenticate.** On first run, Claude Code will ask you to log in with your Anthropic account. Follow the prompts -- it will open a browser window where you can sign in.
+
+</Steps>
+
+Once authenticated, you'll see Claude Code's prompt waiting for your input. Type a question or instruction in plain English, and it will respond.
+
+## A Quick Verification
+
+Let's make sure everything is working. With Claude Code running in your test project, try typing:
+
+```
+What files are in this directory? Create a simple index.html file that says "Hello, World!"
+```
+
+Claude Code should look at your directory, note that it's empty (or nearly so), and create the file for you. If it does, everything is working perfectly.
+
+<VideoEmbed id="8dcI0CqBQq4" title="Claude Code Live: Origin Story, Demos, and Best Practices" creator="Anthropic" duration="60 min" description="An official webinar from Anthropic's Claude Code team showing the origin story, live demos, and best practices. Great for seeing what your new tool can actually do." />
+
+<DadTip>
+This tool is going to be your most-used development companion, and it's honestly the reason I think now is the best time in history to learn to code. Previous generations had to figure out everything by reading documentation and trial-and-error. You get to have a conversation with an expert. But remember the chef analogy from the introduction: Claude Code is most powerful when *you* understand what you're asking for. That's why we're learning the fundamentals first. The AI amplifies your knowledge -- the more you know, the more it can do for you.
+</DadTip>
+
+## What's Coming in Chapter 8
+
+We'll dedicate an entire chapter to using Claude Code effectively -- writing great prompts, understanding its limitations, reviewing its output, and building complete features with it. For now, just make sure it's installed and authenticated.
+
+Think of this section as plugging in the power tool. Chapter 8 is where you learn to use it like a pro.
+
+<PromptExample prompt="claude --version" context="Run this in your terminal (not inside Claude Code) to verify the installation" result="Should print the currently installed version of Claude Code. If you see a version number, you're good to go." />
+
+<PromptExample prompt="Look at this project and tell me what it does. Explain it like I'm a beginner." context="When you open a new project and want to understand its structure" result="Claude Code will read through the files, understand the architecture, and give you a plain-English summary of what the project does and how it's organized." />
+
+<ProgressChecklist id="claude-code-checklist" items={["Installed Claude Code with npm install -g @anthropic-ai/claude-code", "Ran claude in a project directory", "Authenticated with your Anthropic account", "Verified it works by asking it to create a simple file", "Understand that Claude Code reads your entire codebase and can take actions", "Know that a deep dive on using Claude Code effectively is coming in Chapter 8"]} />

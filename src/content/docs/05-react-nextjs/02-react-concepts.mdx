@@ -1,0 +1,131 @@
+---
+title: "React Core Concepts"
+description: "Props, state, and effects -- the three big ideas that make React apps interactive and dynamic."
+sidebar:
+  order: 2
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import ConceptCard from '../../../components/ConceptCard.astro';
+import ConceptCardGrid from '../../../components/ConceptCardGrid.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+Now that you know what components are, let's talk about the three big ideas that make them actually useful: **props**, **state**, and **effects**. These are the core concepts of React. Once you understand these three things, you understand how React apps work.
+
+<ConceptCardGrid title="The Big Three">
+  <ConceptCard title="Props">
+    Data passed *into* a component from its parent. Like handing someone a note -- they can read it, but they can't change what you wrote.
+  </ConceptCard>
+  <ConceptCard title="State">
+    Data that lives *inside* a component and can change over time. When state changes, the component automatically updates on screen.
+  </ConceptCard>
+  <ConceptCard title="useEffect">
+    A way to run code in response to something happening -- like fetching data when a page loads or updating the document title.
+  </ConceptCard>
+  <ConceptCard title="Components">
+    The building blocks themselves. Props flow into them, state lives inside them, and effects let them reach out to the world.
+  </ConceptCard>
+</ConceptCardGrid>
+
+## Props: Passing Notes in Class
+
+<Analogy title="Passing Notes in Class">
+Imagine you're in class and you write a note that says "Meet at lunch?" and pass it to your friend. Your friend can read the note, but they can't change what you wrote on it. That's exactly how props work in React. A parent component passes data to a child component. The child can use that data to render its UI, but it cannot modify the data it received. If the parent wants to send different data, the parent writes a new note.
+</Analogy>
+
+In code, it looks like this -- a parent passes `name` and `email` to a `UserCard`:
+
+```tsx
+// Parent passes data
+<UserCard name="Jordan" email="jordan@email.com" />
+
+// Child receives and displays it
+function UserCard({ name, email }) {
+  return (
+    <div>
+      <h2>{name}</h2>
+      <p>{email}</p>
+    </div>
+  );
+}
+```
+
+The key idea: **data flows down**. Parents pass props to children, never the other way around. This one-way flow makes apps predictable and easy to reason about.
+
+## State: Data That Changes
+
+Props are for data coming *in* from outside. But what about data that changes *inside* a component? That's **state**.
+
+<Analogy title="A Scoreboard">
+Think of a basketball scoreboard. The score starts at 0-0, but it changes every time someone scores. The scoreboard doesn't get rebuilt from scratch each time -- it just updates the number. React state works the same way. You declare a piece of data that can change (like a score), and whenever it changes, React automatically updates just the part of the screen that needs to reflect the new value.
+</Analogy>
+
+Here's the classic example -- a counter:
+
+```tsx
+import { useState } from "react";
+
+function Counter() {
+  const [count, setCount] = useState(0);
+
+  return (
+    <div>
+      <p>Count: {count}</p>
+      <button onClick={() => setCount(count + 1)}>
+        Add One
+      </button>
+    </div>
+  );
+}
+```
+
+`useState(0)` creates a piece of state that starts at `0`. It gives you two things: the current value (`count`) and a function to update it (`setCount`). When the button is clicked, `setCount` updates the value, and React re-renders the component to show the new count.
+
+**The magic of React is this automatic re-rendering.** You never manually update the screen. You update the data, and React figures out what on the screen needs to change.
+
+## useEffect: Reaching Out to the World
+
+Components render UI. But sometimes you need to do things *beyond* rendering -- like fetching data from an API when the page loads, or updating the browser tab title. That's what `useEffect` is for.
+
+<Analogy title="Setting an Alarm">
+Think of useEffect like setting an alarm. You say "when this happens, do that." When the component first appears on screen, fetch some data. When a specific value changes, re-fetch the data. It's a way to connect your component to the outside world -- APIs, timers, the browser itself.
+</Analogy>
+
+```tsx
+import { useState, useEffect } from "react";
+
+function UserProfile({ userId }) {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    // This runs when the component appears on screen
+    fetch(`/api/users/${userId}`)
+      .then(response => response.json())
+      .then(data => setUser(data));
+  }, [userId]); // Re-run if userId changes
+
+  if (!user) return <p>Loading...</p>;
+  return <h1>{user.name}</h1>;
+}
+```
+
+The `[userId]` at the end is called the **dependency array**. It tells React: "only re-run this effect if `userId` changes." This prevents the effect from running on every single render.
+
+<DadTip>
+Here's the honest truth: useEffect is the concept that trips up even experienced developers. Don't stress about mastering it right now. When you're working with Claude Code, you can describe what you need ("fetch user data when the page loads") and it will handle the useEffect correctly. Your job is to know that the concept exists and roughly what it does.
+</DadTip>
+
+## How They All Work Together
+
+Here's the mental model: a React app is a tree of components. Data flows *down* through props. Each component can have its own internal state. And effects let components reach out to the world (APIs, browsers, timers) when things happen.
+
+That's it. Props in, state inside, effects outward. Everything else in React is built on these three ideas.
+
+<VideoEmbed id="LDB4uaJ87e0" title="React Crash Course 2024" creator="Traversy Media" duration="3 hrs" description="A comprehensive walkthrough of building a real React app. Great for seeing all these concepts in action together. Watch at 1.5x speed or jump to the sections that interest you." />
+
+<VideoEmbed id="TNhaISOUy6Q" title="10 React Hooks Explained" creator="Fireship" duration="12 min" description="A quick tour of React's built-in hooks including useState and useEffect. Perfect for understanding the tools React gives you." />
+
+<ProgressChecklist id="ch5-concepts-checklist" items={["Understand that props are data passed into a component (read-only)", "Understand that state is data that changes inside a component", "Know that useEffect is for side effects like fetching data", "Understand the pattern: props flow down, state lives inside, effects reach outward", "Watch at least one of the recommended videos"]} />

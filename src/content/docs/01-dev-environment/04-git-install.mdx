@@ -1,0 +1,100 @@
+---
+title: "Installing Git"
+description: "Install the version control system used by every professional development team."
+sidebar:
+  order: 4
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import { Tabs, TabItem, Steps } from '@astrojs/starlight/components';
+
+Git is the version control system used by virtually every software team on the planet. We're going to do a deep dive into how Git works in Chapter 4, so this section is short -- just enough to get it installed and configured so it's ready when you need it.
+
+<Analogy title="Save Points in a Video Game">
+You know how in video games, you save your progress before a tough boss fight? That way, if things go badly, you can reload from your save point instead of starting the whole game over. Git does the same thing for your code. Every time you make a "commit" (a save point), Git takes a snapshot of your entire project. If you break something later, you can rewind to any previous snapshot. And unlike a video game with limited save slots, Git keeps every snapshot forever.
+</Analogy>
+
+For now, all you need to know is this: Git tracks changes to your files over time, lets you go back to any previous version, and makes it safe to experiment without fear of losing your work. It's one of those tools that seems unnecessary until the first time it saves you -- and then you'll never code without it.
+
+<VideoEmbed id="HkdAHXoRtos" title="Git Explained in 100 Seconds" creator="Fireship" duration="2 min" description="A quick, visual overview of what Git is and why it exists. Perfect for right now -- we'll go deeper in Chapter 4." />
+
+## Installing Git
+
+<Tabs>
+  <TabItem label="Mac">
+    Git might already be installed on your Mac. Open the terminal and run:
+
+    ```bash
+    git --version
+    ```
+
+    If you see a version number, you're good. If not, macOS will prompt you to install the Command Line Developer Tools -- say yes, and Git will be included.
+
+    Alternatively, if you installed Homebrew (a Mac package manager), you can run:
+
+    ```bash
+    brew install git
+    ```
+  </TabItem>
+  <TabItem label="Windows">
+    <Steps>
+
+    1. Go to [git-scm.com](https://git-scm.com) and download the Windows installer.
+
+    2. Run the installer. The defaults are fine for most options. When it asks about the default editor, you can select VS Code if it's listed.
+
+    3. When it asks about adjusting your PATH, choose "Git from the command line and also from 3rd-party software."
+
+    </Steps>
+
+    After installation, open a new terminal and verify:
+
+    ```powershell
+    git --version
+    ```
+  </TabItem>
+  <TabItem label="Linux">
+    Use your distribution's package manager:
+
+    ```bash
+    # Ubuntu / Debian
+    sudo apt install git
+
+    # Fedora
+    sudo dnf install git
+    ```
+
+    Verify with:
+
+    ```bash
+    git --version
+    ```
+  </TabItem>
+</Tabs>
+
+## Configure Your Identity
+
+Git tags every save point (commit) with your name and email address, so you (and anyone else on the team) can see who made each change. Run these two commands, replacing the placeholder text with your actual name and email:
+
+```bash
+git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"
+```
+
+This is a one-time setup. Git will remember these settings for all of your projects.
+
+<DadTip>
+Use the same email address you plan to use for your GitHub account. GitHub uses the email in your Git config to connect commits to your profile. If they don't match, your contributions won't show up on your GitHub activity graph -- which you'll want to start building up.
+</DadTip>
+
+## That's It (For Now)
+
+We'll cover branches, commits, pull requests, and everything else Git can do in Chapter 4. For now, you just need it installed and configured with your identity.
+
+<PromptExample prompt="Is Git installed correctly on my machine? Check the version and my global config." context="After installing Git, to verify everything is set up" result="Claude Code will run git --version and git config --list to confirm the installation and show your configured name and email." />
+
+<ProgressChecklist id="git-install-checklist" items={["Verified Git is installed with git --version", "Configured your name with git config --global user.name", "Configured your email with git config --global user.email", "Understand that Git is a version control system (save points for code)", "Know that a deep dive on Git is coming in Chapter 4"]} />

@@ -1,0 +1,112 @@
+---
+title: "Async/Await: Handling Things That Take Time"
+description: Web development is full of operations that take time. Async/await is how JavaScript handles them gracefully.
+sidebar:
+  order: 3
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Some things in programming happen instantly. Adding two numbers? Done. Checking if a string is empty? Done. But some things take time: fetching data from a server, reading a file, waiting for a user to upload an image. These are called **asynchronous** operations.
+
+JavaScript has a clean way to handle them: **async/await**.
+
+## The Food Delivery Analogy
+
+<Analogy title="Async/Await Is Like Ordering Food Delivery">
+Imagine you order dinner through a delivery app. You do not stand at the door and stare at it until the food arrives. That would be insane. Instead, you:
+
+1. **Place the order** (start the asynchronous operation).
+2. **Go do other things** -- watch TV, do homework, play a game (JavaScript keeps running other code).
+3. **Get notified when it arrives** (the operation completes and you get the result).
+
+That is async/await in a nutshell.
+
+- **`async`** marks a function as one that will involve waiting. It is like saying: "This recipe includes a delivery order, so do not expect it to finish instantly."
+- **`await`** is the actual waiting. It says: "Pause here until the delivery arrives, then continue with the next step."
+
+Without `await`, JavaScript would just keep going and try to eat dinner before the food shows up. With `await`, it pauses that particular task and picks it up when the data is ready -- while still handling other things in the meantime.
+</Analogy>
+
+## Why This Matters for Web Development
+
+Almost everything interesting in a web app involves waiting:
+
+- **Fetching data from your API** -- Your frontend asks the backend for a list of tasks. The backend has to talk to the database, package the response, and send it back. That takes time.
+- **Saving data to the database** -- The user fills out a form and clicks submit. The app needs to send that data to the server and wait for confirmation.
+- **Loading an image** -- The browser downloads an image from a URL. How long that takes depends on the file size and the user's internet speed.
+- **Authenticating a user** -- Checking login credentials with an auth service is an asynchronous call.
+
+Every single one of these uses async/await. You will see this pattern hundreds of times.
+
+## The Safety Net: try/catch
+
+<Analogy title="try/catch Is a Safety Net">
+What happens if the delivery never shows up? Maybe the restaurant is closed. Maybe there was a network error. You need a plan for when things go wrong.
+
+That is what **try/catch** does. It wraps your async code in a safety net:
+
+- **`try`** -- "Attempt to do this thing."
+- **`catch`** -- "If it fails, here is what to do instead."
+
+It is like saying: "Try to order dinner. If the delivery fails, order pizza instead." Without try/catch, a failed API call could crash your entire app. With it, you can show the user a friendly error message, retry the operation, or fall back to cached data.
+</Analogy>
+
+The pattern looks like this in plain English:
+
+1. **Try** to fetch data from the API.
+2. If it **works**, use the data.
+3. If it **fails** (catch), show an error message to the user.
+
+You will use this try/catch pattern with almost every async operation. It is not optional -- it is how professional apps handle the reality that things sometimes break.
+
+<DadTip>
+When you are working with Claude Code and you ask it to fetch data or save something to the database, check that it wraps the code in try/catch. If it does not, ask it to add error handling. This is one of those habits that separates code that works in demos from code that works in the real world.
+</DadTip>
+
+## The Key Insight
+
+Here is the single most important thing to remember about async/await:
+
+**`await` pauses execution until the asynchronous operation completes.**
+
+That is it. When you see `await fetch(...)`, it means "wait here until the server responds, then continue to the next line." When you see `await supabase.from('tasks').select('*')`, it means "wait here until the database returns the data."
+
+You do not need to understand the entire event loop or JavaScript's concurrency model. You need to know that `await` means "wait for this" and `try/catch` means "handle failures gracefully." With those two concepts, you can read and understand any async code Claude Code generates.
+
+## Watch This
+
+<VideoEmbed id="vn3tm0quoqE" title="The Async Await Episode I Promised" creator="Fireship" duration="12 min" />
+
+:::tip[This One Is Worth the Full Watch]
+This is one of the best explanations of async/await on the internet. Fireship breaks down the concept visually and builds up from callbacks to promises to async/await. If you watch one video in this entire chapter, make it this one.
+:::
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Write an async function that fetches all tasks from /api/tasks and handles errors with try/catch. If the request fails, log the error and return an empty array."
+  context="You need a reusable function for fetching tasks with proper error handling."
+  result="Claude Code writes an async function with await, try/catch, error logging, and a fallback return value."
+/>
+
+<PromptExample
+  prompt="My app crashes when the API is slow or unreachable. Add error handling to my data fetching functions."
+  context="Your app works when everything is fast, but breaks when the network is flaky."
+  result="Claude Code wraps your fetch calls in try/catch blocks and adds loading states and error messages for the user."
+/>
+
+<ProgressChecklist
+  id="ch3-async-await"
+  items={[
+    "I understand that some operations take time (async) and JavaScript has a way to wait for them",
+    "I can explain the food delivery analogy: place order, do other things, get notified",
+    "I know that await means 'pause here until the result is ready'",
+    "I understand that try/catch is the safety net for when things fail",
+    "I watched the Fireship async/await video"
+  ]}
+/>

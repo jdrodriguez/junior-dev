@@ -1,0 +1,162 @@
+---
+title: Using Supabase in Code
+description: Fetch, create, update, and delete data in your app using the Supabase client library.
+sidebar:
+  order: 4
+---
+
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ConceptCard from '../../../components/ConceptCard.astro';
+import ConceptCardGrid from '../../../components/ConceptCardGrid.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Now for the fun part. You have a database. You have tables. It is time to actually talk to your database from your app. The Supabase client library makes this straightforward -- you ask for data, and it gives you back data or an error. That is the pattern.
+
+## Setting Up the Client
+
+First, you need a utility file that creates and exports a Supabase client. This is the file you will import everywhere:
+
+```typescript
+// lib/supabase.ts
+import { createClient } from '@supabase/supabase-js';
+
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+);
+
+export default supabase;
+```
+
+That `!` after each environment variable is TypeScript saying "trust me, this value exists." It will because you set them up in `.env.local` earlier.
+
+## The Pattern: Data or Error
+
+Every Supabase query returns the same shape:
+
+```typescript
+const { data, error } = await supabase.from('posts').select('*');
+```
+
+You always get two things back: `data` (what you asked for) and `error` (what went wrong, if anything). Always check for errors. Always.
+
+<ConceptCardGrid>
+  <ConceptCard title="data">
+    The result of your query. Could be an array of rows, a single row, or null if nothing was found.
+  </ConceptCard>
+  <ConceptCard title="error">
+    If something went wrong, this tells you what happened. If everything is fine, this is null.
+  </ConceptCard>
+</ConceptCardGrid>
+
+## Reading Data (SELECT)
+
+Fetch all posts, newest first:
+
+```typescript
+const { data: posts, error } = await supabase
+  .from('posts')
+  .select('*')
+  .order('created_at', { ascending: false });
+
+if (error) {
+  console.error('Failed to fetch posts:', error.message);
+  return;
+}
+
+// posts is now an array of post objects
+```
+
+Fetch a single post by ID:
+
+```typescript
+const { data: post, error } = await supabase
+  .from('posts')
+  .select('*')
+  .eq('id', postId)
+  .single();
+```
+
+The `.eq()` method means "where this column equals this value." The `.single()` method says "I expect exactly one result, give me an object instead of an array."
+
+## Creating Data (INSERT)
+
+```typescript
+const { data: newPost, error } = await supabase
+  .from('posts')
+  .insert({
+    title: 'My First Post',
+    body: 'Hello, world!',
+    author_id: userId,
+  })
+  .select()
+  .single();
+```
+
+The `.select()` after `.insert()` tells Supabase to return the newly created row. Without it, you just get confirmation that the insert worked but no data back.
+
+## Updating Data (UPDATE)
+
+```typescript
+const { error } = await supabase
+  .from('posts')
+  .update({ title: 'My Updated Post' })
+  .eq('id', postId);
+```
+
+Always include a `.eq()` (or another filter) so you do not accidentally update every row in the table. That would be bad.
+
+## Deleting Data (DELETE)
+
+```typescript
+const { error } = await supabase
+  .from('posts')
+  .update({ deleted_at: new Date().toISOString() })
+  .eq('id', postId);
+```
+
+<DadTip>
+Notice we are not actually deleting the row. We are setting a `deleted_at` timestamp. This is called a "soft delete." The data is still in the database, but your app treats it as gone. This means you can always undo a delete, you have a record of when it was deleted, and you never accidentally lose data. In professional development, hard deletes are almost never the right call. Always soft delete.
+</DadTip>
+
+## Filtering Data
+
+Supabase has a rich set of filters beyond `.eq()`:
+
+```typescript
+// Posts from the last 7 days
+const { data } = await supabase
+  .from('posts')
+  .select('*')
+  .gte('created_at', sevenDaysAgo)
+  .is('deleted_at', null);
+
+// Posts where title contains a search term
+const { data } = await supabase
+  .from('posts')
+  .select('*')
+  .ilike('title', `%${searchTerm}%`);
+```
+
+- `.gte()` -- greater than or equal to
+- `.is()` -- checks for null
+- `.ilike()` -- case-insensitive pattern matching
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Write a function that fetches all posts ordered by newest first, excluding any that have been soft deleted."
+  context="You have a posts table with a deleted_at column and want to display them on a page."
+  result="Claude Code writes a function using the Supabase client that selects from posts, filters where deleted_at is null, and orders by created_at descending."
+/>
+
+<ProgressChecklist
+  id="ch6-supabase-in-code"
+  items={[
+    "I created a Supabase client utility file",
+    "I understand the { data, error } pattern",
+    "I can explain the difference between select, insert, update, and soft delete",
+    "I know why you should always check for errors"
+  ]}
+/>

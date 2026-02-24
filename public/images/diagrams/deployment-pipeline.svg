@@ -1,0 +1,107 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <defs>
+    <marker id="pipeArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#1e293b">From Your Laptop to the World</text>
+
+  <!-- ==================== STEP 1: Write Code ==================== -->
+  <rect x="30" y="75" width="150" height="160" rx="14" fill="#ffffff" stroke="#3b82f6" stroke-width="2.5"/>
+  <!-- Laptop icon -->
+  <rect x="72" y="100" width="66" height="45" rx="5" fill="#dbeafe" stroke="#3b82f6" stroke-width="2"/>
+  <!-- Code lines inside laptop -->
+  <rect x="80" y="108" width="30" height="4" rx="2" fill="#3b82f6"/>
+  <rect x="80" y="116" width="42" height="4" rx="2" fill="#93c5fd"/>
+  <rect x="80" y="124" width="25" height="4" rx="2" fill="#93c5fd"/>
+  <rect x="80" y="132" width="38" height="4" rx="2" fill="#3b82f6"/>
+  <!-- Laptop base -->
+  <rect x="62" y="145" width="86" height="7" rx="3" fill="#3b82f6"/>
+
+  <!-- Step number -->
+  <circle cx="55" cy="90" r="14" fill="#3b82f6"/>
+  <text x="55" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff">1</text>
+
+  <text x="105" y="180" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1e293b">Write Code</text>
+  <text x="105" y="198" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">On your laptop</text>
+  <text x="105" y="213" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">with VS Code</text>
+
+  <!-- Arrow 1->2 -->
+  <line x1="184" y1="155" x2="228" y2="155" stroke="#d97706" stroke-width="2.5" marker-end="url(#pipeArrow)"/>
+
+  <!-- ==================== STEP 2: Push to GitHub ==================== -->
+  <rect x="235" y="75" width="150" height="160" rx="14" fill="#ffffff" stroke="#1e293b" stroke-width="2.5"/>
+  <!-- GitHub icon (simplified octocat) -->
+  <circle cx="310" cy="118" r="22" fill="#1e293b"/>
+  <circle cx="310" cy="114" r="10" fill="#ffffff"/>
+  <circle cx="305" cy="112" r="3" fill="#1e293b"/>
+  <circle cx="315" cy="112" r="3" fill="#1e293b"/>
+  <path d="M 304,120 Q 310,125 316,120" fill="none" stroke="#1e293b" stroke-width="1.5"/>
+
+  <!-- Step number -->
+  <circle cx="260" cy="90" r="14" fill="#1e293b"/>
+  <text x="260" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff">2</text>
+
+  <text x="310" y="180" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1e293b">Push to GitHub</text>
+  <text x="310" y="198" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">git push sends your</text>
+  <text x="310" y="213" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">code to the cloud</text>
+
+  <!-- Arrow 2->3 -->
+  <line x1="389" y1="155" x2="433" y2="155" stroke="#d97706" stroke-width="2.5" marker-end="url(#pipeArrow)"/>
+
+  <!-- ==================== STEP 3: Auto-Deploy ==================== -->
+  <rect x="440" y="75" width="150" height="160" rx="14" fill="#ffffff" stroke="#6366f1" stroke-width="2.5"/>
+  <!-- Cloud icon -->
+  <ellipse cx="515" cy="120" rx="30" ry="18" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+  <ellipse cx="498" cy="128" rx="18" ry="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+  <ellipse cx="530" cy="128" rx="15" ry="10" fill="#e0e7ff" stroke="#6366f1" stroke-width="2"/>
+  <!-- Cover overlapping strokes -->
+  <ellipse cx="515" cy="122" rx="28" ry="14" fill="#e0e7ff"/>
+  <!-- Gear inside cloud -->
+  <circle cx="515" cy="120" r="7" fill="#6366f1"/>
+  <circle cx="515" cy="120" r="3" fill="#e0e7ff"/>
+
+  <!-- Step number -->
+  <circle cx="465" cy="90" r="14" fill="#6366f1"/>
+  <text x="465" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff">3</text>
+
+  <text x="515" y="180" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="700" fill="#1e293b">Auto-Deploy</text>
+  <text x="515" y="198" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">Vercel detects</text>
+  <text x="515" y="213" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">changes &amp; rebuilds</text>
+
+  <!-- Arrow 3->4 -->
+  <line x1="594" y1="155" x2="638" y2="155" stroke="#d97706" stroke-width="2.5" marker-end="url(#pipeArrow)"/>
+
+  <!-- ==================== STEP 4: Live! ==================== -->
+  <rect x="645" y="75" width="130" height="160" rx="14" fill="#ffffff" stroke="#10b981" stroke-width="2.5"/>
+  <!-- Globe icon -->
+  <circle cx="710" cy="120" r="22" fill="#dcfce7" stroke="#10b981" stroke-width="2"/>
+  <ellipse cx="710" cy="120" rx="10" ry="22" fill="none" stroke="#10b981" stroke-width="1.5"/>
+  <line x1="688" y1="120" x2="732" y2="120" stroke="#10b981" stroke-width="1.5"/>
+  <line x1="692" y1="108" x2="728" y2="108" stroke="#10b981" stroke-width="1"/>
+  <line x1="692" y1="132" x2="728" y2="132" stroke="#10b981" stroke-width="1"/>
+
+  <!-- Step number -->
+  <circle cx="665" cy="90" r="14" fill="#10b981"/>
+  <text x="665" y="95" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="700" fill="#ffffff">4</text>
+
+  <text x="710" y="176" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#10b981">Live on the</text>
+  <text x="710" y="194" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="700" fill="#10b981">Internet!</text>
+  <text x="710" y="214" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#64748b">yourapp.vercel.app</text>
+
+  <!-- ==================== AUTO-DEPLOY NOTE ==================== -->
+  <rect x="405" y="250" width="220" height="36" rx="8" fill="#eef2ff" stroke="#6366f1" stroke-width="1.5"/>
+  <text x="515" y="272" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6366f1">Vercel detects changes and</text>
+  <text x="515" y="284" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#6366f1">rebuilds automatically</text>
+
+  <!-- ==================== BOTTOM EXPLANATION ==================== -->
+  <rect x="80" y="310" width="640" height="72" rx="12" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="336" text-anchor="middle" font-family="sans-serif" font-size="14" font-weight="600" fill="#1e293b">The whole process takes about 30 seconds!</text>
+  <text x="400" y="358" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">Every time you push code to GitHub, Vercel automatically builds and deploys</text>
+  <text x="400" y="374" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">your updated site. No manual uploading needed.</text>
+</svg>

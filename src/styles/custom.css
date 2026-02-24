@@ -1,0 +1,315 @@
+/* The Junior Developer Guidebook - Custom Theme */
+
+/* Warm accent color (amber/gold) */
+:root {
+  --sl-color-accent-low: #451a03;
+  --sl-color-accent: #d97706;
+  --sl-color-accent-high: #fef3c7;
+  --sl-font-size-base: 1.05rem;
+}
+:root[data-theme='light'] {
+  --sl-color-accent-low: #fef3c7;
+  --sl-color-accent: #d97706;
+  --sl-color-accent-high: #451a03;
+}
+
+/* Larger, more readable body text */
+.sl-markdown-content {
+  font-size: var(--sl-font-size-base);
+  line-height: 1.8;
+}
+
+/* ── Video embed card ─────────────────────────────────────── */
+
+.video-embed {
+  margin: 1.5rem 0;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+  border: 1px solid var(--sl-color-gray-5);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06), 0 0 1px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+.video-embed:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1), 0 0 1px rgba(0, 0, 0, 0.12);
+  transform: translateY(-2px);
+}
+:root[data-theme='dark'] .video-embed {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2), 0 0 1px rgba(0, 0, 0, 0.3);
+}
+:root[data-theme='dark'] .video-embed:hover {
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35), 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+/* Player wrapper -- holds iframe + duration badge */
+.video-embed-player {
+  position: relative;
+}
+
+/* Responsive 16:9 iframe container */
+.video-embed-container {
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+  overflow: hidden;
+  background: #0f0f0f;
+}
+.video-embed-container iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+/* Duration pill badge -- bottom-right of the player */
+.video-embed-badge {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.78);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #fff;
+  padding: 0.2rem 0.6rem;
+  border-radius: 99px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.4;
+  pointer-events: none;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  z-index: 2;
+}
+
+/* Info section below the player */
+.video-embed-info {
+  padding: 0.875rem 1rem 1rem;
+}
+
+.video-embed-title {
+  font-weight: 650;
+  font-size: 0.95rem;
+  line-height: 1.35;
+  color: var(--sl-color-white);
+}
+
+.video-embed-creator {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: 0.35rem;
+  font-size: 0.8rem;
+  color: var(--sl-color-gray-2);
+  font-weight: 500;
+}
+.video-embed-creator svg {
+  opacity: 0.65;
+  flex-shrink: 0;
+}
+
+.video-embed-description {
+  margin: 0.6rem 0 0;
+  font-size: 0.82rem;
+  line-height: 1.55;
+  color: var(--sl-color-gray-3);
+}
+
+/* ── Video gallery ───────────────────────────────────────── */
+
+.video-gallery {
+  margin: 2rem 0;
+}
+
+.video-gallery-header {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 1rem;
+}
+.video-gallery-header h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--sl-color-white);
+}
+.video-gallery-icon {
+  color: var(--sl-color-accent);
+  flex-shrink: 0;
+}
+
+.video-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+/* Inside a gallery, tighten card margins so the grid gap controls spacing */
+.video-gallery-grid .video-embed {
+  margin: 0;
+}
+
+/* Prompt example styling */
+.prompt-example {
+  margin: 1.5rem 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #6d28d9;
+  background: #1e1b4b;
+}
+.prompt-example-header {
+  padding: 0.5rem 1rem;
+  background: #312e81;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  color: #c4b5fd;
+  font-weight: 600;
+}
+.prompt-example-body {
+  padding: 1rem;
+  font-family: var(--sl-font-mono);
+  font-size: 0.9rem;
+  color: #e0e7ff;
+  line-height: 1.6;
+}
+.prompt-example-context {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: #a5b4fc;
+  border-top: 1px solid #312e81;
+}
+.prompt-example-result {
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  color: #86efac;
+  border-top: 1px solid #312e81;
+}
+
+/* Analogy block styling */
+.analogy {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+  border-left: 4px solid #f59e0b;
+  color: #451a03;
+}
+:root[data-theme='dark'] .analogy {
+  background: linear-gradient(135deg, #451a03 0%, #78350f 100%);
+  color: #fef3c7;
+}
+.analogy-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Dad tip styling */
+.dad-tip {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
+  border-left: 4px solid #10b981;
+  color: #064e3b;
+  position: relative;
+}
+:root[data-theme='dark'] .dad-tip {
+  background: linear-gradient(135deg, #064e3b 0%, #065f46 100%);
+  color: #d1fae5;
+}
+.dad-tip-title {
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Concept card grid */
+.concept-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+.concept-card {
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--sl-color-gray-5);
+  background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+}
+.concept-card-title {
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Progress checklist */
+.progress-checklist {
+  margin: 1.5rem 0;
+  padding: 1.25rem;
+  border-radius: 12px;
+  border: 1px solid var(--sl-color-gray-5);
+  background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+}
+.progress-checklist h4 {
+  margin: 0 0 0.75rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.progress-checklist label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.4rem 0;
+  cursor: pointer;
+  font-size: 0.95rem;
+}
+.progress-checklist input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  accent-color: var(--sl-color-accent);
+}
+.progress-checklist label.checked {
+  text-decoration: line-through;
+  opacity: 0.6;
+}
+
+/* Diagram block */
+.diagram-block {
+  margin: 1.5rem 0;
+  text-align: center;
+}
+.diagram-block img {
+  max-width: 100%;
+  border-radius: 8px;
+  border: 1px solid var(--sl-color-gray-5);
+}
+.diagram-block figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--sl-color-gray-2);
+  font-style: italic;
+}
+
+/* Chapter summary */
+.chapter-summary {
+  margin: 2rem 0;
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 2px solid var(--sl-color-accent);
+  background: var(--sl-color-gray-7, var(--sl-color-gray-6));
+}
+.chapter-summary h3 {
+  margin-top: 0;
+}

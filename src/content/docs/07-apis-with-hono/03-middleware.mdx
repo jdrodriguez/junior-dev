@@ -1,0 +1,181 @@
+---
+title: Middleware
+description: Code that runs before your route handlers -- for logging, security, and more.
+sidebar:
+  order: 3
+---
+
+import Analogy from '../../../components/Analogy.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ChapterSummary from '../../../components/ChapterSummary.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+So far, every request that hits your API goes straight to the route handler. But in real applications, you almost always need to do something *before* the route logic runs. Check if the user is logged in. Log the request for debugging. Make sure the request is coming from an allowed website. That is what middleware does.
+
+## What Is Middleware?
+
+<Analogy title="Middleware Is a Security Checkpoint at an Airport">
+Before you board a plane, you go through security. They check your ID, scan your bags, and make sure you are not carrying anything dangerous. If everything checks out, you proceed to your gate. If something is wrong, you get stopped right there -- you never make it to the plane. Middleware works exactly the same way. Every request passes through your middleware before it reaches the route handler. The middleware can inspect the request, modify it, let it through, or reject it entirely.
+</Analogy>
+
+Middleware is a function that runs between the incoming request and your route handler. It can:
+
+- **Inspect** the request (check headers, validate tokens)
+- **Modify** the request (add user info for downstream handlers)
+- **Short-circuit** the request (return a 401 before the route ever runs)
+- **Run after** the route (log how long the response took)
+
+## Built-In Middleware
+
+Hono ships with several middleware functions that handle common needs. You do not have to build these yourself.
+
+### Logger
+
+Prints every request to your terminal. Invaluable for debugging.
+
+```typescript
+import { logger } from 'hono/logger';
+
+app.use('*', logger());
+```
+
+Now every request shows up in your console:
+
+```
+  --> GET /api/tasks 200 12ms
+  --> POST /api/tasks 201 45ms
+  --> GET /api/tasks/bad-id 404 3ms
+```
+
+### CORS
+
+CORS (Cross-Origin Resource Sharing) controls which websites can call your API. Without it, a browser will block requests from a different domain.
+
+```typescript
+import { cors } from 'hono/cors';
+
+app.use('*', cors());
+```
+
+By default, this allows requests from anywhere. In production, you will want to restrict it:
+
+```typescript
+app.use('*', cors({
+  origin: 'https://my-frontend.com',
+}));
+```
+
+<DadTip>
+CORS errors are one of the most common headaches for beginners. You build your frontend, build your API, and then nothing works because the browser blocks the request. The fix is almost always adding CORS middleware to your API. When you see "has been blocked by CORS policy" in the browser console, come back to this section.
+</DadTip>
+
+## Custom Middleware
+
+The built-in middleware covers common cases, but you will also need your own. The most common custom middleware is authentication.
+
+### Authentication Middleware
+
+```typescript
+const authMiddleware = async (c, next) => {
+  const token = c.req.header('Authorization');
+
+  if (!token) {
+    return c.json({ error: 'Unauthorized' }, 401);
+  }
+
+  // Validate the token (check with your auth provider)
+  const user = await validateToken(token);
+
+  if (!user) {
+    return c.json({ error: 'Invalid token' }, 401);
+  }
+
+  // Attach user info so route handlers can use it
+  c.set('user', user);
+
+  // Continue to the route handler
+  await next();
+};
+```
+
+The key part is `await next()`. This tells Hono: "Everything checks out, continue to the next middleware or route handler." If you never call `next()`, the request stops at your middleware.
+
+## Applying Middleware
+
+You have two choices for where middleware runs:
+
+### On Every Route
+
+```typescript
+app.use('*', logger());
+app.use('*', cors());
+```
+
+The `'*'` means "match all routes." Logger and CORS usually go here.
+
+### On Specific Routes
+
+```typescript
+app.use('/api/admin/*', authMiddleware);
+```
+
+This applies the auth middleware only to routes that start with `/api/admin/`. Public routes like `GET /api/posts` skip it entirely.
+
+This pattern is powerful. You can layer middleware however you need:
+
+```typescript
+// These run on every request
+app.use('*', logger());
+app.use('*', cors());
+
+// These only run on protected routes
+app.use('/api/admin/*', authMiddleware);
+app.use('/api/admin/*', requireAdminRole);
+```
+
+## The Middleware Chain
+
+When a request comes in, middleware runs in the order you defined it. Think of it as a pipeline:
+
+1. Logger middleware logs the request
+2. CORS middleware checks the origin
+3. Auth middleware validates the token
+4. **Your route handler runs**
+5. The response travels back through the middleware in reverse
+
+This "onion" pattern means middleware can do things both before *and* after the route handler. The logger, for example, records the start time before the route runs and calculates the duration after it finishes.
+
+<DadTip>
+The order of your middleware matters. If you put your auth middleware before the CORS middleware, a browser might get a CORS error instead of a proper 401 response -- which is confusing to debug. As a rule of thumb: logger first, then CORS, then authentication, then your routes. That order handles 95% of cases.
+</DadTip>
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Add CORS and logging middleware to my Hono API. Also create a custom auth middleware that checks for a Bearer token in the Authorization header and applies it to all /api/protected routes."
+  context="You want to add security and debugging to your existing API."
+  result="Claude Code adds the logger and CORS middleware globally, creates a custom auth middleware function, and applies it to the /api/protected/* path."
+/>
+
+<ChapterSummary
+  title="Chapter 7 Recap"
+  concepts={[
+    "Hono is a small, fast framework for building HTTP APIs",
+    "Routes combine an HTTP method (GET, POST, PUT, DELETE) with a URL path",
+    "The context object (c) gives you access to the request and tools to build a response",
+    "CRUD routes follow the same pattern for every resource in your app",
+    "Middleware runs before your route handlers -- for logging, CORS, auth, and more",
+    "The order of middleware matters: logger, then CORS, then auth, then routes"
+  ]}
+/>
+
+<ProgressChecklist
+  id="ch7-middleware"
+  items={[
+    "I can explain what middleware is and why it is useful",
+    "I know what CORS is and why it causes errors for beginners",
+    "I understand the difference between global and route-specific middleware",
+    "I can describe the order middleware should be applied in"
+  ]}
+/>

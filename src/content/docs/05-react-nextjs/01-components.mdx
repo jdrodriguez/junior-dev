@@ -1,0 +1,89 @@
+---
+title: "What Is a Component?"
+description: "The fundamental building block of every React app -- reusable pieces of UI that snap together."
+sidebar:
+  order: 1
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+A component is a reusable piece of user interface. That's it. That's the big idea. Everything you see in a React app -- every button, every card, every navigation bar, every entire page -- is a component.
+
+<Analogy title="LEGO Bricks That Snap Together">
+Think of a LEGO set. You have tiny pieces (a single 2x2 brick), medium pieces (a window frame), and large assemblies (an entire wall). In React, a **button** is a small component. A **user profile card** is a medium component that contains smaller ones (an image, a name, a bio). A **whole page** is a large component that snaps together many medium and small components. You build complex UIs the same way you build complex LEGO structures -- by combining simple, reusable pieces.
+</Analogy>
+
+## What Does a Component Look Like?
+
+A React component is just a function that returns some HTML-like code. Here's the simplest possible example:
+
+```tsx
+function Greeting({ name }: { name: string }) {
+  return (
+    <div>
+      <h1>Hello, {name}!</h1>
+      <p>Welcome to our app.</p>
+    </div>
+  );
+}
+```
+
+That's a component. It's a function called `Greeting` that takes a `name` and returns some UI. The HTML-looking stuff inside the return is called **JSX** -- it's a syntax that lets you write UI structure right alongside your logic. The curly braces `{name}` let you embed JavaScript values inside the JSX.
+
+You don't need to memorize this syntax. What matters is understanding the concept: **a component is a function that describes a piece of UI.**
+
+## Components Inside Components
+
+Here's where it gets powerful. Components can contain other components. A `ProfilePage` component might contain a `Header` component, a `ProfileCard` component, and a `PostList` component. The `PostList` might contain many `PostCard` components. Each piece is independent and reusable.
+
+<DiagramBlock src="/images/diagrams/react-component-tree.svg" alt="A tree diagram showing an App component at the top, branching into Header, Main Content, and Footer components, with further sub-components beneath each" caption="A React component tree -- the App is made of smaller components, which are made of even smaller components." />
+
+This tree-like structure is how every React app is organized. The top of the tree is usually your `App` or page component, and it branches down into smaller and more specific pieces.
+
+## Why Components Matter
+
+Without components, building a web app would mean writing one massive file of tangled HTML, CSS, and JavaScript. Every website built in the early 2000s worked this way, and it was a nightmare to maintain. You'd fix something in one place and accidentally break something in another.
+
+With components, you get:
+
+- **Reusability** -- Build a `Button` once, use it everywhere. Need to change how buttons look across your entire app? Change it in one place.
+- **Organization** -- Each piece of UI lives in its own file. Easy to find, easy to fix. When your app grows to dozens of pages, this matters a lot.
+- **Isolation** -- If something breaks in the `ProfileCard`, it doesn't affect the `Header`. Each component is its own little world.
+- **Testability** -- You can test each component independently to make sure it works correctly.
+
+<DadTip>
+Here's a rule of thumb I use at work: if a piece of UI shows up in more than one place, it should be a component. And if a component gets longer than about 200-300 lines, it's time to split it into smaller components. Keep things small and focused.
+</DadTip>
+
+## How You'll Actually Build Components
+
+In practice, you won't be hand-writing components from scratch most of the time. You'll describe what you want to Claude Code, and it will generate the component for you. But because you understand what a component is, you'll be able to review what it gives you and know whether it makes sense.
+
+<PromptExample prompt="Create a React component for a user profile card that shows an avatar image, the user's name, their email, and a short bio. Use TypeScript and Tailwind CSS for styling." context="When you need a new piece of UI for your app" result="Claude Code generates a ProfileCard component with proper TypeScript types, Tailwind styling, and clean structure" />
+
+Notice how the prompt describes *what* the component should show, not *how* to code it. That's the sweet spot. You bring the design thinking ("what should this card contain?"), and Claude Code handles the implementation.
+
+<VideoEmbed id="Tn6-PIqc4UM" title="React in 100 Seconds" creator="Fireship" duration="2 min" description="A lightning-fast overview of what React is and why it exists. Perfect starting point before diving deeper." />
+
+## Real-World Example: Breaking Down a Page
+
+Open any app you use daily -- say, a social media feed. Look at it and try to spot the components:
+
+- The **navigation bar** at the top? That's a component.
+- Each **post** in the feed? That's a component, probably containing sub-components for the avatar, the text content, the like button, and the comment section.
+- The **sidebar** with suggested follows? That's a component containing a list of smaller **user card** components.
+- The **compose box** where you type a new post? Another component.
+
+This is how React developers think. They look at a design and mentally draw boxes around the pieces. Each box is a component. When you start seeing the world this way, you're thinking like a frontend developer.
+
+## The Key Takeaway
+
+Everything in React is a component. Components are functions that return UI. You build complex interfaces by combining simple components. That mental model is the foundation for everything else in this chapter.
+
+<ProgressChecklist id="ch5-components-checklist" items={["Understand that a component is a reusable piece of UI", "Know that components are just functions that return JSX", "Understand that components can contain other components (the component tree)", "Know that you'll mostly describe components to Claude Code rather than hand-writing them"]} />

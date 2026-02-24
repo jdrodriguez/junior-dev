@@ -1,0 +1,80 @@
+---
+title: "JSON: How Data Travels"
+description: JSON is the universal format for sending data between systems. Here is what it looks like and why it matters.
+sidebar:
+  order: 4
+---
+
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+When your frontend needs data from the backend -- a list of users, the details of a product, your account settings -- that data has to travel across the internet. But computers need a standard format to package that data so both sides can understand it.
+
+That format is **JSON** (JavaScript Object Notation).
+
+## The Shipping Label Analogy
+
+<Analogy title="JSON Is a Standardized Shipping Label">
+Imagine you are shipping a package. You cannot just toss your stuff into a box and hope the delivery driver figures out where it goes. There is a standard format for the label: name, address, city, zip code. Everyone agrees on the format, so any shipping company can read it.
+
+JSON is that standardized label for data. It is a simple, universal format that any programming language can read and write. When your React frontend asks the server for a user's profile, the server packages that data as JSON and ships it back. Your frontend unpacks it and displays it on screen.
+</Analogy>
+
+## What JSON Looks Like
+
+This is the one code example in this chapter, because you will see JSON constantly and need to recognize it:
+
+```json
+{
+  "name": "Jordan Rodriguez",
+  "age": 16,
+  "email": "jordan@example.com",
+  "isStudent": true,
+  "hobbies": ["coding", "gaming", "basketball"],
+  "address": {
+    "city": "Austin",
+    "state": "TX"
+  }
+}
+```
+
+A few things to notice:
+
+- Everything is wrapped in curly braces `{ }`.
+- Data comes in **key-value pairs**: a name on the left, a value on the right, separated by a colon.
+- **Strings** (text) are in double quotes.
+- **Numbers** and **booleans** (`true`/`false`) are not in quotes.
+- **Arrays** (lists) use square brackets `[ ]`.
+- **Objects** (nested groups of data) use curly braces `{ }` again.
+
+That is it. That is the entire format. Once you can read this, you can read the data flowing through any web application.
+
+<DadTip>
+When you are working with Claude Code and it shows you an API response, it will almost always be JSON. Being able to scan JSON and understand the shape of the data -- "okay, it is an object with a name, an age, and a list of hobbies" -- is one of the most useful skills you can have. You do not need to write JSON by hand. You just need to read it.
+</DadTip>
+
+## Where You Will See JSON
+
+- **API responses:** When your app fetches data from the server, it arrives as JSON.
+- **Configuration files:** Many tools use JSON files for settings (like `package.json` in every Node.js project).
+- **Database records:** When you pull data from Supabase, it comes back as JSON.
+- **Claude Code conversations:** When you ask Claude Code to show you what an API returns, it will show JSON.
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Show me what the JSON response looks like when I fetch a user from my API."
+  context="You want to understand the shape of the data your API returns."
+  result="Claude Code shows you a sample JSON object with all the fields your user model includes."
+/>
+
+<ProgressChecklist
+  id="ch2-json"
+  items={[
+    "I can recognize JSON when I see it",
+    "I understand key-value pairs, arrays, and nested objects",
+    "I know that JSON is how data travels between frontend and backend"
+  ]}
+/>

@@ -1,0 +1,10 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = 'Think of it this way...' } = Astro.props;
+---
+<div class="analogy">
+  <div class="analogy-title">💡 {title}</div>
+  <slot />
+</div>

@@ -1,0 +1,40 @@
+---
+title: "Deploying Your Application"
+description: "The real magic is when you put it on the internet for the world to use."
+sidebar:
+  order: 0
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+
+Building an app on your computer is great. You can click around, test things, show it to whoever is in the room. But here is the truth: until your app is on the internet, it is just a project on your hard drive. Deployment is when it becomes *real*.
+
+Deployment is the process of taking the code on your machine and running it on a server that is always online -- so anyone in the world with a link can use what you built. And the best part? Modern tools have made this shockingly easy. We are not talking about renting servers and configuring Linux. You can go from "it works on my laptop" to "here is the live URL" in under five minutes.
+
+<Analogy title="Going Live Is Like Opening Night">
+Think of all the work you have done so far as rehearsal. You have been practicing on a stage with no audience -- your localhost. Deployment is opening night. The curtains go up, the lights come on, and suddenly real people are watching. The good news is that unlike a live play, if something goes wrong you can fix it instantly and redeploy. No one will throw tomatoes.
+</Analogy>
+
+## What This Chapter Covers
+
+<CardGrid>
+  <Card title="Deployment Platforms" icon="rocket">
+    Where your app can live on the internet -- Vercel, Cloudflare, Railway, and Netlify.
+  </Card>
+  <Card title="Deploying to Vercel" icon="laptop">
+    A step-by-step walkthrough of getting your Next.js app live on the web.
+  </Card>
+  <Card title="Environment Variables" icon="warning">
+    Why your local secrets do not work in production, and how to handle them properly.
+  </Card>
+</CardGrid>
+
+<DadTip>
+The first time I deployed something to the internet and sent the URL to a friend, I was grinning like an idiot. There is something deeply satisfying about typing a URL into a browser on a completely different computer and seeing *your* thing show up. You are about to feel that. Enjoy it.
+</DadTip>
+
+## How to Approach This Chapter
+
+This is a short chapter, but it is an important one. Deploying is the finish line for every project. Once you understand how it works, you will deploy early and often -- and that habit will make you a much better developer. Let's get your code on the internet.

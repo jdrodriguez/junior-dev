@@ -1,0 +1,113 @@
+---
+title: JavaScript Foundations
+description: The core JavaScript concepts you need to understand -- not memorize -- to read code and work with Claude Code.
+sidebar:
+  order: 1
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import ConceptCard from '../../../components/ConceptCard.astro';
+import ConceptCardGrid from '../../../components/ConceptCardGrid.astro';
+
+You do not need to memorize JavaScript syntax. What you need is a mental model for the core concepts so you can read code that Claude Code generates and understand *what* it is doing and *why*. Here are the building blocks.
+
+## Variables: Labeled Boxes
+
+<Analogy title="Variables Are Labeled Boxes">
+Imagine a shelf full of boxes. Each box has a label on it and something inside. That is a variable. The label is the name. The thing inside is the value.
+
+- `const userName = "Jordan"` -- a box labeled "userName" with "Jordan" inside. The `const` means this box is sealed shut. You cannot swap what is inside.
+- `let score = 0` -- a box labeled "score" with 0 inside. The `let` means this box can be opened and the value changed later. Maybe the score goes up to 10.
+
+You will almost always use `const`. Only use `let` when you know the value needs to change. And never use `var` -- it is the old way and has quirks that cause bugs.
+</Analogy>
+
+## Data Types: What Goes in the Boxes
+
+JavaScript has a few fundamental types of values:
+
+- **Strings** -- Text. Anything in quotes: `"hello"`, `"Jordan Rodriguez"`, `"🏀"`.
+- **Numbers** -- Any number: `42`, `3.14`, `-7`.
+- **Booleans** -- True or false. That is it. `true` or `false`. Like a light switch: on or off.
+- **Null** -- Intentionally empty. You looked in the box and it was deliberately left blank.
+- **Undefined** -- Not yet assigned. The box exists but nobody put anything in it.
+- **Arrays** -- Ordered lists of things. Like a numbered to-do list.
+- **Objects** -- Groups of related data. Like a contact card with a name, email, and phone number.
+
+You do not need to declare types in plain JavaScript (that is TypeScript's job). But you do need to recognize these when you see them in code.
+
+## Functions: Recipes
+
+<Analogy title="Functions Are Recipes">
+A function is a recipe. It has a name, takes in ingredients (called *parameters*), follows a set of instructions, and produces a result (called a *return value*).
+
+Think of a function called `makeSmoothie`. You give it bananas, strawberries, and milk (the parameters). It blends them together (the instructions). And it hands you back a smoothie (the return value).
+
+Once you write the recipe, you can use it over and over with different ingredients. That is the power of functions -- write once, reuse everywhere.
+</Analogy>
+
+In modern JavaScript, functions look like this: `const makeSmoothie = (fruit, liquid) => { ... }`. That arrow (`=>`) is why they are called "arrow functions." You will see them everywhere.
+
+The key ideas to remember:
+- Functions take **inputs** (parameters) and produce **outputs** (return values).
+- Functions let you **reuse** logic instead of repeating yourself.
+- Functions can call other functions, which is how complex programs are built from simple pieces.
+
+## Arrays: Ordered Lists
+
+<Analogy title="Arrays Are Numbered Lists">
+An array is like a numbered to-do list. Each item has a position (starting from 0, not 1), and you can add, remove, or transform items.
+
+The most common things you will do with arrays:
+- **Map** -- Transform every item. "Take my list of names and turn each one into a greeting card."
+- **Filter** -- Keep only the items that pass a test. "Show me only the completed tasks."
+- **Find** -- Get the first item that matches. "Find the user named Jordan."
+
+These three operations -- map, filter, find -- show up in almost every web application. When Claude Code generates a list of cards on a page, it is almost certainly using `.map()`. When it adds a search feature, it is probably using `.filter()`.
+</Analogy>
+
+## Objects: Contact Cards
+
+An object groups related data together under one name. Instead of having separate variables for a person's name, age, and email, you bundle them into one object:
+
+Think of it as a contact card. The card is the object. Each field on the card (name, email, phone) is a **property**. You can read any property by name, update it, or add new ones.
+
+Objects and arrays are the two structures you will see most. A list of users? That is an array of objects. A single user's profile? That is an object.
+
+<DadTip>
+When you are reading code Claude Code writes, you will see a lot of objects and arrays working together. Something like "an array of task objects, where each task has a title, status, and due date." Once you can picture that in your head, you can understand 90% of the data flowing through any web app.
+</DadTip>
+
+## Watch This
+
+<VideoEmbed id="DHjqpvDnNGE" title="JavaScript in 100 Seconds" creator="Fireship" duration="2 min" />
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Write a function that takes an array of tasks and returns only the ones that are not completed."
+  context="You are building a task manager and need to filter the task list."
+  result="Claude Code writes a function using .filter() that checks each task's completed status."
+/>
+
+<PromptExample
+  prompt="Explain what .map(), .filter(), and .find() do on arrays. Give me one simple example of each."
+  context="You want a quick refresher on the most common array methods."
+  result="Claude Code explains each method with a clear, simple example."
+/>
+
+<ProgressChecklist
+  id="ch3-js-foundations"
+  items={[
+    "I can explain what a variable is (labeled box)",
+    "I know the difference between const and let",
+    "I can explain what a function does (recipe with inputs and outputs)",
+    "I understand arrays as ordered lists and objects as contact cards",
+    "I know what .map(), .filter(), and .find() do conceptually",
+    "I watched the JavaScript in 100 Seconds video"
+  ]}
+/>

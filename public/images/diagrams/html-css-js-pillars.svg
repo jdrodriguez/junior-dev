@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="400" viewBox="0 0 800 400">
+  <!-- Background -->
+  <rect width="800" height="400" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="38" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#1e293b">The Three Pillars of the Web</text>
+
+  <!-- Foundation bar -->
+  <rect x="80" y="340" width="640" height="42" rx="10" fill="#1e293b"/>
+  <text x="400" y="367" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">The Web Page</text>
+
+  <!-- Pillar 1: HTML (blue) -->
+  <rect x="110" y="72" width="170" height="268" rx="12" fill="#dbeafe" stroke="#3b82f6" stroke-width="2.5"/>
+  <!-- Pillar top cap -->
+  <rect x="100" y="62" width="190" height="30" rx="8" fill="#3b82f6"/>
+  <text x="195" y="83" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">HTML</text>
+
+  <!-- Skeleton/bones icon -->
+  <rect x="172" y="120" width="46" height="8" rx="4" fill="#3b82f6"/>
+  <rect x="191" y="128" width="8" height="50" rx="4" fill="#3b82f6"/>
+  <rect x="172" y="145" width="46" height="6" rx="3" fill="#93c5fd"/>
+  <rect x="178" y="178" width="14" height="30" rx="4" fill="#3b82f6"/>
+  <rect x="198" y="178" width="14" height="30" rx="4" fill="#3b82f6"/>
+
+  <text x="195" y="238" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#3b82f6">Structure</text>
+  <text x="195" y="260" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">What things are</text>
+  <text x="195" y="278" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">on the page</text>
+  <text x="195" y="310" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">headings, paragraphs,</text>
+  <text x="195" y="325" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">buttons, images</text>
+
+  <!-- Pillar 2: CSS (purple/indigo) -->
+  <rect x="315" y="72" width="170" height="268" rx="12" fill="#e0e7ff" stroke="#6366f1" stroke-width="2.5"/>
+  <rect x="305" y="62" width="190" height="30" rx="8" fill="#6366f1"/>
+  <text x="400" y="83" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">CSS</text>
+
+  <!-- Paint palette icon -->
+  <ellipse cx="400" cy="150" rx="30" ry="25" fill="#c7d2fe" stroke="#6366f1" stroke-width="2"/>
+  <circle cx="385" cy="142" r="5" fill="#ef4444"/>
+  <circle cx="400" cy="135" r="5" fill="#3b82f6"/>
+  <circle cx="415" cy="142" r="5" fill="#10b981"/>
+  <circle cx="408" cy="158" r="5" fill="#d97706"/>
+  <circle cx="390" cy="160" r="4" fill="#6366f1"/>
+
+  <text x="400" y="238" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#6366f1">Style</text>
+  <text x="400" y="260" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">How things look</text>
+  <text x="400" y="278" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">on the page</text>
+  <text x="400" y="310" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">colors, fonts, layout,</text>
+  <text x="400" y="325" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">spacing, animations</text>
+
+  <!-- Pillar 3: JavaScript (amber) -->
+  <rect x="520" y="72" width="170" height="268" rx="12" fill="#fef3c7" stroke="#d97706" stroke-width="2.5"/>
+  <rect x="510" y="62" width="190" height="30" rx="8" fill="#d97706"/>
+  <text x="605" y="83" text-anchor="middle" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">JavaScript</text>
+
+  <!-- Lightning bolt icon -->
+  <polygon points="615,120 595,155 608,155 593,190 625,148 610,148 625,120" fill="#d97706"/>
+
+  <text x="605" y="238" text-anchor="middle" font-family="sans-serif" font-size="18" font-weight="700" fill="#d97706">Behavior</text>
+  <text x="605" y="260" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">How things act</text>
+  <text x="605" y="278" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">on the page</text>
+  <text x="605" y="310" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">clicks, forms, data,</text>
+  <text x="605" y="325" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#94a3b8">dynamic updates</text>
+</svg>

@@ -1,0 +1,161 @@
+---
+title: What Claude Code Can Do
+description: A comprehensive tour of Claude Code's capabilities -- from writing features to debugging errors to deploying entire applications.
+sidebar:
+  order: 2
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import ConceptCard from '../../../components/ConceptCard.astro';
+import ConceptCardGrid from '../../../components/ConceptCardGrid.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Most people start using Claude Code for one thing -- writing code. But that is just the tip of the iceberg. Claude Code is a general-purpose development partner that can handle nearly every task in the software development lifecycle. Once you understand the full range of what it can do, you will find yourself reaching for it constantly.
+
+## The Big Eight
+
+Here are the eight core capabilities that you will use every single day.
+
+<ConceptCardGrid title="Claude Code's Core Capabilities">
+  <ConceptCard title="Write Features" icon="1.">
+    Describe a feature in plain English and Claude Code builds it -- components, pages, API routes, database queries, all of it.
+  </ConceptCard>
+  <ConceptCard title="Fix Bugs" icon="2.">
+    Paste an error message and Claude Code reads the relevant files, identifies the root cause, and applies the fix.
+  </ConceptCard>
+  <ConceptCard title="Refactor Code" icon="3.">
+    Ask it to restructure existing code -- extract components, rename variables, split large files, or modernize patterns.
+  </ConceptCard>
+  <ConceptCard title="Create Files" icon="4.">
+    Generate entire file structures -- new pages, components, API routes, configuration files, database migrations.
+  </ConceptCard>
+  <ConceptCard title="Explain Code" icon="5.">
+    Point it at any file or function and get a clear, beginner-friendly explanation of what the code does and why.
+  </ConceptCard>
+  <ConceptCard title="Write Tests" icon="6.">
+    Tell it what to test and it writes the test files, imports, mocks, and assertions -- ready to run.
+  </ConceptCard>
+  <ConceptCard title="Debug Errors" icon="7.">
+    Give it an error and context about what you were doing. It traces the problem through your codebase and fixes it.
+  </ConceptCard>
+  <ConceptCard title="Deploy Apps" icon="8.">
+    It can run deploy commands, set up configurations, and walk you through getting your app live on the internet.
+  </ConceptCard>
+</ConceptCardGrid>
+
+## How Each One Works in Practice
+
+Let's look at each capability with a real prompt you might use.
+
+### Writing Features
+
+This is the bread and butter. You describe what you want, and Claude Code builds it.
+
+<PromptExample
+  prompt="Create a user registration page at /signup with fields for name, email, and password. Include form validation -- name must be at least 2 characters, email must be valid, and password must be at least 8 characters. Style it with Tailwind CSS, centered on the page with a card layout."
+  context="You are building a new feature from scratch."
+  result="Claude Code creates the page component with form state management, validation logic, error messages, and Tailwind styling."
+/>
+
+### Fixing Bugs
+
+When something breaks, Claude Code is the fastest way to find and fix the problem.
+
+<PromptExample
+  prompt="The login form submits but nothing happens. No errors in the console, but the user is not being redirected to the dashboard. Can you look at the login page and the auth logic to figure out what is wrong?"
+  context="A feature is broken and you cannot figure out why."
+  result="Claude Code reads the login page, the auth handler, and the redirect logic. It finds the issue -- maybe a missing await, a wrong route path, or a state update problem -- and fixes it."
+/>
+
+### Refactoring Code
+
+As your project grows, code gets messy. Claude Code can clean it up.
+
+<PromptExample
+  prompt="The Dashboard component at src/components/dashboard.tsx is almost 500 lines. Break it into smaller, focused components: a StatsGrid, a RecentOrders table, and a WelcomeCard. Keep them in a src/components/dashboard/ folder."
+  context="A component has grown too large and needs to be split up."
+  result="Claude Code creates the subfolder, extracts each section into its own component, updates the imports, and makes sure the dashboard still works the same way."
+/>
+
+### Creating Files and Structure
+
+Claude Code can scaffold entire features -- not just one file, but the full stack of files you need.
+
+<PromptExample
+  prompt="Create a new API route for managing blog posts. I need: a database migration for a posts table with title, content, author_id, and published_at columns. Then create the API route at /api/posts that supports GET (list all) and POST (create new). Use the DAO-service-route pattern."
+  context="You want to build a complete backend feature from database to API."
+  result="Claude Code creates the migration file, a PostDAO, a PostService, and the API route handler -- all wired together correctly."
+/>
+
+### Explaining Code
+
+This one is underrated. Claude Code is an incredible teacher.
+
+<PromptExample
+  prompt="Explain what this useEffect hook in src/components/user-list.tsx is doing. I do not understand the dependency array or why it has a cleanup function."
+  context="You are reading code you did not write (or code Claude Code wrote earlier) and want to understand it."
+  result="Claude Code reads the file and gives you a line-by-line explanation in plain English, including why the dependency array matters and what would happen if you left it out."
+/>
+
+### Writing Tests
+
+Tests are one of the most tedious parts of development. Claude Code makes it painless.
+
+<PromptExample
+  prompt="Write unit tests for the PostService in src/services/post-service.ts. Test the createPost and getAllPosts methods. Mock the PostDAO. Use vitest."
+  context="You want to make sure your code works correctly and does not break later."
+  result="Claude Code creates a test file with proper imports, mocks the DAO, and writes test cases that cover the happy path and common edge cases."
+/>
+
+### Debugging Errors
+
+This is different from fixing bugs. Debugging is when you have a specific error message and need to trace it back to the cause.
+
+<PromptExample
+  prompt="I am getting this error when I try to load the dashboard: TypeError: Cannot read properties of undefined (reading 'map') at src/components/dashboard.tsx:45:23. What is causing this and how do I fix it?"
+  context="You have a specific error message with a file and line number."
+  result="Claude Code reads the file, identifies that the data being mapped over is undefined (probably because the API call has not resolved yet), and adds a loading check or optional chaining to fix it."
+/>
+
+### Running Commands and Deploying
+
+Claude Code is not limited to writing code. It can run terminal commands on your behalf.
+
+<PromptExample
+  prompt="Install Tailwind CSS v4 in this project and configure it. Then run the dev server so I can verify it is working."
+  context="You need a tool installed and configured."
+  result="Claude Code runs the npm install commands, creates or updates configuration files, and starts the development server."
+/>
+
+<DadTip>
+Claude Code is not just for writing code. One of the most powerful things you can do is use it to *understand* code. Whenever you come across something confusing -- whether it is code Claude Code wrote or code in a tutorial -- just ask it to explain. "What does this do? Why is it written this way? What would happen if I changed this?" There is no dumb question. The AI never judges you, and every explanation makes you a better developer.
+</DadTip>
+
+## Beyond the Big Eight
+
+Here are a few more things Claude Code handles well that you might not expect:
+
+- **Git operations** -- "Commit my changes with a descriptive message" or "Create a new branch called feature/user-auth"
+- **Code reviews** -- "Look at the changes I have made and tell me if there are any issues"
+- **Documentation** -- "Add JSDoc comments to all the functions in this file"
+- **Performance** -- "This page loads slowly. Can you look at the data fetching and suggest improvements?"
+- **Accessibility** -- "Check this form for accessibility issues and fix them"
+- **Styling iterations** -- "Make this card look more modern" or "Add hover effects to the navigation links"
+
+The more you use Claude Code, the more you will discover what it can do. The limit is usually your imagination, not the tool.
+
+<VideoEmbed id="jWlAvdR8HG0" title="20 Tips to Master Claude Code" creator="Peter Yang" duration="35 min" />
+
+<ProgressChecklist
+  id="ch8-capabilities"
+  items={[
+    "I understand the eight core capabilities of Claude Code",
+    "I know how to ask Claude Code to explain code I do not understand",
+    "I know that Claude Code can run terminal commands, not just write code",
+    "I have tried at least three different types of prompts from this page",
+    "I watched the video above"
+  ]}
+/>

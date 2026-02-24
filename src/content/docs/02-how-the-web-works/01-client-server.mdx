@@ -1,0 +1,80 @@
+---
+title: The Client-Server Model
+description: Every web interaction is a conversation between two computers. Here is how it works.
+sidebar:
+  order: 1
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+
+Every time you open a website, two computers are having a conversation. Your computer asks a question. Another computer answers it. That is the entire internet in one sentence.
+
+## The Restaurant Analogy
+
+<Analogy title="The Web Is a Restaurant">
+Imagine you are sitting in a restaurant.
+
+- **You** are the **client**. You look at the menu, decide what you want, and place an order.
+- **The kitchen** is the **server**. It receives your order, prepares the food, and sends it back out.
+- **The waiter** is **HTTP** -- the protocol that carries your request to the kitchen and brings the response back to your table.
+
+You never walk into the kitchen yourself. You never shout your order across the room. There is a system. The waiter takes your order (the *request*), delivers it to the kitchen, and comes back with your plate (the *response*).
+
+That is exactly how the web works. Your browser is you at the table. The server is the kitchen. And HTTP is the waiter carrying messages back and forth.
+</Analogy>
+
+## How It Actually Works
+
+When you type `google.com` into your browser and press Enter, here is what happens:
+
+1. **Your browser (the client)** creates a request: "Hey, I want the Google homepage."
+2. **That request travels across the internet** to one of Google's servers -- a powerful computer sitting in a data center somewhere.
+3. **The server processes the request** and builds a response: the HTML, CSS, and JavaScript that make up the Google homepage.
+4. **The response travels back** to your browser.
+5. **Your browser renders it** -- turning that code into the visual page you see on screen.
+
+This round trip happens every single time you click a link, submit a form, or load new data. It is called the **request-response cycle**, and it is the heartbeat of every web application.
+
+<DiagramBlock src="/images/diagrams/client-server.svg" alt="Diagram showing a browser sending a request to a server and receiving a response" caption="The request-response cycle: your browser asks, the server answers." />
+
+## Frontend and Backend
+
+When you build a full-stack application, you are building both sides of this conversation:
+
+- **The frontend** is everything the user sees and interacts with -- buttons, forms, pages, animations. This runs in the browser (the client).
+- **The backend** is the behind-the-scenes logic -- handling requests, talking to the database, running business rules. This runs on the server.
+
+In our stack, React and Next.js handle the frontend. Hono and Supabase handle the backend. But they all communicate through this same request-response pattern.
+
+<DadTip>
+Here is a good way to remember it: if you can see it on screen, it is frontend. If it is happening behind the scenes, it is backend. When you tell Claude Code to "build a form that saves to the database," you are asking it to build both sides -- the form the user sees (frontend) and the logic that stores the data (backend).
+</DadTip>
+
+## Watch These
+
+<VideoEmbed id="keeqnciDVOo" title="Computer Networking in 100 Seconds" creator="Fireship" duration="2 min" />
+
+<VideoEmbed id="21eFwbb48sE" title="Who Invented the Internet? And Why?" creator="Kurzgesagt" duration="8 min" />
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Explain what happens step by step when a user visits my Next.js app in the browser."
+  context="You want to understand the request-response cycle in your own project."
+  result="Claude Code walks you through how Next.js handles the request on the server, renders the page, and sends it to the browser."
+/>
+
+<ProgressChecklist
+  id="ch2-client-server"
+  items={[
+    "I can explain client vs server in my own words",
+    "I understand the request-response cycle",
+    "I know the difference between frontend and backend",
+    "I watched at least one of the videos above"
+  ]}
+/>

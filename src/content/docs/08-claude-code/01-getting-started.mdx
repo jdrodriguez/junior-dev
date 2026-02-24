@@ -1,0 +1,114 @@
+---
+title: Getting Started with Claude Code
+description: Your first session with Claude Code -- what it is, how it works, and what happens when you type that first command.
+sidebar:
+  order: 1
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import VideoGallery from '../../../components/VideoGallery.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+You have your terminal open. You have a project folder. Now it is time to meet the tool that is going to change how you think about building software.
+
+## What Is Claude Code?
+
+Claude Code is an AI coding assistant made by Anthropic. Unlike chatbots that live in a browser window, Claude Code lives directly in your terminal -- the same place where you run `git`, `npm`, and all your other developer tools. This is not a toy. This is a professional-grade tool used by real developers at real companies to build real products.
+
+Here is what makes it different from just chatting with an AI:
+
+- **It can read your entire codebase.** When you start Claude Code inside a project folder, it understands your files, your folder structure, your dependencies, and how everything connects.
+- **It can create and edit files.** Claude Code does not just suggest code in a chat window -- it actually writes to your filesystem, creating new files and modifying existing ones.
+- **It can run terminal commands.** Need to install a package, run your dev server, or execute a database migration? Claude Code can do it right from the conversation.
+- **It remembers context within a session.** As you go back and forth, it keeps track of what you have discussed and what files it has touched.
+
+<Analogy title="Your Senior Developer Who Never Sleeps">
+Imagine you had a brilliant senior developer sitting right next to you at your desk. They have already read every single file in your project. They know your tech stack inside and out. They never get tired, never get annoyed at "dumb" questions, and they can type about 100 times faster than you.
+
+That is Claude Code. It is not replacing you -- you are still the one deciding what to build and why. But it handles the heavy lifting of turning your ideas into actual code. You are the architect drawing the blueprint. Claude Code is the construction crew that builds it.
+</Analogy>
+
+## How to Start a Session
+
+If you followed the setup in Chapter 1, Claude Code is already installed. Starting it is as simple as navigating to your project and typing one word:
+
+```bash
+# Navigate to your project folder
+cd my-project
+
+# Start Claude Code
+claude
+```
+
+That is it. When Claude Code starts, it does a few things behind the scenes:
+
+1. **Scans your project structure** -- it reads your folder layout, file names, and key configuration files like `package.json`, `tsconfig.json`, and any `CLAUDE.md` file.
+2. **Understands your tech stack** -- it figures out you are using Next.js, Supabase, Tailwind, or whatever your project is built with.
+3. **Opens a conversation** -- you see a prompt where you can type in plain English what you want to do.
+
+From that point on, you just talk to it. No special syntax. No programming language. Just describe what you want.
+
+<DadTip>
+Always start Claude Code from the root of your project folder -- the one that contains your `package.json`. If you start it from the wrong directory, it will not have the full picture of your codebase and its suggestions will be less accurate. Think of it like giving someone a map but tearing off half of it first. Not helpful.
+</DadTip>
+
+## Your Very First Prompt
+
+Here is the moment. Claude Code is running. The cursor is blinking. What do you type?
+
+Start simple. Do not try to build your entire application in one message. A great first prompt is one that helps you understand your own project:
+
+<PromptExample
+  prompt="Look at this project and tell me what it does. What tech stack is it using? What are the main features?"
+  context="You have just opened Claude Code in a project for the first time and want to orient yourself."
+  result="Claude Code reads your files and gives you a clear summary of the project structure, what frameworks and libraries are installed, and what the app appears to do."
+/>
+
+That is not a throwaway step. Even if you created the project yourself, this prompt teaches you something important: *Claude Code can see your entire project at once.* It can connect dots between files that you might not have connected yet. Use that superpower early and often.
+
+Now try something more actionable:
+
+<PromptExample
+  prompt="Create a simple homepage at the root route that says 'Welcome to My App' with a centered heading and a short paragraph underneath. Use Tailwind CSS for styling."
+  context="You want Claude Code to create your first actual file."
+  result="Claude Code creates or edits the main page file, writes the JSX with Tailwind classes, and you can immediately see the result in your browser."
+/>
+
+Notice how specific that prompt is. It tells Claude Code *what* to create, *where* it should go, *what it should say*, and *how to style it*. That specificity is the whole game, and we will go much deeper into it in the prompting section.
+
+## What a Session Looks Like
+
+A typical Claude Code session is a conversation. You do not write one giant prompt and walk away. You build iteratively, one step at a time:
+
+1. **You ask** -- "Create a navigation bar with links to Home, About, and Contact."
+2. **Claude Code responds** -- it shows you what files it wants to create or modify, and asks for confirmation.
+3. **You approve** -- Claude Code makes the changes.
+4. **You check your browser** -- you see the result.
+5. **You refine** -- "Make the nav bar sticky so it stays at the top when I scroll."
+6. **Claude Code updates** -- it modifies the existing file.
+7. **Repeat** until you are happy.
+
+This back-and-forth loop is the heartbeat of vibe coding. Each iteration gets you closer to what you want. You are steering, and Claude Code is driving.
+
+## Ending a Session
+
+When you are done, you can type `/exit` or just close the terminal. Your files are saved to disk like any normal file -- Claude Code does not hold them hostage. Everything it created or modified is right there in your project folder, ready to be committed with Git.
+
+<VideoGallery>
+  <VideoEmbed id="Tw18-4U7mts" title="The Vibe Coding Mind Virus Explained" creator="Fireship" duration="5 min" />
+  <VideoEmbed id="GepHGs_CZdk" title="Claude Code Beginner's Tutorial" creator="Peter Yang" duration="17 min" />
+</VideoGallery>
+
+<ProgressChecklist
+  id="ch8-getting-started"
+  items={[
+    "I understand that Claude Code lives in the terminal, not a browser",
+    "I know to start Claude Code from my project's root directory",
+    "I have launched Claude Code and tried my first prompt",
+    "I understand the iterative conversation flow",
+    "I watched at least one of the videos above"
+  ]}
+/>

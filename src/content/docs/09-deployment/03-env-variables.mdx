@@ -1,0 +1,55 @@
+---
+title: "Environment Variables in Production"
+description: "Your .env.local file only works on your machine. Here is how to handle secrets in production."
+sidebar:
+  order: 3
+---
+
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+
+Remember the `.env.local` file we set up earlier? The one with your Supabase URL, API keys, and other secrets? That file only exists on your computer. When Vercel builds and deploys your app, it does not have that file. So your app will break -- unless you tell Vercel about those variables.
+
+## Why .env.local Does Not Work in Production
+
+Your `.env.local` file is intentionally excluded from Git (it is listed in `.gitignore`). This is on purpose. You never, ever want your secrets pushed to GitHub where anyone could see them. But that means when Vercel pulls your code from GitHub, those values are not there.
+
+You need to add your environment variables directly in Vercel's dashboard.
+
+## How to Add Environment Variables in Vercel
+
+1. Go to your project on [vercel.com](https://vercel.com).
+2. Click **Settings** in the top navigation.
+3. Click **Environment Variables** in the sidebar.
+4. For each variable in your `.env.local` file, type the name (like `NEXT_PUBLIC_SUPABASE_URL`) and paste in the value.
+5. Click **Save**.
+
+That is it. Vercel will use these values the next time it builds your app. If you already deployed before adding them, just push a new commit (or click "Redeploy" in the Vercel dashboard) to trigger a fresh build.
+
+Other platforms like Railway, Netlify, and Cloudflare all have similar settings pages. The concept is the same everywhere: do not put secrets in your code, put them in the platform's dashboard.
+
+:::danger[Never Hardcode Secrets]
+Do not put API keys, database passwords, or any other secrets directly in your code. Not in a variable. Not in a comment. Not "just for now." If it ends up in Git, it ends up in your Git history forever -- even if you delete it later. Always use environment variables.
+:::
+
+<DadTip>
+Here is a real story: when I was starting out, I accidentally pushed a database password to GitHub. Within *minutes*, automated bots found it and tried to use it. I had to rotate every credential in the project. It took hours. Learn from my mistake -- environment variables exist for a reason. Use them.
+</DadTip>
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="My app works locally but breaks on Vercel. I think it might be a missing environment variable. Can you help me figure out which ones I need?"
+  context="You deployed but something is not working, and you suspect missing env vars."
+  result="Claude Code checks your code for all environment variable references and gives you a list of exactly which ones need to be added in Vercel."
+/>
+
+<ProgressChecklist
+  id="ch9-env-variables"
+  items={[
+    "I understand why .env.local does not work in production",
+    "I know how to add environment variables in Vercel's dashboard",
+    "I will never hardcode secrets in my code"
+  ]}
+/>

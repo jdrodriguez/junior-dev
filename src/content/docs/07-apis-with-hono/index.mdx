@@ -1,0 +1,48 @@
+---
+title: "APIs with Hono"
+description: Build your own API -- the behind-the-scenes service that your frontend (and anyone else) can talk to.
+sidebar:
+  order: 0
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+
+In the last chapter, you learned how to store and retrieve data with Supabase. But right now, your frontend talks to Supabase directly. That works for simple apps, but as things get more complex, you need a layer in between -- a place where you can add business logic, validate data, and control what the outside world can access. That layer is called an API, and Hono is what we are going to build it with.
+
+<Analogy title="An API Is a Drive-Through Window">
+Think about a fast-food restaurant. You do not walk into the kitchen and start cooking your own food. You pull up to the drive-through window, place your order (a request), and someone hands you a bag of food (a response). The drive-through window is the API. It is a controlled interface between the outside world (you in your car) and the internal operations (the kitchen). The customer does not need to know how the kitchen works. The kitchen does not need to know anything about the customer. The window handles the handoff.
+</Analogy>
+
+## Why Hono?
+
+Next.js has its own API routes, and you will use those too. But Hono is a dedicated API framework -- small, fast, and designed specifically for building HTTP services. It runs on edge platforms like Cloudflare Workers, which means your API can be deployed close to your users all around the world. It is also excellent for learning because it is minimal and straightforward.
+
+## What You Will Learn
+
+<CardGrid>
+  <Card title="Getting Started" icon="rocket">
+    Create a Hono project and run your first API server.
+  </Card>
+  <Card title="Routes" icon="list-format">
+    Define endpoints that handle GET, POST, PUT, and DELETE requests.
+  </Card>
+  <Card title="Middleware" icon="warning">
+    Add logging, security, and authentication that runs before your route logic.
+  </Card>
+</CardGrid>
+
+<DadTip>
+APIs are what make modern software work. When your weather app shows the forecast, it is calling a weather API. When you log in with Google, that is an authentication API. When you pay for something online, that is a payment API. Learning to build APIs is learning to build the plumbing that connects everything together. It is one of the most marketable skills in software development.
+</DadTip>
+
+## Resources to Bookmark
+
+<CardGrid>
+  <LinkCard title="Hono Documentation" href="https://hono.dev/docs" description="The official docs. Very well-written and beginner-friendly." />
+  <LinkCard title="Hono Examples" href="https://hono.dev/examples" description="Real-world examples of Hono APIs you can study and learn from." />
+  <LinkCard title="HTTP Status Codes" href="https://httpstatuses.io/" description="A reference for all HTTP status codes. Bookmark this one -- you will use it constantly." />
+</CardGrid>
+
+Let's build something.

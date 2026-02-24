@@ -1,0 +1,80 @@
+---
+title: "Deploying to Vercel"
+description: "A step-by-step walkthrough of getting your Next.js app live on the internet."
+sidebar:
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+This is it. The moment your app goes from "works on my computer" to "works on the internet." Follow these steps and you will have a live URL in about five minutes.
+
+## Step by Step
+
+<Steps>
+
+1. **Push your code to GitHub.**
+
+   If you have been following along, your project is already a Git repository connected to GitHub. Make sure all your latest changes are committed and pushed. If you are not sure, run `git status` in your terminal. If it says "nothing to commit, working tree clean," you are good.
+
+2. **Go to vercel.com and sign in with GitHub.**
+
+   Head to [vercel.com](https://vercel.com) and click "Sign Up" or "Log In." Choose the "Continue with GitHub" option. This connects your Vercel account to your GitHub repos so Vercel can access your code.
+
+3. **Click "Add New..." and select "Project."**
+
+   On your Vercel dashboard, click the "Add New..." button and select "Project." You will see a list of your GitHub repositories. Find the one you want to deploy and click "Import."
+
+4. **Configure your project settings.**
+
+   Vercel automatically detects that it is a Next.js project and fills in the right build settings. You usually do not need to change anything here. If your app uses environment variables (like Supabase keys), add them now -- we will cover this in the next section.
+
+5. **Click Deploy.**
+
+   Hit that Deploy button. Vercel will pull your code, install dependencies, build your app, and deploy it. You can watch the build logs in real time. In about a minute, you will see a success screen with your live URL.
+
+</Steps>
+
+That is the whole process. Five steps. Your app is now on the internet.
+
+## Continuous Deployment
+
+Here is where it gets even better. From now on, every time you push new code to your `main` branch on GitHub, Vercel automatically deploys the new version. You do not have to go through those steps again. Push your code, and within a minute or two your live site is updated.
+
+This is called **continuous deployment**, and it is how professional teams work. You make a change, push it, and it goes live. No manual uploading. No "did I remember to deploy?" anxiety. It just happens.
+
+Even better: if you push to a branch that is *not* main (like a feature branch), Vercel creates a **preview deployment** -- a temporary URL where you can test the changes before merging them into main. This is incredibly useful for checking that things look right before going live.
+
+<VideoEmbed id="scEDHsr3APg" title="DevOps CI/CD in 100 Seconds" creator="Fireship" duration="2 min" />
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Help me deploy my Next.js app to Vercel. My code is already on GitHub."
+  context="You want Claude Code to walk you through any configuration or troubleshooting."
+  result="Claude Code checks your project setup, confirms your build settings are correct, and helps you troubleshoot any deployment errors."
+/>
+
+<PromptExample
+  prompt="My Vercel deployment is failing with this error: [paste error]. What is wrong?"
+  context="The build failed and you need help understanding why."
+  result="Claude Code reads the error message, identifies the issue (often a missing dependency or environment variable), and tells you exactly how to fix it."
+/>
+
+<DadTip>
+Deploy early and deploy often. Do not wait until your app is "perfect" to put it online. Deploying early catches problems you would never find on localhost -- things like missing environment variables, broken image paths, or API routes that do not work in production. The sooner you deploy, the sooner you find and fix those issues. Ship it.
+</DadTip>
+
+<ProgressChecklist
+  id="ch9-deploy-vercel"
+  items={[
+    "I understand the five steps to deploy to Vercel",
+    "I know what continuous deployment means",
+    "I know that pushing to main automatically updates my live site",
+    "I know that feature branches get preview deployments"
+  ]}
+/>

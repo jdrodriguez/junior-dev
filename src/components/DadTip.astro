@@ -1,0 +1,10 @@
+---
+interface Props {
+  title?: string;
+}
+const { title = "Dad's Tip" } = Astro.props;
+---
+<div class="dad-tip">
+  <div class="dad-tip-title">👨‍💻 {title}</div>
+  <slot />
+</div>

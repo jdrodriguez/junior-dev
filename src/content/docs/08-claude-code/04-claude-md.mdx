@@ -1,0 +1,152 @@
+---
+title: The CLAUDE.md File
+description: How to give Claude Code permanent memory about your project so it produces better results every single time.
+sidebar:
+  order: 4
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Every time you start a new Claude Code session, it is like Claude Code is joining your project for the first time. It can read your files and figure out a lot on its own, but it does not know your preferences, your conventions, or the decisions you have already made. That is where `CLAUDE.md` comes in.
+
+## What Is CLAUDE.md?
+
+`CLAUDE.md` is a special markdown file you place at the root of your project. Claude Code reads it automatically at the start of every session. It contains everything Claude Code needs to know about your project that it could not figure out just by reading the code.
+
+Think of it as your project's instruction manual for the AI.
+
+<Analogy title="A Briefing Document for a New Team Member">
+Imagine you are hiring a brilliant developer to join your project. On their first day, you sit down with them and say: "Here is our tech stack. Here is how we name files. Here is our database setup. Here are the patterns we follow. Here are the things we never do."
+
+That conversation takes an hour, and you only have to do it once -- they remember it going forward.
+
+CLAUDE.md is that conversation, written down. Except instead of having it once with a human, you have it at the start of *every* Claude Code session. It gives Claude Code the same institutional knowledge that a long-time team member would have. Without it, you end up repeating yourself: "No, we use arrow functions." "No, we use kebab-case filenames." "No, we always include deleted_at columns." With it, Claude Code just knows.
+</Analogy>
+
+## Why It Matters
+
+Without a `CLAUDE.md`, every session starts from scratch. Claude Code might:
+
+- Use a different naming convention than your project follows
+- Choose a library you do not use
+- Structure files differently than the rest of your codebase
+- Miss a pattern you follow religiously
+- Create code that technically works but does not fit your project
+
+With a good `CLAUDE.md`, Claude Code produces code that looks like *you* wrote it. It follows your conventions, uses your preferred libraries, and structures things the way your project expects. The first version of every feature is closer to what you actually want, which means less back-and-forth.
+
+## What to Include
+
+A great `CLAUDE.md` covers four areas:
+
+### 1. Project Overview
+A brief description of what the project is and what it does. This gives Claude Code the big picture.
+
+### 2. Tech Stack
+The specific frameworks, libraries, and tools your project uses. Be explicit about versions if it matters.
+
+### 3. Conventions
+How you name things, how you structure files, what patterns you follow. This is where most of the value lives.
+
+### 4. Rules and Boundaries
+Things Claude Code should never do, common mistakes to avoid, and hard requirements.
+
+## A Complete Template
+
+Here is a `CLAUDE.md` template you can adapt for any project. You do not need to fill out every section on day one -- start with the basics and add more as your project grows.
+
+```markdown
+# CLAUDE.md
+
+## Project Overview
+This is [what your app does] built with [your tech stack].
+
+## Tech Stack
+- Frontend: Next.js 15 (App Router) with TypeScript
+- Styling: Tailwind CSS v4
+- Database: Supabase (PostgreSQL)
+- API: Hono
+- Auth: Supabase Auth
+- Testing: Vitest
+- Deployment: Vercel
+
+## Architecture
+- Follow 3-layer pattern: DAO (database) -> Service (logic) -> API Route (HTTP)
+- DAOs go in src/dao/
+- Services go in src/services/
+- API routes go in src/app/api/
+
+## Conventions
+- Use functional components with arrow functions
+- Use TypeScript interfaces (not types) for object shapes
+- Name files in kebab-case: user-profile.tsx
+- Name components in PascalCase: UserProfile
+- Always handle loading and error states in components
+
+## Database Rules
+- All tables have RLS enabled
+- Use UUID for primary keys
+- Include created_at and updated_at on every table
+- Include deleted_at for soft deletes -- never use hard deletes
+- Always filter with WHERE deleted_at IS NULL
+
+## Do NOT
+- Use inline styles -- always use Tailwind classes
+- Use default exports -- always use named exports
+- Skip error handling on API routes
+- Use any -- always define proper TypeScript types
+```
+
+This is a starting point. Your `CLAUDE.md` will be unique to your project. Add to it whenever you catch Claude Code doing something you do not want -- instead of correcting it every time, add the rule to `CLAUDE.md` and it will follow it in every future session.
+
+## Creating Your First CLAUDE.md
+
+You can have Claude Code create it for you:
+
+<PromptExample
+  prompt="Create a CLAUDE.md file for this project. Look at the existing code, the package.json, the tsconfig, and the folder structure. Document the tech stack, file naming conventions, and any architectural patterns you can identify. Include a section for rules I can add to over time."
+  context="You want Claude Code to analyze your project and generate a CLAUDE.md based on what it finds."
+  result="Claude Code scans your project, identifies the frameworks and patterns in use, and generates a comprehensive CLAUDE.md that reflects your actual codebase."
+/>
+
+This is one of the smartest first prompts you can give Claude Code on any project. It creates the briefing document that makes every future session better.
+
+<DadTip>
+A good CLAUDE.md saves you from repeating yourself in every single prompt. Every time you find yourself saying "No, use Tailwind, not inline styles" or "No, put that in the dao folder, not the components folder" -- that is a sign you need to add a rule to your CLAUDE.md. Over time, it becomes a living document that encodes all your project's institutional knowledge. The ten minutes you spend maintaining it saves hours of correction.
+</DadTip>
+
+## Growing Your CLAUDE.md Over Time
+
+Your `CLAUDE.md` is not a document you write once and forget. It evolves with your project. Here is how it grows:
+
+**Week 1:** Basic tech stack and file conventions. Maybe 20 lines.
+
+**Week 4:** You have added rules about database naming, component structure, and your preferred error handling pattern. Maybe 50 lines.
+
+**Month 2:** You have a detailed document covering architecture, testing patterns, deployment instructions, and common pitfalls. Maybe 100 lines.
+
+**Month 6:** Your `CLAUDE.md` is a comprehensive guide that any developer (human or AI) could use to understand and contribute to your project. It is one of the most valuable files in your repository.
+
+Every time Claude Code does something unexpected or wrong, ask yourself: "Could I have prevented this with a line in CLAUDE.md?" If the answer is yes, add it. That is how the best `CLAUDE.md` files are built -- one correction at a time.
+
+## A CLAUDE.md Is Also Good for Humans
+
+Here is a bonus insight: a well-written `CLAUDE.md` is not just useful for Claude Code. It is useful for any developer who joins your project -- including future you. Six months from now, when you come back to a project you have not touched in a while, your `CLAUDE.md` is the fastest way to remember how everything works.
+
+Good documentation helps everyone. The fact that Claude Code reads it is just a bonus.
+
+<ProgressChecklist
+  id="ch8-claude-md"
+  items={[
+    "I understand what CLAUDE.md is and why it matters",
+    "I know the four sections a good CLAUDE.md should cover",
+    "I have created a CLAUDE.md for at least one project",
+    "I have a plan to update my CLAUDE.md as my project grows",
+    "I understand that CLAUDE.md prevents me from repeating instructions in every prompt"
+  ]}
+/>

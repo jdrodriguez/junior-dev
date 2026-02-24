@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="500" viewBox="0 0 800 500">
+  <defs>
+    <marker id="fkArrow" markerWidth="10" markerHeight="7" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#d97706"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="500" fill="#f8fafc" rx="12"/>
+
+  <!-- Title -->
+  <text x="400" y="36" text-anchor="middle" font-family="sans-serif" font-size="22" font-weight="700" fill="#1e293b">Database Tables &amp; Relationships</text>
+
+  <!-- ==================== USERS TABLE ==================== -->
+  <rect x="40" y="65" width="340" height="210" rx="10" fill="#ffffff" stroke="#3b82f6" stroke-width="2"/>
+
+  <!-- Table header -->
+  <rect x="40" y="65" width="340" height="38" rx="10" fill="#3b82f6"/>
+  <rect x="40" y="85" width="340" height="18" fill="#3b82f6"/>
+  <!-- Database icon -->
+  <ellipse cx="66" cy="84" rx="10" ry="6" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="56" y1="84" x2="56" y2="94" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="76" y1="84" x2="76" y2="94" stroke="#ffffff" stroke-width="1.5"/>
+  <ellipse cx="66" cy="94" rx="10" ry="6" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="90" y="90" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">users</text>
+
+  <!-- Column headers -->
+  <rect x="40" y="103" width="340" height="28" fill="#dbeafe"/>
+  <text x="60" y="122" font-family="sans-serif" font-size="12" font-weight="700" fill="#1e40af">id</text>
+  <text x="130" y="122" font-family="sans-serif" font-size="12" font-weight="700" fill="#1e40af">name</text>
+  <text x="220" y="122" font-family="sans-serif" font-size="12" font-weight="700" fill="#1e40af">email</text>
+  <line x1="40" y1="131" x2="380" y2="131" stroke="#bfdbfe" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="40" y="131" width="340" height="28" fill="#ffffff"/>
+  <text x="60" y="150" font-family="sans-serif" font-size="12" fill="#1e293b">1</text>
+  <text x="130" y="150" font-family="sans-serif" font-size="12" fill="#1e293b">Alice</text>
+  <text x="220" y="150" font-family="sans-serif" font-size="12" fill="#1e293b">alice@mail.com</text>
+  <line x1="40" y1="159" x2="380" y2="159" stroke="#f1f5f9" stroke-width="1"/>
+
+  <!-- Row 2 -->
+  <rect x="40" y="159" width="340" height="28" fill="#f8fafc"/>
+  <text x="60" y="178" font-family="sans-serif" font-size="12" fill="#1e293b">2</text>
+  <text x="130" y="178" font-family="sans-serif" font-size="12" fill="#1e293b">Bob</text>
+  <text x="220" y="178" font-family="sans-serif" font-size="12" fill="#1e293b">bob@mail.com</text>
+  <line x1="40" y1="187" x2="380" y2="187" stroke="#f1f5f9" stroke-width="1"/>
+
+  <!-- Row 3 -->
+  <rect x="40" y="187" width="340" height="28" fill="#ffffff"/>
+  <text x="60" y="206" font-family="sans-serif" font-size="12" fill="#1e293b">3</text>
+  <text x="130" y="206" font-family="sans-serif" font-size="12" fill="#1e293b">Charlie</text>
+  <text x="220" y="206" font-family="sans-serif" font-size="12" fill="#1e293b">charlie@mail.com</text>
+
+  <!-- Primary key indicator -->
+  <rect x="48" y="238" width="22" height="18" rx="4" fill="#3b82f6"/>
+  <text x="59" y="251" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#ffffff">PK</text>
+  <text x="78" y="251" font-family="sans-serif" font-size="11" fill="#64748b">= Primary Key (unique ID)</text>
+
+  <!-- ==================== POSTS TABLE ==================== -->
+  <rect x="430" y="65" width="340" height="210" rx="10" fill="#ffffff" stroke="#d97706" stroke-width="2"/>
+
+  <!-- Table header -->
+  <rect x="430" y="65" width="340" height="38" rx="10" fill="#d97706"/>
+  <rect x="430" y="85" width="340" height="18" fill="#d97706"/>
+  <ellipse cx="456" cy="84" rx="10" ry="6" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="446" y1="84" x2="446" y2="94" stroke="#ffffff" stroke-width="1.5"/>
+  <line x1="466" y1="84" x2="466" y2="94" stroke="#ffffff" stroke-width="1.5"/>
+  <ellipse cx="456" cy="94" rx="10" ry="6" fill="none" stroke="#ffffff" stroke-width="1.5"/>
+  <text x="480" y="90" font-family="sans-serif" font-size="16" font-weight="700" fill="#ffffff">posts</text>
+
+  <!-- Column headers -->
+  <rect x="430" y="103" width="340" height="28" fill="#fef3c7"/>
+  <text x="448" y="122" font-family="sans-serif" font-size="12" font-weight="700" fill="#92400e">id</text>
+  <text x="490" y="122" font-family="sans-serif" font-size="12" font-weight="700" fill="#92400e">title</text>
+  <text x="630" y="122" font-family="sans-serif" font-size="12" font-weight="700" fill="#92400e">author_id</text>
+  <line x1="430" y1="131" x2="770" y2="131" stroke="#fde68a" stroke-width="1"/>
+
+  <!-- Row 1 -->
+  <rect x="430" y="131" width="340" height="28" fill="#ffffff"/>
+  <text x="448" y="150" font-family="sans-serif" font-size="12" fill="#1e293b">1</text>
+  <text x="490" y="150" font-family="sans-serif" font-size="12" fill="#1e293b">Hello World</text>
+  <rect x="626" y="138" width="32" height="18" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="642" y="151" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#d97706">1</text>
+  <line x1="430" y1="159" x2="770" y2="159" stroke="#f1f5f9" stroke-width="1"/>
+
+  <!-- Row 2 -->
+  <rect x="430" y="159" width="340" height="28" fill="#f8fafc"/>
+  <text x="448" y="178" font-family="sans-serif" font-size="12" fill="#1e293b">2</text>
+  <text x="490" y="178" font-family="sans-serif" font-size="12" fill="#1e293b">My First App</text>
+  <rect x="626" y="166" width="32" height="18" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="642" y="179" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#d97706">2</text>
+  <line x1="430" y1="187" x2="770" y2="187" stroke="#f1f5f9" stroke-width="1"/>
+
+  <!-- Row 3 -->
+  <rect x="430" y="187" width="340" height="28" fill="#ffffff"/>
+  <text x="448" y="206" font-family="sans-serif" font-size="12" fill="#1e293b">3</text>
+  <text x="490" y="206" font-family="sans-serif" font-size="12" fill="#1e293b">CSS Tips</text>
+  <rect x="626" y="194" width="32" height="18" rx="4" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="642" y="207" text-anchor="middle" font-family="sans-serif" font-size="12" font-weight="600" fill="#d97706">1</text>
+
+  <!-- Foreign key indicator -->
+  <rect x="438" y="238" width="22" height="18" rx="4" fill="#d97706"/>
+  <text x="449" y="251" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="700" fill="#ffffff">FK</text>
+  <text x="468" y="251" font-family="sans-serif" font-size="11" fill="#64748b">= Foreign Key (links to another table)</text>
+
+  <!-- ==================== FOREIGN KEY ARROW ==================== -->
+  <!-- Arrow from posts.author_id to users.id -->
+  <path d="M 642,215 L 642,330 L 60,330 L 60,275" stroke="#d97706" stroke-width="2.5" fill="none" stroke-dasharray="8 4" marker-end="url(#fkArrow)"/>
+
+  <!-- FK Label -->
+  <rect x="290" y="316" width="220" height="28" rx="8" fill="#fffbeb" stroke="#d97706" stroke-width="1.5"/>
+  <text x="400" y="335" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="600" fill="#d97706">Foreign Key Relationship</text>
+
+  <!-- Explanation -->
+  <text x="400" y="370" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">posts.author_id = 1 means "this post was written by Alice" (users.id = 1)</text>
+
+  <!-- Bottom note -->
+  <rect x="120" y="400" width="560" height="80" rx="12" fill="#f1f5f9" stroke="#e2e8f0" stroke-width="1"/>
+  <text x="400" y="425" text-anchor="middle" font-family="sans-serif" font-size="15" font-weight="600" fill="#1e293b">Like a spreadsheet, but with superpowers</text>
+  <text x="400" y="448" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">Tables can be linked together using keys, so you never</text>
+  <text x="400" y="465" text-anchor="middle" font-family="sans-serif" font-size="12" fill="#64748b">have to duplicate data. Change Alice's name once, it updates everywhere!</text>
+</svg>

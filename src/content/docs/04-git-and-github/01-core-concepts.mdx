@@ -1,0 +1,91 @@
+---
+title: Core Concepts
+description: The fundamental Git vocabulary every developer needs to know.
+sidebar:
+  order: 1
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Before you type a single Git command, you need to understand the vocabulary. These terms will come up every single day once you start building real projects, and they are the same terms used by developers at every company in the world.
+
+<VideoEmbed id="hwP7WQkmECE" title="Git Explained in 100 Seconds" creator="Fireship" duration="2 min" />
+
+## The Video Game Save System
+
+<Analogy title="Git Works Like Video Game Saves">
+You know how in a video game, you save before a boss fight so you can reload if things go badly? Git is exactly like that, but for your code.
+
+- **Commits** are your save points. Each one captures a snapshot of every file in your project at that exact moment.
+- **Branches** are parallel timelines. Imagine you could save your game, then play two completely different paths at the same time -- one where you fight the boss head-on, and another where you sneak around. Branches let you try things without risking your main progress.
+- **Merging** is picking the winning timeline and bringing those changes back into your main save file.
+
+The best part? Unlike a video game, you never run out of save slots. You can have hundreds of commits and Git stores them all efficiently.
+</Analogy>
+
+<DiagramBlock src="/images/diagrams/git-branching.svg" alt="Git branching diagram showing main branch with a feature branch splitting off and merging back" caption="Branches let you work on features in isolation, then merge them back into main when they are ready." />
+
+## Key Terminology
+
+Here are the terms you need to know. Do not try to memorize these all at once -- just read through them and come back as a reference.
+
+<CardGrid>
+  <Card title="Repository (repo)" icon="open-book">
+    A project folder tracked by Git. It contains all your code *and* its entire history. When you hear someone say "clone the repo," they mean "download the project."
+  </Card>
+  <Card title="Commit" icon="approve-check-circle">
+    A snapshot of your code at a specific moment. Every commit has a unique ID, a message describing what changed, and a pointer to the previous commit. Think of it as a save point with a note attached.
+  </Card>
+  <Card title="Branch" icon="random">
+    A parallel version of your code. You create branches to work on features without touching the main codebase. When your feature is done, you merge the branch back in.
+  </Card>
+  <Card title="Main (or Master)" icon="star">
+    The primary branch. This should always contain working, stable code. You never work directly on main -- you create a branch, do your work there, and merge it back.
+  </Card>
+</CardGrid>
+
+<CardGrid>
+  <Card title="Merge" icon="puzzle">
+    Combining changes from one branch into another. When your feature branch is ready, you merge it into main. Git is smart enough to combine the changes automatically most of the time.
+  </Card>
+  <Card title="Pull Request (PR)" icon="comment">
+    A request on GitHub to merge your branch into main. This is where code review happens. Your teammates (or your AI pair programmer) can look at your changes and suggest improvements before they go live.
+  </Card>
+  <Card title="Clone" icon="document">
+    Download a complete copy of a repository from GitHub to your computer. This gets you the code *and* all its history.
+  </Card>
+  <Card title="Push & Pull" icon="up-down-arrows">
+    **Push** uploads your local commits to GitHub. **Pull** downloads the latest changes from GitHub to your computer. Think of them as "upload" and "download" for your code.
+  </Card>
+</CardGrid>
+
+## How It All Fits Together
+
+Here is the big picture of how these concepts connect:
+
+1. You **clone** a repo from GitHub to your computer.
+2. You create a **branch** for the feature you are working on.
+3. You write code, then **commit** your changes (save points).
+4. You **push** your branch to GitHub.
+5. You open a **Pull Request** to propose merging your branch into **main**.
+6. After review, you **merge** the PR.
+7. You **pull** the updated main branch back to your computer.
+
+That is the entire cycle. Every professional developer follows some version of this loop, whether they are building a to-do app or a billion-dollar platform.
+
+<DadTip>
+Do not stress about understanding every detail right now. The next section walks you through the actual commands step by step. For now, just know that Git is about saving your work, working in parallel safely, and sharing code with others. The rest is just syntax.
+</DadTip>
+
+<ProgressChecklist id="git-core-concepts" items={[
+  "I can explain what a repository is",
+  "I understand that commits are like save points",
+  "I know what branches are and why we use them",
+  "I understand the difference between push and pull",
+  "I know what a Pull Request is for"
+]} />

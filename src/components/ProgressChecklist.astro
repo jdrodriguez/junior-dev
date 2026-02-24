@@ -1,0 +1,42 @@
+---
+interface Props {
+  id: string;
+  items: string[];
+}
+const { id, items } = Astro.props;
+---
+<div class="progress-checklist" data-checklist-id={id}>
+  <h4>✅ Progress Check</h4>
+  {items.map((item, i) => (
+    <label>
+      <input type="checkbox" data-index={i} />
+      <span>{item}</span>
+    </label>
+  ))}
+</div>
+<script>
+  document.querySelectorAll('.progress-checklist').forEach(checklist => {
+    const id = checklist.getAttribute('data-checklist-id');
+    if (!id) return;
+    const saved = JSON.parse(localStorage.getItem(`checklist-${id}`) || '{}');
+    const checkboxes = checklist.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(cb => {
+      const input = cb as HTMLInputElement;
+      const idx = input.getAttribute('data-index') || '0';
+      if (saved[idx]) {
+        input.checked = true;
+        input.closest('label')?.classList.add('checked');
+      }
+      input.addEventListener('change', () => {
+        const current = JSON.parse(localStorage.getItem(`checklist-${id}`) || '{}');
+        current[idx] = input.checked;
+        localStorage.setItem(`checklist-${id}`, JSON.stringify(current));
+        if (input.checked) {
+          input.closest('label')?.classList.add('checked');
+        } else {
+          input.closest('label')?.classList.remove('checked');
+        }
+      });
+    });
+  });
+</script>

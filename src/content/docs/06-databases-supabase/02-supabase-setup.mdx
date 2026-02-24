@@ -1,0 +1,90 @@
+---
+title: Setting Up Supabase
+description: Create a Supabase project and connect it to your Next.js app in minutes.
+sidebar:
+  order: 2
+---
+
+import { Steps } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Time to set up your first real backend. Supabase gives you a full PostgreSQL database, authentication, and more -- all from a free account. By the end of this section, your Next.js app will be connected to a real database.
+
+## Create Your Supabase Project
+
+<Steps>
+
+1. **Sign up at [supabase.com](https://supabase.com).**
+   Create a free account. You can sign in with GitHub, which makes life easier.
+
+2. **Create a new project.**
+   Click "New Project." Choose a name for it (something like `my-first-app`). Set a strong database password -- write it down somewhere safe, you will need it later. Pick a region close to where you live for faster performance.
+
+3. **Wait for it to spin up.**
+   Supabase takes about a minute to create your project. Grab a snack.
+
+4. **Copy your API credentials.**
+   Once your project is ready, go to **Settings > API**. You need two values:
+   - **Project URL** -- looks like `https://abcdefghij.supabase.co`
+   - **Anon key** -- a long string of characters
+
+5. **Add credentials to your project.**
+   In your Next.js project, create a file called `.env.local` in the root folder:
+
+   ```bash
+   NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key-here
+   ```
+
+6. **Install the Supabase client library.**
+
+   ```bash
+   npm install @supabase/supabase-js
+   ```
+
+</Steps>
+
+That is it. Your project now has a real database behind it.
+
+<DadTip>
+The `.env.local` file is where you store secrets -- API keys, passwords, configuration that should never be pushed to GitHub. Your `.gitignore` file should already exclude it. If it does not, add `.env.local` to your `.gitignore` immediately. Leaking API keys on GitHub is one of the most common beginner mistakes, and it can cost real money if someone finds them.
+</DadTip>
+
+## Understanding the Anon Key
+
+The anon key is not exactly a secret -- it is designed to be used in the browser. But it is not a free pass either. By itself, the anon key gives very limited access to your database. The real security comes from **Row Level Security (RLS)**, which we will set up later in this chapter. Think of the anon key as your front door key -- it gets you into the building, but each apartment still has its own lock.
+
+## The Supabase Dashboard
+
+Take a few minutes to explore the Supabase dashboard. Here are the tabs you will use most:
+
+- **Table Editor** -- A visual spreadsheet-like view of your data. Great for poking around.
+- **SQL Editor** -- Write and run SQL queries directly. Very useful for testing.
+- **Authentication** -- Manage users, sign-up settings, and login providers.
+- **Settings > API** -- Where your keys live.
+
+## Watch This
+
+<VideoEmbed id="zBZgdTb-dns" title="Supabase in 100 Seconds" creator="Fireship" duration="2 min" />
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Set up Supabase in my Next.js project. Create a Supabase client utility file that I can import anywhere."
+  context="You have already created a Supabase project and added your keys to .env.local."
+  result="Claude Code creates a utility file (like lib/supabase.ts) that initializes the Supabase client using your environment variables, so you can import it from any page or component."
+/>
+
+<ProgressChecklist
+  id="ch6-supabase-setup"
+  items={[
+    "I created a Supabase account and project",
+    "I copied my Project URL and anon key into .env.local",
+    "I installed @supabase/supabase-js",
+    "I understand what the anon key does (and does not do)",
+    "I explored the Supabase dashboard"
+  ]}
+/>

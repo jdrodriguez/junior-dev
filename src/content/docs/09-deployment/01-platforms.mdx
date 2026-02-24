@@ -1,0 +1,70 @@
+---
+title: "Deployment Platforms"
+description: "Where your app can live on the internet -- Vercel, Cloudflare, Railway, and Netlify compared."
+sidebar:
+  order: 1
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+import ConceptCard from '../../../components/ConceptCard.astro';
+import ConceptCardGrid from '../../../components/ConceptCardGrid.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+Before you deploy, you need to pick where your app is going to live. The good news is that there are several excellent platforms, all with generous free tiers. The even better news is that you do not have to manage servers, install operating systems, or do any of that old-school operations work.
+
+<Analogy title="Deployment Is Moving From Rehearsal to the Big Stage">
+When a band rehearses, they play in a garage or a small practice room. The music is real, but no one else can hear it. Deployment is booking the venue, setting up the sound system, and opening the doors. The music is the same -- your code does not change -- but now the whole world can experience it. Each platform below is a different venue, and they all handle the sound system for you.
+</Analogy>
+
+## The Big Four
+
+<ConceptCardGrid>
+  <ConceptCard title="Vercel" icon="rocket">
+    Made by the same team that built Next.js. If you are building with Next.js, this is the easiest choice. The free tier is generous, it deploys automatically from GitHub, and everything just works out of the box. This is what we recommend for your first deployment.
+  </ConceptCard>
+  <ConceptCard title="Cloudflare Pages & Workers" icon="seti:config">
+    Excellent for Hono APIs and static sites. Cloudflare runs your code on their global edge network, meaning your app loads fast no matter where in the world someone visits from. Great for APIs and lightweight apps.
+  </ConceptCard>
+  <ConceptCard title="Railway" icon="setting">
+    A good all-purpose platform for full-stack apps and databases. If you need to run background jobs, host a database, or deploy something that is not a Next.js app, Railway handles it well. Think of it as the Swiss Army knife option.
+  </ConceptCard>
+  <ConceptCard title="Netlify" icon="star">
+    A solid alternative to Vercel with a great free tier. Netlify works well for static sites, Jamstack apps, and serverless functions. Some developers prefer its interface and workflow.
+  </ConceptCard>
+</ConceptCardGrid>
+
+## Which One Should You Pick?
+
+Here is the simple answer: **start with Vercel**. Since you are building with Next.js, Vercel is designed specifically for your stack. It requires the least configuration and gives you the fastest path to a live URL.
+
+As you grow and build different kinds of projects, you will naturally explore the others. A Hono API might go on Cloudflare Workers. A full-stack app with a hosted database might go on Railway. But for now, Vercel is your go-to.
+
+## How Deployment Actually Works
+
+<DiagramBlock src="/images/diagrams/deployment-pipeline.svg" alt="Diagram showing code flowing from your computer to GitHub to a deployment platform and then to the live internet" caption="The deployment pipeline: you push code to GitHub, and the platform builds and serves your app automatically." />
+
+Here is the flow:
+
+1. You write code on your computer and push it to GitHub.
+2. Your deployment platform watches your GitHub repo for changes.
+3. When it sees a new push, it pulls the code, builds your app, and starts serving it.
+4. Your app gets a URL that anyone can visit.
+
+That is it. No FTP. No SSH. No configuring Apache or Nginx. Push your code and the platform handles the rest.
+
+<DadTip>
+When I started building websites, deploying meant connecting to a server with FTP (a file transfer tool), manually uploading files, and praying nothing broke. It took hours and was terrifying every time. Today you push to GitHub and your app is live in under a minute. You are living in the golden age of web development. Do not take it for granted.
+</DadTip>
+
+<ProgressChecklist
+  id="ch9-platforms"
+  items={[
+    "I can name at least three deployment platforms",
+    "I understand why Vercel is the best starting choice for Next.js",
+    "I understand the basic flow: push to GitHub, platform builds, app goes live",
+    "I know that deployment platforms handle server management for me"
+  ]}
+/>

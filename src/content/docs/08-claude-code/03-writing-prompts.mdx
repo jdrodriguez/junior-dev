@@ -1,0 +1,242 @@
+---
+title: Writing Great Prompts
+description: The single most important skill in AI-powered development. How you talk to Claude Code determines what it builds.
+sidebar:
+  order: 3
+---
+
+import { Steps, Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+If there is one page in this entire book that you come back to again and again, let it be this one.
+
+The quality of what Claude Code builds depends entirely on how well you describe what you want. A vague prompt produces vague results. A specific, well-structured prompt produces code that works the first time. This is not a nice-to-have skill -- it is *the* skill of AI-powered development. A developer who writes great prompts will outproduce a developer who writes mediocre ones by a factor of ten, every single day.
+
+The good news is that writing great prompts is a learnable skill. You do not need to be a programmer to do it. You need to be a clear thinker and a specific communicator. And that is something you can practice.
+
+## The Three Principles
+
+Every great prompt follows three principles: be specific, provide context, and iterate. Let's break each one down.
+
+### Principle 1: Be Specific, Not Vague
+
+The number one mistake people make with AI is being too vague. "Make a dashboard" could mean a thousand different things. Claude Code is powerful, but it cannot read your mind. The more detail you provide, the closer the first attempt will be to what you actually want.
+
+Here is the rule of thumb: **if two different developers could read your prompt and imagine completely different results, the prompt is too vague.**
+
+<PromptExample
+  prompt="Make a dashboard."
+  context="This is too vague. What kind of dashboard? What data? What layout?"
+  result="Claude Code guesses. Maybe it creates something with placeholder text. Maybe it builds something completely different from what you imagined. You waste time going back and forth."
+/>
+
+Now compare that to this:
+
+<PromptExample
+  prompt="Create a dashboard page at /dashboard that shows: a welcome message with the user's first name at the top, a grid of 4 stat cards in a row showing total orders, total revenue, active users, and growth percentage. Below that, add a table showing the 10 most recent orders with columns for order ID, customer name, amount, and status. Use Tailwind CSS with a clean white background and subtle card shadows."
+  context="You have a clear picture of what you want and you are communicating it precisely."
+  result="Claude Code builds exactly what you described. The first version is probably 90% of the way there, and you only need minor tweaks."
+/>
+
+See the difference? The second prompt describes the layout, the data, the number of items, the specific fields, and the styling approach. Claude Code does not have to guess about any of it.
+
+### Principle 2: Provide Context
+
+Claude Code can see your files, but it does not know your intentions, your business rules, or what you tried before. Context turns a good prompt into a great one.
+
+Context includes:
+
+- **What already exists** -- "I have a users table in Supabase with name, email, and role columns"
+- **What tech to use** -- "Use Supabase auth helpers for Next.js"
+- **What should happen after** -- "After login, redirect to /dashboard"
+- **What patterns to follow** -- "Use the same card component style as the settings page"
+- **What went wrong before** -- "I tried this but got a hydration error"
+
+<PromptExample
+  prompt="Add authentication."
+  context="No context provided. Authentication using what? What should the UI look like? Where should users go after logging in?"
+  result="Claude Code makes a lot of assumptions. It might choose a different auth library than your project uses, create a login flow that does not match your design, or miss your existing auth setup entirely."
+/>
+
+<PromptExample
+  prompt="Set up email/password authentication using Supabase Auth. Create a login page at /login and a signup page at /signup. Both should be centered on the page with a card layout. After successful login, redirect to /dashboard. After signup, show a message telling the user to check their email for a confirmation link. Use the Supabase auth helpers for Next.js that are already installed in this project."
+  context="You are telling Claude Code exactly what library to use, what pages to create, what should happen on success, and what is already installed."
+  result="Claude Code creates both pages with the correct Supabase integration, proper redirect logic, and confirmation messaging. It works with your existing setup instead of fighting against it."
+/>
+
+### Principle 3: Iterate, Do Not Monologue
+
+This is where most beginners go wrong. They try to describe an entire feature in one massive prompt -- the database schema, the API routes, the frontend components, the styling, the error handling, all at once. This almost always produces worse results than building step by step.
+
+Think of it like giving directions. You would not say "Go to the grocery store, then the bank, then pick up my dry cleaning, then stop at the pharmacy, then get gas, and here are the specific items I need at each stop." You would give one destination at a time.
+
+<Steps>
+
+1. **Start with the foundation.**
+   "Create the posts table migration with columns for id, title, content, author_id, and created_at."
+
+2. **Build the data layer.**
+   "Create a PostDAO that can fetch all posts and create a new post. Use the Supabase client."
+
+3. **Add the business logic.**
+   "Create a PostService that uses the PostDAO. The createPost method should validate that title and content are not empty."
+
+4. **Build the API.**
+   "Create an API route at /api/posts that handles GET (list all posts) and POST (create new post). Use the PostService."
+
+5. **Create the UI.**
+   "Create a page at /blog that fetches posts from the API and displays them in a list. Each post should show the title, a preview of the content (first 100 characters), and the date."
+
+6. **Polish and refine.**
+   "Add a loading state while the posts are being fetched, and an empty state that says 'No posts yet' if there are none."
+
+</Steps>
+
+Each step is small, focused, and verifiable. You can check that each piece works before moving on. If something goes wrong at step 4, you know exactly where the problem is. If you had put all of this in one prompt and something broke, you would have no idea where to start debugging.
+
+## Bad vs Good: Five Real Examples
+
+Let's look at five common prompts and see how to make them dramatically better.
+
+**Example 1: Building a Form**
+
+<PromptExample
+  prompt="Make a contact form."
+  context="Bad: Too vague. What fields? What happens on submit? Where does the data go?"
+/>
+
+<PromptExample
+  prompt="Create a contact form at /contact with fields for name (required, minimum 2 characters), email (required, must be valid email), and message (required, minimum 10 characters). Show inline validation errors below each field. On submit, POST the data to /api/contact. Show a success message after successful submission and clear the form. Style with Tailwind using a max-width of md, centered on the page."
+  context="Good: Every detail is specified -- fields, validation rules, behavior on submit, API endpoint, and styling."
+  result="Claude Code builds a complete, working contact form with validation, API integration, and user feedback."
+/>
+
+**Example 2: Fixing a Bug**
+
+<PromptExample
+  prompt="The page is broken, fix it."
+  context="Bad: What page? What is broken? What should it be doing? What error are you seeing?"
+/>
+
+<PromptExample
+  prompt="The /dashboard page shows a blank white screen when I load it. The browser console shows: TypeError: Cannot read properties of undefined (reading 'name') at DashboardHeader (src/components/dashboard-header.tsx:12:34). I think it is happening because the user data has not loaded yet when the component tries to render. Can you add proper loading handling?"
+  context="Good: Specific page, specific error, specific file and line, and your hypothesis about the cause."
+  result="Claude Code goes straight to the file, sees the problem, and adds a loading check or optional chaining to handle the undefined state."
+/>
+
+**Example 3: Styling**
+
+<PromptExample
+  prompt="Make it look better."
+  context="Bad: Better how? What does 'better' mean to you? This is entirely subjective."
+/>
+
+<PromptExample
+  prompt="The user profile card at src/components/profile-card.tsx looks flat and bland. Add a subtle shadow (shadow-md), round the corners (rounded-xl), add some internal padding (p-6), and make the user's name larger and bold. Add a light gray border. Make the avatar image circular."
+  context="Good: Specific file, specific visual changes, specific Tailwind classes."
+  result="Claude Code applies exactly the styling tweaks you described. You see the result immediately."
+/>
+
+**Example 4: Adding a Feature**
+
+<PromptExample
+  prompt="Add search."
+  context="Bad: Search for what? Where? What should it search? How should results be displayed?"
+/>
+
+<PromptExample
+  prompt="Add a search bar to the top of the /users page that filters the user list as you type. It should search across user name and email. The search should be case-insensitive and update in real-time (no submit button needed). If no results match, show 'No users found' with a clear search button. Keep the existing table layout for the results."
+  context="Good: Where, what it searches, how it behaves, edge case handling, and UI requirements."
+  result="Claude Code adds the search input, implements real-time filtering, handles the empty state, and preserves your existing table layout."
+/>
+
+**Example 5: Database Work**
+
+<PromptExample
+  prompt="Create a database table for products."
+  context="Bad: What columns? What types? Any constraints? Relationships to other tables?"
+/>
+
+<PromptExample
+  prompt="Create a Supabase migration for a products table with these columns: id (uuid, primary key, default gen_random_uuid()), name (text, not null), description (text), price (numeric, not null, must be positive), category_id (uuid, foreign key to categories table), image_url (text), is_active (boolean, default true), created_at (timestamptz, default now()), updated_at (timestamptz, default now()), deleted_at (timestamptz, nullable for soft deletes). Enable RLS on the table."
+  context="Good: Every column has a type and constraints. Relationships, defaults, and policies are specified."
+  result="Claude Code generates a clean migration file with exactly the schema you described, including the RLS policy."
+/>
+
+## The Progressive Building Approach
+
+Here is the workflow I use on every project, and the one I want you to adopt. I call it **progressive building** -- you start with the simplest possible version and layer on complexity one prompt at a time.
+
+Let's say you want to build a blog. Here is how a beginner might prompt:
+
+> "Build a complete blog with user authentication, post creation with a rich text editor, categories, tags, comments, likes, a search bar, an admin dashboard, and deploy it to Vercel."
+
+That prompt will produce chaos. Too many moving parts, too many decisions for the AI to make at once, too many places for things to go wrong.
+
+Here is how an experienced vibe coder would approach the exact same project:
+
+**Session 1: The skeleton**
+- "Create a Next.js page at /blog that displays a hardcoded list of 3 blog post titles."
+- "Make each title a link that goes to /blog/[slug]."
+- "Create the dynamic route page that shows a hardcoded title and body."
+
+**Session 2: Real data**
+- "Create a posts table migration with title, slug, content, and created_at."
+- "Create a PostDAO that fetches all posts and a single post by slug."
+- "Update the /blog page to fetch real posts from Supabase instead of the hardcoded list."
+
+**Session 3: Creating posts**
+- "Create a /blog/new page with a form to create a new post."
+- "Add a PostService with a createPost method that validates the title is not empty and auto-generates the slug."
+- "Connect the form to the API."
+
+**Session 4: Polish**
+- "Add loading states to the blog list and individual post pages."
+- "Add error handling if a post slug does not exist."
+- "Style the blog with proper typography and spacing."
+
+Each session produces working, testable code. You never have a half-broken app with twelve things wrong at once. You always have a working version to fall back on. And every Git commit captures a stable state.
+
+That is the secret. Not one giant prompt. Many small, focused ones.
+
+<DadTip>
+The quality of what Claude builds depends entirely on how well you describe what you want. I know I keep saying this, but it is the most important lesson in this entire book. Prompting is a skill, and like any skill, you get better with practice. Your first prompts will be messy. That is fine. A month from now, you will write prompts that produce working features on the first try. The only way to get there is to write a lot of prompts and pay attention to what works and what does not.
+</DadTip>
+
+## Common Prompting Mistakes
+
+Watch out for these patterns that trip up beginners:
+
+**Over-specifying implementation details you do not care about.** If you do not have a preference about whether a variable is called `userData` or `userInfo`, do not specify it. Focus your detail budget on the things that matter to you -- the user experience, the data structure, the behavior.
+
+**Under-specifying things you do care about.** If you want the button to be exactly blue with white text, say so. If you want the form to redirect after submission, say so. Claude Code does not know which details matter to you unless you tell it.
+
+**Asking for too many things at once.** If your prompt has more than three or four distinct tasks, break it up. One clear task per prompt produces better results than five tasks crammed together.
+
+**Not giving context about errors.** "It does not work" is the most useless thing you can say. *What* does not work? *What* did you expect to happen? *What* happened instead? *What error message* did you see? The more diagnostic information you provide, the faster Claude Code can help.
+
+**Forgetting to check the result.** After every prompt, look at what Claude Code produced. Read the code. Test it in the browser. Check for things that do not look right. The iteration cycle only works if you actually verify each step.
+
+## Watch and Learn
+
+This is a long video, but it is one of the most valuable resources on how to work effectively with AI tools. Andrej Karpathy is one of the people who *built* this technology, and his perspective on how to use it is worth every minute.
+
+<VideoEmbed id="EWvNQjAaOHw" title="How I Use LLMs" creator="Andrej Karpathy" duration="2 hrs" />
+
+<LinkCard title="Andrej Karpathy: Software Is Changing Again" href="https://www.ycombinator.com/library/MW-andrej-karpathy-software-is-changing-again" description="Karpathy's YC talk on how AI is transforming software development. Essential viewing." />
+
+<ProgressChecklist
+  id="ch8-writing-prompts"
+  items={[
+    "I understand the three principles: be specific, provide context, iterate",
+    "I can take a vague prompt and rewrite it to be specific",
+    "I understand the progressive building approach -- start simple, layer complexity",
+    "I know to check Claude Code's output after every prompt before moving on",
+    "I have practiced writing at least five prompts using the principles from this page",
+    "I watched or bookmarked the Karpathy video"
+  ]}
+/>

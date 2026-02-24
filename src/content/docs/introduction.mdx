@@ -1,0 +1,101 @@
+---
+title: "Welcome to Software Development"
+description: "Your journey from zero to building real web applications starts here."
+sidebar:
+  order: 1
+---
+
+import VideoEmbed from '../../components/VideoEmbed.astro';
+import PromptExample from '../../components/PromptExample.astro';
+import Analogy from '../../components/Analogy.astro';
+import DadTip from '../../components/DadTip.astro';
+import ProgressChecklist from '../../components/ProgressChecklist.astro';
+import DiagramBlock from '../../components/DiagramBlock.astro';
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+
+Hey. If you're reading this, you're about to pick up one of the most valuable skills a person can have in the modern world: the ability to build software. Not just "learn to code" in the abstract, homework-problem sense -- but actually build things. Real web applications that real people can open on their phones and use.
+
+This guide is written by your dad. I build software for a living, and I want to teach you everything I know -- from the ground up, in the order that actually makes sense, without skipping the stuff that matters.
+
+## Why Now Is the Best Time to Start
+
+We're living in a genuinely extraordinary moment. AI tools like Claude Code have fundamentally changed what it means to be a developer. Previous generations had to memorize syntax, wrestle with cryptic error messages alone, and spend hours on Stack Overflow piecing together answers from strangers. You get to skip a lot of that pain.
+
+But here's the key: **AI doesn't replace understanding.** It amplifies it. The developers who thrive with AI tools are the ones who understand what they're asking for and can evaluate whether the answer is good. That's exactly what this guide will give you.
+
+<Analogy title="The Chef and the Kitchen Robot">
+Imagine a chef who gets an incredibly talented kitchen robot. The robot can chop, saute, plate -- it can do almost anything. But if the chef doesn't understand what "reduce the sauce" means, or what flavors go together, or when something is overcooked, the robot is useless. Worse, it might confidently serve garbage. You're the chef. Claude Code is the robot. This guide teaches you to be the chef.
+</Analogy>
+
+## What You'll Learn
+
+This guide covers the complete journey. Here's the roadmap:
+
+<CardGrid>
+  <Card title="Dev Environment" icon="laptop">
+    Set up your tools: VS Code, the terminal, Node.js, Git, and Claude Code.
+  </Card>
+  <Card title="How the Web Works" icon="globe">
+    Understand clients, servers, HTTP, and what actually happens when you visit a URL.
+  </Card>
+  <Card title="JavaScript & TypeScript" icon="seti:javascript">
+    Learn the language of the web -- the one language that runs everywhere.
+  </Card>
+  <Card title="Git & GitHub" icon="github">
+    Track every change to your code and never lose work again.
+  </Card>
+  <Card title="React & Next.js" icon="puzzle">
+    Build interactive user interfaces out of reusable components.
+  </Card>
+  <Card title="Databases & Supabase" icon="server">
+    Store, query, and manage data with a real PostgreSQL database.
+  </Card>
+  <Card title="APIs with Hono" icon="rocket">
+    Build the backend logic that powers your applications.
+  </Card>
+  <Card title="Claude Code" icon="star">
+    Master your AI pair programmer and multiply your productivity.
+  </Card>
+  <Card title="Deployment" icon="external">
+    Put your app on the internet for anyone in the world to use.
+  </Card>
+  <Card title="Developer Mindset" icon="heart">
+    Learn to think, debug, and solve problems like a professional.
+  </Card>
+</CardGrid>
+
+## The Tech Stack (Your Toolkit)
+
+A "tech stack" is just the set of technologies you use to build an app. Here's ours, and why each piece matters:
+
+<Analogy title="Building a Restaurant">
+Think of building a web app like opening a restaurant. **Next.js** is the dining room -- it's what customers see and interact with. **Hono** is the kitchen -- it handles orders, processes them, and sends back results. **Supabase** is the pantry and the filing cabinet -- it stores all your ingredients (data) and keeps track of who's allowed in (authentication). And **Claude Code** is like having a seasoned sous-chef who can help with every station.
+</Analogy>
+
+- **Next.js and React:** The frontend framework. This is what users see and interact with in their browser. React lets you build UIs out of reusable pieces called components, and Next.js adds powerful features like server-side rendering and file-based routing.
+
+- **Supabase:** Your database and authentication layer. It's built on PostgreSQL (a battle-tested database that runs half the internet) and gives you user login, file storage, and real-time data out of the box.
+
+- **Hono:** A fast, lightweight framework for building your backend API. When your frontend needs data or needs to do something (like create a user account), it talks to your Hono API.
+
+- **Claude Code:** Your AI pair programmer. It lives in your terminal, reads your entire codebase, and can write code, create files, run commands, and build features from plain English descriptions.
+
+## How to Use This Guide
+
+Work through the chapters in order. Each one builds on the last. Don't try to memorize anything -- instead, focus on understanding the *why* behind things. When you understand the concept, the details are easy to look up (or ask Claude Code about).
+
+<DadTip>
+You do not need to memorize everything in this guide. Seriously. I've been a developer for years and I still Google stuff every single day. Software development isn't about having a perfect memory -- it's about understanding how things fit together and knowing how to find answers when you need them. Read a chapter, then immediately try building something with what you learned. That's how it sticks.
+</DadTip>
+
+<VideoEmbed id="8sXRyHI3bLw" title="Web Development Technologies - A Practical Guide" creator="Traversy Media" duration="2 hrs 43 min" description="A bird's-eye view of the entire web development landscape. Great for understanding how all the pieces fit together before diving in. Watch at 1.5x speed or jump to the sections that interest you." />
+
+<VideoEmbed id="zN8YNNHcaZc" title="How Does the Internet Work?" creator="Lesics" duration="10 min" description="A visual explanation of what's actually happening when you visit a website. Gives you the mental model you'll build on throughout this guide." />
+
+## Ready?
+
+In the next chapter, you'll set up your development environment -- the tools you'll use every day as a developer. It takes about an hour, and by the end of it, your computer will be ready to build anything.
+
+Let's go.
+
+<ProgressChecklist id="intro-checklist" items={["Read through the full introduction", "Understand the tech stack at a high level (frontend, backend, database, AI)", "Watch at least one of the recommended videos", "Feel excited (or at least curious) about what's ahead"]} />

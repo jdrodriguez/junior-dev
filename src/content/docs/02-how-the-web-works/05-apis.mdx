@@ -1,0 +1,87 @@
+---
+title: "APIs: Connecting Everything"
+description: APIs are how different pieces of software talk to each other. Here is how they work and why they matter for your stack.
+sidebar:
+  order: 5
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import DiagramBlock from '../../../components/DiagramBlock.astro';
+
+You now know about clients and servers, HTTP methods and status codes, the three pillars of web pages, and JSON. An API is where all of those pieces come together.
+
+**API** stands for Application Programming Interface. That name sounds intimidating, but the concept is simple: an API is a set of rules for how one piece of software talks to another.
+
+## The Restaurant Menu Analogy
+
+<Analogy title="An API Is a Restaurant Menu">
+You are back at the restaurant. The kitchen (server) can make hundreds of different dishes, but you cannot just walk in and start shouting random requests. You need the **menu**.
+
+The menu is the API. It tells you:
+- **What you can order** (the available endpoints, like `/api/users` or `/api/tasks`)
+- **How to order it** (which HTTP method to use -- GET to read, POST to create)
+- **What you will get back** (the JSON response with your data)
+
+You do not need to know how the kitchen works. You do not need to know the recipes. You just need to read the menu, place your order correctly, and the kitchen handles the rest.
+
+That is exactly what an API does. It is the contract between your frontend and your backend: "If you send me this kind of request, I will send you back this kind of response."
+</Analogy>
+
+## How the Pieces Connect in Our Stack
+
+In the applications you will build, here is how data flows:
+
+<DiagramBlock src="/images/diagrams/api-flow.svg" alt="Diagram showing React frontend sending a request to a Hono API, which queries Supabase, and the response flowing back" caption="The data flow: React asks Hono, Hono asks Supabase, and the answer flows back." />
+
+1. **React (Frontend)** -- The user clicks a button or loads a page. React sends an HTTP request to your API. For example: `GET /api/tasks`.
+
+2. **Hono (API Layer)** -- Your Hono server receives the request, figures out what needs to happen (maybe check if the user is logged in, validate some data), and talks to the database.
+
+3. **Supabase (Database)** -- Supabase stores all your data. Hono asks Supabase: "Give me all tasks for this user." Supabase runs the query and returns the results.
+
+4. **The Response** -- Hono packages the data as JSON and sends it back to React with a 200 status code. React receives the JSON and renders it on screen.
+
+That is the full loop. Frontend to API to database and back. Every feature you build follows this pattern.
+
+## APIs Are Everywhere
+
+Your own Hono API is just one example. APIs are how the entire internet connects:
+
+- **Stripe's API** lets your app process payments without building a payment system from scratch.
+- **Google's Maps API** lets your app embed maps and calculate directions.
+- **GitHub's API** lets tools interact with your repositories programmatically.
+- **OpenAI's API** lets your app use AI models.
+
+When someone says "we are going to integrate with Stripe," they mean "we are going to call Stripe's API from our backend." The pattern is always the same: send an HTTP request, get a JSON response.
+
+<DadTip>
+When you are building features with Claude Code, a lot of what you are doing is wiring up this flow: "When the user does X on the frontend, call this API endpoint, which talks to the database, and display the result." Once this mental model clicks, you can describe almost any feature in those terms -- and Claude Code will understand exactly what you need.
+</DadTip>
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Create an API endpoint at /api/tasks that returns all tasks for the logged-in user from Supabase."
+  context="You are building the backend for a task management app."
+  result="Claude Code creates a Hono route that authenticates the user, queries Supabase for their tasks, and returns the results as JSON."
+/>
+
+<PromptExample
+  prompt="Wire up my React component to fetch tasks from /api/tasks and display them in a list."
+  context="You have the API built and now want the frontend to use it."
+  result="Claude Code creates a component that calls the API on load, handles the JSON response, and renders each task."
+/>
+
+<ProgressChecklist
+  id="ch2-apis"
+  items={[
+    "I can explain what an API is in my own words",
+    "I understand the data flow: React -> Hono -> Supabase -> response",
+    "I know that APIs are just HTTP requests and JSON responses",
+    "I understand that third-party services (Stripe, Google, etc.) also use APIs"
+  ]}
+/>

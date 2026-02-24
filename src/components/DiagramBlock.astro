@@ -1,0 +1,14 @@
+---
+interface Props {
+  src: string;
+  alt: string;
+  caption: string;
+  description?: string;
+}
+const { src, alt, caption, description } = Astro.props;
+---
+<figure class="diagram-block">
+  <img src={src} alt={alt} loading="lazy" />
+  <figcaption>{caption}</figcaption>
+  {description && <p style="font-size: 0.85rem; color: var(--sl-color-gray-2);">{description}</p>}
+</figure>

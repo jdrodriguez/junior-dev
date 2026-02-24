@@ -1,0 +1,150 @@
+---
+title: Advanced Patterns
+description: Multi-file changes, debugging workflows, the 80/20 rule, and knowing when to trust (and not trust) AI-generated code.
+sidebar:
+  order: 5
+---
+
+import { Card, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ChapterSummary from '../../../components/ChapterSummary.astro';
+
+You know the basics now. You can start Claude Code, write decent prompts, and build features step by step. This section covers the patterns that separate someone who uses Claude Code from someone who is *effective* with Claude Code. These are the lessons that usually take months of trial and error to learn. You are getting them on day one.
+
+## Multi-File Changes: Claude Code's Superpower
+
+Most coding tasks touch more than one file. Adding a new feature might require a database migration, a DAO, a service, an API route, a React component, and an update to the navigation menu. Doing this by hand means juggling six files, keeping them all consistent, and remembering to import things in the right places.
+
+Claude Code handles multi-file changes in a single interaction. This is arguably its biggest advantage over traditional development. You describe the feature once, and Claude Code creates or modifies every file that needs to change -- all wired together correctly.
+
+<PromptExample
+  prompt="Add a 'favorites' feature. Users should be able to favorite a post. I need: a favorites table migration with user_id and post_id columns (with a unique constraint so users cannot favorite the same post twice), a FavoriteDAO, a FavoriteService, an API route at /api/favorites that handles POST (toggle favorite) and GET (list user's favorites), and a heart icon button on each post card that toggles the favorite state."
+  context="You are describing a complete feature that spans the entire stack."
+  result="Claude Code creates the migration, DAO, service, API route, and updates the post card component -- all in one go. The imports, types, and connections between files are all handled automatically."
+/>
+
+The key to making multi-file changes work well is to describe the *feature*, not the individual files. Tell Claude Code what you want the user to experience, and let it figure out which files need to change.
+
+## The Debugging Workflow
+
+Bugs are inevitable. Here is a systematic workflow for using Claude Code to squash them fast.
+
+**Step 1: Capture the error.** Copy the entire error message, including the stack trace (the list of files and line numbers). The more information you provide, the faster Claude Code can find the problem.
+
+**Step 2: Describe what you expected.** "I clicked the submit button and expected the form to save and redirect to the dashboard."
+
+**Step 3: Describe what actually happened.** "Instead, the page just refreshes and the data is not saved."
+
+**Step 4: Hand it to Claude Code.**
+
+<PromptExample
+  prompt="I am getting this error when I try to submit the new post form: TypeError: Cannot read properties of undefined (reading 'email') at handleSubmit (src/components/post-form.tsx:23:15). I expected the form to save the post and redirect to /blog. Instead, it crashes on submit. The user is logged in -- I can see their name in the navbar. Can you look at the form component and the API route it submits to and figure out what is wrong?"
+  context="You are providing the error, the expected behavior, the actual behavior, and a helpful observation."
+  result="Claude Code reads both files, identifies that the user object is being destructured before it is available, and fixes the issue."
+/>
+
+**Step 5: Verify the fix.** After Claude Code makes the change, test it yourself. Click the button again. Make sure the bug is actually gone and that the fix did not break something else.
+
+This five-step process works for almost every bug. The most important part is step 1 -- a complete error message with a stack trace gives Claude Code an enormous head start.
+
+## The 80/20 Rule of AI Coding
+
+This is one of the most important concepts in this entire chapter, so pay close attention.
+
+Claude Code will get you 80% of the way to a working feature very quickly. In minutes, it can scaffold a complete feature with database tables, API routes, and frontend components. That 80% feels amazing. It is fast, it is impressive, and it is easy.
+
+The remaining 20% is where your judgment matters:
+
+- **Understanding why the code works.** Can you explain what each file does and how they connect? If not, ask Claude Code to explain.
+- **Edge cases.** What happens if the user submits an empty form? What if the database is down? What if two users try to do the same thing at the same time?
+- **Security.** Is the API route checking that the user is authenticated? Is user input being sanitized? Are there any SQL injection risks?
+- **Performance.** Is the code fetching too much data? Are there unnecessary re-renders? Could a database query be optimized?
+- **Business logic correctness.** Does the feature actually do what the business needs it to do? Claude Code does not know your business rules unless you tell it.
+
+That last 20% is why you spent the previous seven chapters learning fundamentals. The AI gets you to 80% fast. Your knowledge and judgment close the gap.
+
+:::caution[Always Review AI-Generated Code]
+Never deploy code you do not understand. After every Claude Code session, read through the code it generated. Ask yourself: "Do I understand what this does? Does it handle errors? Is it secure?" If the answer to any of these is "no" or "I am not sure," ask Claude Code to explain it. Understanding the code is not optional -- it is your responsibility as the developer. The AI is your co-pilot, but you are the one flying the plane.
+:::
+
+## When to NOT Trust Claude Code
+
+Claude Code is remarkably capable, but it has blind spots. Knowing when to be skeptical is a skill that separates good developers from reckless ones.
+
+**Security-sensitive code.** Authentication, authorization, payment processing, and anything involving user data. Always review these with extra scrutiny. Claude Code might produce code that works but has subtle security flaws -- like forgetting to check permissions on an API route, or not sanitizing user input before a database query.
+
+**Business logic.** Claude Code does not understand your business. If you are building an invoicing system and there is a rule that invoices over $10,000 require manager approval, Claude Code will not know that unless you tell it. Complex business rules should always be verified by someone who understands the domain.
+
+**Complex database operations.** Migrations that modify existing data, multi-step transactions, and queries that involve many joins. These are areas where a subtle bug can corrupt your data. Always review the SQL and test with sample data before running migrations in production.
+
+**Performance-critical code.** Claude Code tends to write code that is correct but not necessarily optimized. If you are building something that handles thousands of requests per second or processes large datasets, you need to think about performance yourself.
+
+**The "it works on my machine" trap.** Claude Code tests nothing. It writes code that *looks* correct and often *is* correct, but it has not run the code, clicked the buttons, or verified the edge cases. That is your job. Every feature Claude Code builds should be tested by you before you consider it done.
+
+<DadTip>
+Never ship code you do not understand. I know I sound like a broken record, but this is the one rule that matters more than any other in this entire book. If Claude Code writes something and you cannot explain what it does to a friend, you are not ready to ship it. Ask Claude Code to explain it. Read it line by line. Understand it. Then ship it. That extra ten minutes of review will save you from bugs, security holes, and the embarrassment of deploying something that falls apart in production.
+</DadTip>
+
+## Pattern: The Review Prompt
+
+One of the most powerful advanced patterns is the review prompt. After Claude Code builds a feature, ask it to review its own work:
+
+<PromptExample
+  prompt="Look at all the changes you just made. Are there any issues? Check for: missing error handling, security problems, TypeScript type errors, and anything that might break in edge cases."
+  context="You want Claude Code to self-review before you spend time manually reviewing."
+  result="Claude Code re-reads the code it just wrote and often catches issues it missed on the first pass -- missing try/catch blocks, unhandled null values, or missing type definitions."
+/>
+
+This is free quality assurance. It takes ten seconds and catches real bugs. Make it a habit.
+
+## Pattern: The Explanation Prompt
+
+When you finish a feature, ask Claude Code to teach you what it built:
+
+<PromptExample
+  prompt="Walk me through everything you just created for the favorites feature. Explain each file, what it does, and how they connect to each other. Explain it like I am a beginner."
+  context="You want to understand the code before shipping it."
+  result="Claude Code gives you a guided tour of the feature, explaining the database schema, the data flow, and the component logic in plain English."
+/>
+
+This turns every coding session into a learning session. You are not just getting features built -- you are getting a private tutoring session at the same time.
+
+## Putting It All Together
+
+Here is the complete workflow of an advanced Claude Code user:
+
+1. **Plan first.** Think about what you want to build before you type anything. Write down the user story: "As a user, I want to favorite posts so I can find them easily later."
+2. **Build incrementally.** Start with the database, then the API, then the UI. One prompt per layer.
+3. **Verify each step.** Check the database migration. Test the API with a quick request. Load the UI in the browser.
+4. **Review the code.** Ask Claude Code to self-review. Read through the code yourself.
+5. **Understand what was built.** Ask Claude Code to explain anything you do not understand.
+6. **Commit with Git.** Save your working state before moving on to the next feature.
+
+That cycle -- plan, build, verify, review, understand, commit -- is how professional software gets made. The only difference is that with Claude Code, each cycle takes minutes instead of hours.
+
+<VideoEmbed id="pEfrdAtAmqk" title="God-Tier Developer Roadmap" creator="Fireship" duration="11 min" />
+
+<ChapterSummary
+  chapter={8}
+  title="AI-Powered Development with Claude Code"
+  takeaways={[
+    "Claude Code is a terminal-based AI that reads your codebase and builds features from plain English",
+    "The quality of its output depends on the quality of your prompts -- be specific, provide context, iterate",
+    "Build incrementally: one small, focused prompt at a time, not one massive prompt",
+    "CLAUDE.md gives Claude Code permanent memory about your project's conventions and rules",
+    "Claude Code gets you 80% of the way fast -- your judgment handles the critical remaining 20%",
+    "Never ship code you do not understand. Always review, always test, always ask questions"
+  ]}
+  checklistId="ch8-summary"
+  checklistItems={[
+    "I can start Claude Code and have a productive session",
+    "I know how to write specific, context-rich prompts",
+    "I understand the progressive building approach",
+    "I have created a CLAUDE.md for my project",
+    "I know when to trust and when to question Claude Code's output",
+    "I have built at least one feature using the plan-build-verify-review-commit workflow"
+  ]}
+/>

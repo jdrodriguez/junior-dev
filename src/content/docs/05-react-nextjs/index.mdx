@@ -1,0 +1,87 @@
+---
+title: "Building User Interfaces with React and Next.js"
+description: "This is where things get really fun -- you start building what people actually see and interact with."
+sidebar:
+  order: 0
+---
+
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+Alright, this is where things get really fun. Up until now you've been learning foundational stuff -- how the web works, how JavaScript and TypeScript work, how to track your code with Git. All of that matters. But this chapter is where you start *building what people actually see*.
+
+Every app you use on your phone or in your browser -- Instagram, YouTube, Spotify, whatever -- has a **user interface**. That's the buttons, the cards, the menus, the pages, the forms. Everything you tap, scroll, and interact with. And in modern web development, most of that is built with React.
+
+React is a library that lets you build user interfaces by snapping together reusable pieces called **components**. Next.js builds on top of React and adds routing, server-side rendering, and a bunch of powerful features that turn it into a full framework. And Tailwind CSS lets you style everything without ever leaving your HTML.
+
+These three tools -- React, Next.js, and Tailwind -- are the foundation of our frontend stack. They're what companies like Netflix, TikTok, Twitch, and thousands of startups use to build their apps. And once you understand the concepts behind them, you'll be able to describe features to Claude Code and watch them come to life.
+
+By the end of this chapter, you'll understand how modern web apps are actually built -- and you'll be able to tell Claude Code exactly what you want with confidence.
+
+<Analogy title="Building with LEGOs">
+Remember building things with LEGOs? You'd have a baseplate, then snap individual bricks together to make walls, windows, doors -- eventually an entire house. React works the same way. Each LEGO brick is a component. A button is a brick. A navigation bar is a set of bricks snapped together. A whole page is a big collection of bricks. You build complex things by combining simple pieces.
+</Analogy>
+
+## What This Chapter Covers
+
+<CardGrid>
+  <Card title="Components" icon="puzzle">
+    The fundamental building block of every React app. Everything is a component.
+  </Card>
+  <Card title="React Concepts" icon="setting">
+    Props, state, and effects -- the three ideas that make React tick.
+  </Card>
+  <Card title="Next.js" icon="rocket">
+    The framework that turns React into a full web application with pages, routing, and server-side power.
+  </Card>
+  <Card title="Tailwind CSS" icon="seti:css">
+    A utility-first approach to styling that's incredibly fast once you get the hang of it.
+  </Card>
+</CardGrid>
+
+## How to Approach This Chapter
+
+You do **not** need to memorize React syntax. Seriously. That's what Claude Code is for. What you need is to understand the *concepts* -- what components are, how data flows, why state matters, how routing works. When you understand the concepts, you can describe what you want in plain English and Claude Code will write the actual code.
+
+This is different from a traditional coding bootcamp where you'd spend weeks memorizing JSX syntax and React patterns. We're skipping that. Instead, we're going to focus on the ideas -- the mental models -- that let you think clearly about user interfaces. The syntax is just an implementation detail.
+
+<DadTip>
+When I started learning React, I spent way too long trying to memorize every hook and every pattern. Don't make that mistake. Focus on understanding *what* these things do and *when* you'd use them. The syntax is just details -- and details are easy to look up or generate with AI. The mental model is what matters.
+</DadTip>
+
+## What You'll Be Able to Do
+
+After this chapter, you'll be able to:
+
+- Look at any web app and mentally break it down into components
+- Understand how data flows through a React application
+- Know when to use a Server Component vs. a Client Component
+- Describe UI features to Claude Code using the right vocabulary
+- Review generated React code and know whether it makes sense
+
+That last point is the most important. You're not trying to become a React syntax expert. You're trying to become someone who *understands what good React code looks like* so you can guide the AI and catch mistakes.
+
+## How Long Will This Take?
+
+This chapter has four sections. You can work through them in a single sitting (plan for about **1-2 hours** of reading and video watching), or spread them out over a few days. Either way, don't rush. Let the concepts sink in.
+
+If something doesn't click immediately, that's completely normal -- it'll make more sense once you start building real things. I've seen professional developers take months to fully internalize React's mental model. You have a massive advantage because you're learning it from the start with the right framing.
+
+## Let's Build Something
+
+Work through each section in order. Each one builds on the last. By the end, you'll have a solid understanding of how modern user interfaces are built, and you'll be ready to start describing real features to Claude Code.
+
+Let's go -- this is the good stuff.
+
+<ProgressChecklist
+  id="ch5-overview-checklist"
+  items={[
+    "Understand that React apps are built from components",
+    "Know the difference between React (library) and Next.js (framework)",
+    "Know the three tools in our frontend stack: React, Next.js, and Tailwind CSS",
+    "Feel ready to dive into how components work"
+  ]}
+/>

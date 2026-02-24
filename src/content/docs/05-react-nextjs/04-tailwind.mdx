@@ -1,0 +1,94 @@
+---
+title: "Styling with Tailwind CSS"
+description: "A utility-first approach to styling that's fast, consistent, and works beautifully with AI-assisted development."
+sidebar:
+  order: 4
+---
+
+import VideoEmbed from '../../../components/VideoEmbed.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import Analogy from '../../../components/Analogy.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+Alright, your app works. Components render, data flows, pages route. But it looks... plain. Time to make it look good. That's where **Tailwind CSS** comes in.
+
+Tailwind is a utility-first CSS framework. Instead of writing CSS in separate files with class names you invent, you apply small, single-purpose classes directly to your HTML elements. Each class does exactly one thing, and you combine them to build any design you want.
+
+<Analogy title="Individual Building Blocks vs. Pre-Built Furniture">
+Traditional CSS is like buying pre-built furniture from a catalog. You get a "card style" or a "button style" and it comes with a bunch of opinions about how it should look. Tailwind is like having a massive bin of individual building blocks -- one block sets the color, another sets the padding, another rounds the corners, another adds a shadow. You snap together exactly the blocks you need to build exactly the thing you want. Nothing extra, nothing wasted.
+</Analogy>
+
+## What Tailwind Looks Like
+
+Here's a single styled button to show you the idea:
+
+```tsx
+<button className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition">
+  Click Me
+</button>
+```
+
+Each class does one thing:
+- `bg-blue-500` -- sets the background to a medium blue
+- `text-white` -- makes the text white
+- `px-4` -- adds horizontal padding
+- `py-2` -- adds vertical padding
+- `rounded-lg` -- rounds the corners
+- `hover:bg-blue-600` -- darkens the blue when you hover over it
+- `transition` -- makes the color change smooth
+
+That's it. No separate CSS file. No inventing class names. No switching between files. The styling lives right next to the element it applies to.
+
+## Why Tailwind Works So Well with AI
+
+Here's the real reason I love Tailwind for what we're doing: **it's incredibly easy to describe in plain English.** When you tell Claude Code what you want something to look like, Tailwind's utility classes map almost perfectly to natural language descriptions.
+
+You say "rounded corners" -- it adds `rounded-lg`. You say "shadow on hover" -- it adds `hover:shadow-lg`. You say "blue background with white text" -- it adds `bg-blue-500 text-white`. The translation from your words to code is nearly one-to-one.
+
+<PromptExample prompt="Style this card component with Tailwind to have rounded corners, a subtle shadow, padding inside, and a hover effect that lifts the card slightly with a larger shadow." context="When you have a component that works but needs visual polish" result="Claude Code adds classes like rounded-xl, shadow-md, p-6, hover:shadow-lg, hover:-translate-y-1, and transition to make the card look polished and interactive." />
+
+Notice how the prompt doesn't mention any CSS classes. You just describe what you want it to *look like*, and Claude Code picks the right Tailwind utilities. This is why understanding concepts matters more than memorizing syntax.
+
+<DadTip>
+You absolutely do not need to memorize Tailwind classes. I've been using Tailwind for years and I still look things up on their docs site (tailwindcss.com/docs). The docs have a search bar and every class is listed with visual examples. But honestly? Most of the time I just describe what I want to Claude Code and it picks the right classes. That's the whole point of this approach.
+</DadTip>
+
+## The Mindset Shift
+
+If you've ever written traditional CSS, Tailwind feels weird at first. "Why is there so much stuff in my HTML?" is a normal reaction. But once you try it, two things happen:
+
+1. **You stop context-switching.** No more jumping between HTML and CSS files. Everything you need is right there.
+2. **You stop inventing names.** No more agonizing over whether to call it `.card-wrapper` or `.card-container` or `.card-outer`. You just apply the utilities directly.
+
+And with Claude Code doing most of the heavy lifting, you get to focus on the fun part: deciding what things should look like.
+
+## Responsive Design
+
+Tailwind makes responsive design (making things look good on phones, tablets, and desktops) surprisingly simple. You prefix classes with a screen size:
+
+```tsx
+<div className="flex flex-col md:flex-row gap-4">
+  <div className="w-full md:w-1/2">Left side</div>
+  <div className="w-full md:w-1/2">Right side</div>
+</div>
+```
+
+On mobile, the two divs stack vertically (`flex-col`, each `w-full`). On medium screens and up (`md:`), they sit side by side (`flex-row`, each `w-1/2`). One line of classes handles the whole layout shift.
+
+When prompting Claude Code, just say "make it responsive" or "stack on mobile, side by side on desktop" and it knows exactly what to do.
+
+<VideoEmbed id="mr15Xzb1Ook" title="Tailwind CSS in 100 Seconds" creator="Fireship" duration="2 min" description="A fast introduction to what Tailwind is and why developers love it. Watch this one first." />
+
+<VideoEmbed id="UBOj6rqRUME" title="Tailwind CSS Crash Course" creator="Traversy Media" duration="31 min" description="A hands-on walkthrough of building real layouts with Tailwind. Great for seeing the utility-first approach in action." />
+
+## What You Need to Remember
+
+1. **Tailwind = utility classes applied directly to elements.** No separate CSS files for most things.
+2. **Each class does one thing.** You combine them to build any design.
+3. **You don't need to memorize classes.** Describe what you want to Claude Code in plain English.
+4. **Responsive design uses prefixes** like `md:` and `lg:` to change styles at different screen sizes.
+5. **The Tailwind docs (tailwindcss.com/docs) are excellent** if you ever want to look something up yourself.
+
+<ProgressChecklist id="ch5-tailwind-checklist" items={["Understand that Tailwind uses utility classes instead of traditional CSS", "Know that each class does one thing (color, padding, rounding, etc.)", "Understand that you can describe styles in plain English to Claude Code", "Know that responsive design uses screen-size prefixes like md: and lg:", "Watch at least one of the recommended videos"]} />
