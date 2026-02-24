@@ -1,0 +1,36 @@
+# The Junior Developer Guidebook
+
+> An A-to-Z guide to building modern web apps with AI, written by a dad for his son. Covers the complete journey from zero to deploying real full-stack applications using Claude Code, Next.js, React, Supabase, Hono, and TypeScript. Focuses on conceptual understanding over memorization, using analogies, embedded videos, and practical prompts for AI-assisted development ("vibe coding").
+
+The guidebook is structured as 10 sequential chapters, each building on the last. It teaches web development fundamentals through a "vibe coding" philosophy — understanding concepts well enough to direct AI tools like Claude Code, rather than memorizing syntax. The tech stack covered is Next.js (React), Supabase (PostgreSQL), Hono (API framework), and TypeScript.
+
+## Core Chapters
+
+- [Introduction](/introduction/): Welcome, tech stack overview, and the "Chef and Kitchen Robot" analogy for AI-assisted development
+- [Dev Environment](/01-dev-environment/): Setting up VS Code, terminal, Node.js, Git, and Claude Code
+- [How the Web Works](/02-how-the-web-works/): Client-server model, HTTP, HTML/CSS/JS, JSON, and APIs
+- [JavaScript & TypeScript](/03-javascript-typescript/): Core JS concepts (variables, functions, arrays, objects), TypeScript types, and async/await
+- [Git & GitHub](/04-git-and-github/): Version control concepts, daily workflow, branching, commits, .gitignore, and recovery
+- [React & Next.js](/05-react-nextjs/): Components, props, state, hooks, file-based routing, and Tailwind CSS
+- [Databases & Supabase](/06-databases-supabase/): Database fundamentals, Supabase setup, migrations, querying in code, and Row Level Security
+- [APIs with Hono](/07-apis-with-hono/): REST API basics, routes, parameters, middleware, and error handling
+- [Claude Code](/08-claude-code/): Getting started, capabilities, writing effective prompts, CLAUDE.md files, and advanced patterns
+- [Deployment](/09-deployment/): Hosting platforms, deploying to Vercel, and environment variables
+- [Developer Mindset](/10-developer-mindset/): Debugging strategies, learning approaches, project ideas, and resources
+
+## Key Concepts
+
+- [JavaScript Foundations](/03-javascript-typescript/01-javascript-foundations/): Variables as labeled boxes, functions as recipes, arrays as numbered lists, objects as contact cards
+- [TypeScript](/03-javascript-typescript/02-typescript/): Types as spell-check for code, interfaces as blueprints, type inference
+- [Async/Await](/03-javascript-typescript/03-async-await/): The food delivery analogy, try/catch as safety nets
+- [React Components](/05-react-nextjs/01-components/): Components as LEGO bricks, props as settings, composition patterns
+- [The CLAUDE.md File](/08-claude-code/04-claude-md/): Giving Claude Code permanent project memory, conventions, and rules
+- [Writing Prompts for Claude Code](/08-claude-code/03-writing-prompts/): Effective prompt patterns for AI-assisted development
+
+## Optional
+
+- [Git Recovery](/04-git-and-github/06-recovery/): How to undo mistakes in Git
+- [.gitignore](/04-git-and-github/05-gitignore/): Which files to exclude from version control
+- [Environment Variables](/09-deployment/03-env-variables/): Managing secrets and configuration
+- [Project Ideas](/10-developer-mindset/03-project-ideas/): Starter project suggestions for practice
+- [Resources](/10-developer-mindset/04-resources/): Curated learning resources and communities
