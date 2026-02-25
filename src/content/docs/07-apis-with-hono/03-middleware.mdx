@@ -8,7 +8,7 @@ sidebar:
 import Analogy from '../../../components/Analogy.astro';
 import PromptExample from '../../../components/PromptExample.astro';
 import DadTip from '../../../components/DadTip.astro';
-import ChapterSummary from '../../../components/ChapterSummary.astro';
+
 import ProgressChecklist from '../../../components/ProgressChecklist.astro';
 
 So far, every request that hits your API goes straight to the route handler. But in real applications, you almost always need to do something *before* the route logic runs. Check if the user is logged in. Log the request for debugging. Make sure the request is coming from an allowed website. That is what middleware does.
@@ -156,18 +156,6 @@ The order of your middleware matters. If you put your auth middleware before the
   prompt="Add CORS and logging middleware to my Hono API. Also create a custom auth middleware that checks for a Bearer token in the Authorization header and applies it to all /api/protected routes."
   context="You want to add security and debugging to your existing API."
   result="Claude Code adds the logger and CORS middleware globally, creates a custom auth middleware function, and applies it to the /api/protected/* path."
-/>
-
-<ChapterSummary
-  title="Chapter 7 Recap"
-  concepts={[
-    "Hono is a small, fast framework for building HTTP APIs",
-    "Routes combine an HTTP method (GET, POST, PUT, DELETE) with a URL path",
-    "The context object (c) gives you access to the request and tools to build a response",
-    "CRUD routes follow the same pattern for every resource in your app",
-    "Middleware runs before your route handlers -- for logging, CORS, auth, and more",
-    "The order of middleware matters: logger, then CORS, then auth, then routes"
-  ]}
 />
 
 <ProgressChecklist

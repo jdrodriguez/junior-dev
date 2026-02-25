@@ -1,0 +1,305 @@
+---
+title: Organizing Your Code
+description: Separate your API into layers -- so your codebase stays clean as it grows.
+sidebar:
+  order: 4
+---
+
+import Analogy from '../../../components/Analogy.astro';
+import PromptExample from '../../../components/PromptExample.astro';
+import DadTip from '../../../components/DadTip.astro';
+import ChapterSummary from '../../../components/ChapterSummary.astro';
+import ProgressChecklist from '../../../components/ProgressChecklist.astro';
+
+In the last few sections, we put everything in one file: the route that handles the request, the logic that decides what to do, and the database query that fetches the data. That works fine when you have five routes. It falls apart when you have fifty. The solution is to split your code into **layers**, where each layer has one job.
+
+## The Three-Layer Pattern
+
+<Analogy title="Your API Is a Restaurant">
+Remember the drive-through analogy from the beginning of this chapter? Let's go deeper. A real restaurant has three distinct areas. The **counter** takes your order and hands you your food -- it does not cook anything. The **kitchen** decides how to prepare your meal, combines ingredients, and follows recipes -- it never talks directly to customers. The **pantry** stores and retrieves raw ingredients -- it does not know what dish is being made. Each area has one job, and they only communicate with the area next to them. Your API code should work the same way.
+</Analogy>
+
+Professional codebases split their backend into three layers:
+
+| Layer         | Job                        | Restaurant Equivalent |
+|---------------|----------------------------|-----------------------|
+| **API Route** | Handle HTTP requests       | The counter           |
+| **Service**   | Business logic and rules   | The kitchen           |
+| **DAO**       | Database queries           | The pantry            |
+
+**DAO** stands for Data Access Object. It is just a fancy name for "the file that talks to the database."
+
+The flow always goes in one direction: **API Route → Service → DAO**. The route calls the service. The service calls the DAO. The DAO talks to the database. Responses flow back the same way.
+
+## Why Bother?
+
+Right now your code might look like this:
+
+```typescript
+// Everything in one route handler
+app.get('/api/tasks', async (c) => {
+  const { data, error } = await supabase
+    .from('tasks')
+    .select('*')
+    .is('deleted_at', null)
+    .order('created_at', { ascending: false });
+
+  if (error) {
+    return c.json({ error: 'Failed to fetch tasks' }, 500);
+  }
+
+  return c.json(data);
+});
+```
+
+That is fine for one route. But imagine you also need to fetch tasks from a scheduled job, a webhook handler, and a different API endpoint with extra filtering. You would end up copying that same Supabase query everywhere. When the table structure changes, you have to find and update every copy.
+
+Layers solve this. The database query lives in one place. The business logic lives in one place. The HTTP handling lives in one place. Change one, and everything that depends on it picks up the change automatically.
+
+## The DAO Layer -- Talking to the Database
+
+The DAO contains your database queries and nothing else. No business decisions, no HTTP handling. Just "give me data" and "save this data."
+
+```typescript
+// src/dao/task-dao.ts
+
+import { getPooledSupabaseClient } from '@/lib/supabase/server-pooled';
+
+export class TaskDAO {
+  async findAll() {
+    const supabase = getPooledSupabaseClient();
+    const { data, error } = await supabase
+      .from('tasks')
+      .select('*')
+      .is('deleted_at', null)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    return data;
+  }
+
+  async findById(id: string) {
+    const supabase = getPooledSupabaseClient();
+    const { data, error } = await supabase
+      .from('tasks')
+      .select('*')
+      .eq('id', id)
+      .is('deleted_at', null)
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async create(task: { title: string; description: string }) {
+    const supabase = getPooledSupabaseClient();
+    const { data, error } = await supabase
+      .from('tasks')
+      .insert(task)
+      .select()
+      .single();
+
+    if (error) throw error;
+    return data;
+  }
+
+  async softDelete(id: string) {
+    const supabase = getPooledSupabaseClient();
+    const { error } = await supabase
+      .from('tasks')
+      .update({ deleted_at: new Date().toISOString() })
+      .eq('id', id);
+
+    if (error) throw error;
+  }
+}
+```
+
+Notice: every method does exactly one thing. `findAll` fetches all non-deleted tasks. `findById` fetches one task by ID. `softDelete` sets the `deleted_at` timestamp. No decisions about what to do with the data -- that is someone else's job.
+
+<DadTip>
+The DAO always filters out soft-deleted rows (`.is('deleted_at', null)`). Every query should include this so deleted data never accidentally leaks into your app. Make it a habit.
+</DadTip>
+
+## The Service Layer -- Business Logic
+
+The service layer is where your application's rules live. "Can this user create a task?" "What happens when a task is completed?" "Should we send a notification?" All of that goes here.
+
+```typescript
+// src/services/task-service.ts
+
+import { TaskDAO } from '@/dao/task-dao';
+
+export class TaskService {
+  constructor(private taskDAO = new TaskDAO()) {}
+
+  async getAllTasks() {
+    return this.taskDAO.findAll();
+  }
+
+  async getTask(id: string) {
+    const task = this.taskDAO.findById(id);
+
+    if (!task) {
+      throw new Error('Task not found');
+    }
+
+    return task;
+  }
+
+  async createTask(input: { title: string; description: string }) {
+    // Business rule: title is required
+    if (!input.title || input.title.trim() === '') {
+      throw new Error('Title is required');
+    }
+
+    return this.taskDAO.create({
+      title: input.title.trim(),
+      description: input.description?.trim() ?? '',
+    });
+  }
+
+  async deleteTask(id: string) {
+    // Make sure the task exists before deleting
+    await this.getTask(id);
+    return this.taskDAO.softDelete(id);
+  }
+}
+```
+
+Two things to notice here:
+
+1. **The service does not know about Supabase.** It calls `this.taskDAO.findAll()`, not `supabase.from('tasks')`. If you switch databases someday, you only change the DAO.
+
+2. **The service receives its DAO through the constructor.** That line -- `constructor(private taskDAO = new TaskDAO())` -- means you can swap in a fake DAO during testing. This is called *dependency injection*, and it makes your code much easier to test.
+
+<DadTip title="Dad's Tip: Why Constructor Injection Matters">
+When you write tests, you do not want to hit a real database. Constructor injection lets you pass in a fake DAO that returns whatever data you want. The service does not know or care that it is talking to a fake -- it just calls the same methods. This is how professional teams test business logic without needing a running database.
+</DadTip>
+
+## The API Route Layer -- HTTP Handling
+
+The route is now just a thin wrapper. It reads the HTTP request, calls the service, and sends back a response with the right status code.
+
+```typescript
+// src/routes/tasks.ts
+
+import { Hono } from 'hono';
+import { TaskService } from '@/services/task-service';
+
+const tasks = new Hono();
+const taskService = new TaskService();
+
+tasks.get('/', async (c) => {
+  const allTasks = await taskService.getAllTasks();
+  return c.json(allTasks);
+});
+
+tasks.get('/:id', async (c) => {
+  try {
+    const task = await taskService.getTask(c.req.param('id'));
+    return c.json(task);
+  } catch {
+    return c.json({ error: 'Task not found' }, 404);
+  }
+});
+
+tasks.post('/', async (c) => {
+  try {
+    const body = await c.req.json();
+    const newTask = await taskService.createTask(body);
+    return c.json(newTask, 201);
+  } catch (err) {
+    return c.json({ error: err.message }, 400);
+  }
+});
+
+tasks.delete('/:id', async (c) => {
+  try {
+    await taskService.deleteTask(c.req.param('id'));
+    return c.json({ success: true });
+  } catch {
+    return c.json({ error: 'Task not found' }, 404);
+  }
+});
+
+export default tasks;
+```
+
+Compare this to the "everything in one handler" version from earlier. Each route is now a few lines. The route does not know how tasks are stored. The service does not know the request came from HTTP. The DAO does not know what the task is for. Each layer minds its own business.
+
+## How It All Connects
+
+Your main app file wires the routes together:
+
+```typescript
+// src/index.ts
+
+import { Hono } from 'hono';
+import { logger } from 'hono/logger';
+import { cors } from 'hono/cors';
+import tasks from './routes/tasks';
+
+const app = new Hono();
+
+app.use('*', logger());
+app.use('*', cors());
+
+app.route('/api/tasks', tasks);
+
+export default app;
+```
+
+The request flows through:
+
+1. **Middleware** (logger, CORS, auth) from the previous section
+2. **API Route** parses the request and calls the service
+3. **Service** applies business rules and calls the DAO
+4. **DAO** queries the database and returns raw data
+5. Response flows back up through each layer
+
+## The Golden Rule
+
+Each layer only talks to the layer directly below it:
+
+- **Routes** call **services** -- never the DAO directly
+- **Services** call **DAOs** -- never the HTTP request directly
+- **DAOs** call the **database** -- never the service or route directly
+
+If you catch yourself importing Supabase in a route file, or reading `c.req` in a service, something is in the wrong layer.
+
+<DadTip>
+You do not need to build every project this way from day one. When you are prototyping or building something small, it is perfectly fine to keep things simple. But the moment you catch yourself copying the same database query into a second file, that is your signal to add layers. Start with the DAO -- pull your queries out first. The rest follows naturally.
+</DadTip>
+
+## What to Tell Claude Code
+
+<PromptExample
+  prompt="Refactor my tasks API into three layers. Create a TaskDAO class in src/dao/task-dao.ts for all database queries, a TaskService class in src/services/task-service.ts for business logic, and update the route file to use the service. Use constructor injection so the service receives the DAO as a dependency."
+  context="You have a working API with everything in one file and want to organize it professionally."
+  result="Claude Code creates the DAO and service files, moves the database queries and business logic into the right layers, and simplifies the route handlers to just HTTP concerns."
+/>
+
+<ChapterSummary
+  title="Chapter 7 Recap"
+  concepts={[
+    "Hono is a small, fast framework for building HTTP APIs",
+    "Routes combine an HTTP method (GET, POST, PUT, DELETE) with a URL path",
+    "The context object (c) gives you access to the request and tools to build a response",
+    "CRUD routes follow the same pattern for every resource in your app",
+    "Middleware runs before your route handlers -- for logging, CORS, auth, and more",
+    "The order of middleware matters: logger, then CORS, then auth, then routes",
+    "Professional codebases split into three layers: DAO (database), Service (logic), and API Route (HTTP)",
+    "Each layer only talks to the layer directly below it -- never skip a layer"
+  ]}
+/>
+
+<ProgressChecklist
+  id="ch7-organizing-code"
+  items={[
+    "I can explain what DAO, Service, and API Route layers are responsible for",
+    "I understand why separating layers makes code easier to maintain and test",
+    "I know what constructor injection is and why it helps with testing",
+    "I can describe the golden rule: each layer only talks to the layer below it"
+  ]}
+/>
